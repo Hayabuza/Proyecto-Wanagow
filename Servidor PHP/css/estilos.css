@@ -1,0 +1,117 @@
+body
+{
+	background-color: #F2F2F2;
+}
+#head{
+	width: 590px;
+	height: 180px;
+	position: relative;
+	left: 170px;
+	top: 20px;
+}
+h1 
+{
+	color: #333333;
+	font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+	font-size: 3em;
+	text-align : center;
+	position:relative;
+	left:25%;
+}
+.clear{
+	clear: both;
+}
+#menu{
+	position: relative;
+	left: 60%;
+}
+li{
+	display: inline;
+}
+nav{
+	width: 100%;
+}
+ul{
+	list-style: none;
+	margin: 0px;
+	padding: 4px;
+	border-left-width: 1px;
+	border-left-style: solid;
+	border-left-color: #CCC;
+}
+
+.menu{
+	font-family: Arial;
+	color:gray;
+	text-decoration: none;
+	font-size: 0.9em;
+	display: block;
+	float: left;
+	padding: 6px;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #CCC;
+	background-color: #EAEAEA;
+	border-top-width: 1px;
+	border-top-color: #CCC;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-right-color: #CCC;
+}
+
+a:hover{
+	color: #FFF;
+	background-color: #666;
+}
+
+.Subtitulo 
+{
+	color: #333333;
+	font-family: Copperplate / Copperplate Gothic Light, sans-serif;
+	position:relative;
+	left:25%;
+	top: -25px;
+}
+
+.letraContenidoTitulo {
+	color: #333333;
+	font-family: Georgia, Serif;
+	position: relative;
+	text-align: right;
+}
+#buscar{
+	position: relative;
+	left: 44%;
+	top: -18px;
+}
+
+.letraContenido {
+	font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+}
+
+.footer {
+color: #333333;
+font-family: Gill Sans / Gill Sans MT, sans-serif;
+}
+
+#MenuPrincipal{
+	text-align: center;
+	border:1px ;
+	border-radius: 2px	
+}
+#movilRecinete{
+	border:1px solid;
+	border-radius: 2px;
+	bottom:5px;
+}
+
+#plataformaMovil{
+	border:1px solid;
+	border-radius: 2px;	
+}
+
+footer{
+	position: relative;
+	top: 100px;
+}

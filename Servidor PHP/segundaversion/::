@@ -1,0 +1,387 @@
+// 
+//  index.js
+//  cal
+//  
+//  Created by Alonso Campos on 2014-05-19.
+//  Copyright 2014 Alonso Campos. All rights reserved.
+// 
+var dataArray = [];   
+cambiarmes();
+
+var d = new Date();
+var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
+var fecha ={
+	fecha:strDate,
+	dia: d.getDate(),
+	diasemananumero: d.getDay(),
+	diasemana: diasemana(d.getDay()),
+	mes: mesfecha(d.getMonth()),
+	mesnumero: d.getMonth(),
+	anio: d.getFullYear(),
+	hora:d.getHours()+":"+d.getMinutes() 
+};
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+ esse
+cillum dolore eu fugiat 
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+tate velit esse
+cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+
+function diasemana (dia) {
+  var days;
+  switch(dia){
+  	case 0:
+  		days ="Domingo";
+  	break;
+  	case 1:
+  		days ="Lunes";
+  	break;
+  	case 2:
+  		days ="Martes";
+  	break;
+  	case 3:
+  		days ="Miercoles";
+  	break;
+  	case 4:
+  		days ="Jueves";
+  	break;
+  	case 5:
+  		days ="Viernes";
+  	break;
+  	case 6:
+  		days ="Sabado";
+  	break;
+  }
+  return days;
+}
+
+
+function mesfecha (mes) {
+  var meses;
+  switch(mes){
+  	case 0:
+  		meses ="Enero";
+  	break;
+  	case 1:
+  		meses ="Febrero";
+  	break;
+  	case 2:
+  		meses="Marzo";
+  	break;
+  	case 3:
+  		meses ="Abril";
+  	break;
+  	case 4:
+  		meses="Mayo";
+  	break;
+  	case 5:
+  		meses ="Junio";
+  	break;
+  	case 6:
+  		meses="Julio";
+  	break;
+  	case 7:
+  		meses ="Agosto";
+  	break;
+  	case 8:
+  		meses="Septiembre";
+  	break;
+  	case 9:
+  		meses="Octubre";
+  	break;
+  	case 10:
+  		meses="Noviembre";
+  	break;
+  	case 11:
+  		meses="Diciembre";
+  	break;
+  	
+  	
+  }
+  return meses;
+}
+
+function mesnumero (mes) {
+	switch(mes){
+	case 'Enero':
+  		meses =0;
+  	break;
+  	case 'Febrero':
+  		meses=1;
+  	break;
+  	case 'Marzo':
+  		meses =2;
+  	break;
+  	case 'Abril':
+  		meses=3;
+  	break;
+  	case 'Mayo':
+  		meses =4;
+  	break;
+  	case 'Junio':
+  		meses=5;
+  	break;
+  	case 'Julio':
+  		meses =6;
+  	break;
+  	case 'Agosto':
+  		meses=7;
+  	break;
+  	case 'Septiembre':
+  		meses=8;
+  	break;
+  	case 'Octubre':
+  		meses=9;
+  	break;
+  	case 'Noviembre':
+  		meses=10;
+  	break;
+  	case 'Diciembre':
+  		meses=11;
+  	break;
+  }
+  return meses;
+	
+}
+
+$.fgHeaderTitle.text=fecha.mes;
+function cambiarmes () {
+  
+  $.izquierda.addEventListener('click',function(){  	
+  	
+  	var actual = $.fgHeaderTitle.text;
+  	var mesactual = mesnumero(actual);
+  	var resta = mesactual-1;
+  	var mesanterior =mesfecha(resta);
+  	if (resta>-1) {
+  		$.fgHeaderTitle.text = mesanterior;
+  		clearGrid();
+  		Calendario();
+  		//alert(diasdelmes($.fgHeaderTitle.text,fecha.anio));
+  	};
+  	
+  	
+  });
+  $.derecha.addEventListener('click',function(){  	
+  	
+  	var actual = $.fgHeaderTitle.text;
+  	var mesactual = mesnumero(actual);
+  	var suma = mesactual+1;
+  	var messiguiente =mesfecha(suma);
+  	if (suma<12) {
+  		$.fgHeaderTitle.text = messiguiente;
+  		//alert(diasdelmes($.fgHeaderTitle.text,fecha.anio));
+  		clearGrid();
+  		Calendario();
+  	};
+  	
+  });
+  
+  
+}
+
+function diasdelmes (mes, anio) {
+  switch(mes){
+  	case 'Enero':  // 0 
+    case 'Marzo':  // 2
+    case 'Mayo':  // 4
+    case 'Julio':  // 6 
+    case 'Agosto':  // 7
+    case 'Octubre':  //9 
+    case 'Diciembre': //11 
+    
+    	return 31;
+    case 'Abril':  // 3
+    case 'Junio':  // 5
+    case 'Septiembre':  // 8
+    case 'Noviembre': // 10
+         return 30;
+         
+    case 'Febrero':  // 1
+         if ( ((anio%100 == 0) && (anio%400 == 0)) ||
+               ((anio%100 != 0) && (anio%  4 == 0))   )
+              return 29;  // Año Bisiesto
+         else
+              return 28;     
+  }
+}
+
+
+//Se crea el Calendario
+//createCal();
+
+function clearGrid(){
+	$.fgScrollView.removeAllChildren();
+};
+
+
+function Calendario () 
+{
+ var idCliente = {
+          email: 1,
+    };
+     
+    var enviar = Ti.Network.createHTTPClient({ 
+           onerror: function(e){ 
+                  Ti.API.debug(e.error); 
+                  alert('La conexion esta tardando demaciado intente acceder nuevamente'); 
+            }, 
+         timeout:3000, 
+    });
+    
+    enviar.open('POST', 'http://localhost/wanagow/segundaversion/eventosguardados.php'); 
+    enviar.send(idCliente);
+    enviar.onload = function()
+    {
+        var json = JSON.parse(this.responseText); 
+        var json = json.nombre; 
+        if(json.length == 0){ 
+            tableView.headerTitle = "No hay informacion disponible"; 
+        }
+         dataArray = []; 
+       for( var i=0; i<json.length; i++)
+       { 
+			var orange ="orange";
+			       	
+         	var row = Ti.UI.createTableViewRow({    					
+			selectedBackgroundColor:'white',
+			id:json[i].idEvento,
+			//rowIndex:i, // custom property, useful for determining the row during events
+			height:110
+			}); 
+
+				//Dias de la semana	
+				
+				var lunes = Ti.UI.createView({
+			    color:'black',
+			    left:0, top: 6,
+			    width:100, height: "100%",
+			    backgroundColor: orange
+			  	});
+			  	row.add(lunes);
+             	
+             	var lunesLabel = Ti.UI.createLabel({
+			    color:'black',
+			    textAlign:"center",
+			    font:{fontFamily:'Arial', fontSize:16, fontWeight:'bold'},
+			    text:'' + json[i].dia,
+			    left:0, top: 0,
+			    width:100, height: 30,
+			    backgroundColor: orange
+			  	});
+			  	lunes.add(lunesLabel);
+			  	
+			  	
+			  	var evento = Ti.UI.createView({
+				      width:15,
+				      height:15,
+				      top:50,
+				      backgroundColor:'green',
+				      borderRadius: 10,
+				      zIndex:4
+		    		});
+
+		    	var martes = Ti.UI.createView({
+			    color:'black',
+			    left:110, top: 6,
+			    width:100, height: "100%",
+			    backgroundColor: orange
+			  	});
+			  	row.add(martes);
+				
+			  	
+             	var marteslabel = Ti.UI.createLabel({
+			    color:'black',
+			    font:{fontFamily:'Arial', fontSize:16, fontWeight:'bold'},
+			    text:'' + json[i].dia,
+			  	left:0, top: 0,
+			    textAlign:"center",
+			    width:100, height: 30,
+			    backgroundColor: "yellow"
+			  	});
+			  	martes.add(marteslabel);
+			  	
+			  	if (json[i].dia==7) {
+			  		lunes.add(evento);
+			  	}
+			  	else if (json[i].dia==12) {
+			  		martes.add(evento);
+			  	};
+			  	
+			  	var miercoles = Ti.UI.createLabel({
+			    color:'black',
+			    font:{fontFamily:'Arial', fontSize:16, fontWeight:'bold'},
+			    text:'' + json[i].dia,
+			    left:220, top: 6,
+			    textAlign:"center",
+			    width:100, height: 30,
+			    backgroundColor: orange
+			  	});
+			  	row.add(miercoles);
+			  	
+			  	var jueves = Ti.UI.createLabel({
+			    color:'black',
+			    font:{fontFamily:'Arial', fontSize:16, fontWeight:'bold'},
+			    text:'' + json[i].dia,
+			    left:330, top: 6,
+			    textAlign:"center",
+			    width:100, height: 30,
+			    backgroundColor: "#eee"
+			  	});
+			  	row.add(jueves);
+			  	
+			  	var viernes = Ti.UI.createLabel({
+			    color:'black',
+			    font:{fontFamily:'Arial', fontSize:16, fontWeight:'bold'},
+			    text:''	 + json[i].dia,
+			    left:440, top: 6,
+			    textAlign:"center",
+			    width:100, height: 30,
+			    backgroundColor: orange
+			  	});
+			  	row.add(viernes);
+			  	
+             	var sabado = Ti.UI.createLabel({
+			    color:'black',
+			    font:{fontFamily:'Arial', fontSize:16, fontWeight:'bold'},
+			    text:'' + json[i].dia,
+			    left:550, top: 6,
+			    textAlign:"center",
+			    width:100, height: 30,
+			    backgroundColor: "silver"
+			  	});
+			  	row.add(sabado);
+			  	
+			  	var domingo = Ti.UI.createLabel({
+			    color:'black',
+			    font:{fontFamily:'Arial', fontSize:16, fontWeight:'bold'},
+			    text:'' + json[i].dia,
+			    left:660, top: 6,
+			    textAlign:"center",
+			    width:100, height: 30,
+			    backgroundColor: orange
+			  	});
+			  	row.add(domingo);
+	           Ti.API.info(i.toString());
+	           Ti.API.info(json[i].dia);
+	          
+	                     	
+	                     	
+	                     	
+            if(i<4){
+            	 dataArray.push(row);
+            } 	
+                                
+          };
+                                           
+            $.tableView.setData(dataArray);
+    };
+      
+}
+
+Calendario();
+
+$.fgWin.open();
