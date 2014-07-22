@@ -22,6 +22,8 @@ function Controller() {
                         buttonNames: [ "OK" ]
                     });
                     alertDialog.show();
+                    $.email.blur();
+                    $.password.blur();
                     var args = {
                         email: response.email,
                         password: response.password,
@@ -113,7 +115,7 @@ function Controller() {
             }
         });
         if ("" != $.email.value && "" != $.password.value) if (checkemail($.email.value)) {
-            loginReq.open("POST", "http://localhost/wanagow/segundaversion/login.php");
+            loginReq.open("POST", servidor + "wanagow/segundaversion/login.php");
             var params = {
                 email: $.email.value,
                 password: Ti.Utils.md5HexDigest($.password.value)
@@ -269,7 +271,6 @@ function Controller() {
         hintText: "Password",
         id: "password",
         passwordMask: "true",
-        focusable: "place",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
         color: "black"
     });
@@ -322,6 +323,8 @@ function Controller() {
     $.__views.index.add($.__views.label2);
     exports.destroy = function() {};
     _.extend($, $.__views);
+    var servidor;
+    servidor = "http://10.0.2.2/";
     $.wanagow.top = "7%";
     $.label.top = "20%";
     $.label.left = "38%";
@@ -345,13 +348,13 @@ function Controller() {
     };
     $.recuperar.top = "38%";
     $.email.left = "15%";
-    $.email.height = "7%";
-    $.email.top = "40%";
-    $.email.width = "75%";
+    $.email.height = "6%";
+    $.email.top = "45%";
+    $.email.width = "70%";
     $.password.left = "15%";
-    $.password.height = "9%";
+    $.password.height = "6%";
     $.password.top = "53%";
-    $.password.width = "75%";
+    $.password.width = "70%";
     $.btn1.height = "6%";
     $.btn1.top = "62%";
     $.btn1.left = "15%";

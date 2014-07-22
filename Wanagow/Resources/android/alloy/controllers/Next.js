@@ -10,7 +10,7 @@ function Controller() {
             },
             timeout: 3e3
         });
-        enviar.open("POST", "http://localhost/wanagow/segundaversion/cliente.php");
+        enviar.open("POST", servidor + "wanagow/segundaversion/cliente.php");
         enviar.send(idCliente);
         enviar.onload = function() {
             var alertDialog = Titanium.UI.createAlertDialog({
@@ -109,6 +109,21 @@ function Controller() {
     $.__views.container1.add($.__views.tableViewEntretenimiento);
     exports.destroy = function() {};
     _.extend($, $.__views);
+    var servidor;
+    servidor = "http://10.0.2.2/";
+    $.imagenW.width = "100%";
+    $.imagenW.height = "10%";
+    $.label2W.height = "18%";
+    $.label2W.width = "100%";
+    $.label2W.color = "white";
+    $.label2W.top = "13.5%";
+    $.label2W.zIndex = 4;
+    $.label2W.font = {
+        fontFamily: "Helvetica Neue",
+        fontSize: "12%"
+    }, $.omitir.top = "4%";
+    $.omitir.right = "10%";
+    $.omitir.width = "20%";
     var parametos = arguments[0] || {};
     var parametro_correo = parametos.email;
     alert(parametos);
@@ -119,7 +134,7 @@ function Controller() {
         },
         timeout: 3e3
     });
-    sendit.open("GET", "http://localhost/wanagow/preferencia.php");
+    sendit.open("GET", servidor + "wanagow/preferencia.php");
     sendit.send();
     sendit.onload = function() {
         var json = JSON.parse(this.responseText);
@@ -153,6 +168,11 @@ function Controller() {
             },
             color: "white"
         });
+        guardar.width = "50%";
+        guardar.top = "2900";
+        view.height = "3100";
+        view.top = "0%";
+        scrollView.top = "32%";
         scrollView.add(view);
         for (var i = 0; json.length > i; i++) {
             var row = Ti.UI.createTableViewRow({
@@ -184,6 +204,17 @@ function Controller() {
                 height: 35,
                 right: 0
             });
+            row.height = "10%";
+            labelUserName.font = {
+                fontFamily: "Arial",
+                fontSize: "10%",
+                fontWeight: "bold"
+            };
+            labelUserName.left = "20%";
+            button.right = "20%";
+            button.width = "6%";
+            basicSwitch.right = "20%";
+            basicSwitch.width = "5%";
             if ("Academico" == json[i].tipo && "" == json[i].detalles) {
                 labelUserName.text = "  " + json[i].tipo;
                 row.add(basicSwitch);
@@ -268,6 +299,19 @@ function Controller() {
                     row.add(labelUserName);
                 }
             }
+            row.height = "4%";
+            labelUserName.font = {
+                fontFamily: "Arial",
+                fontSize: "10%",
+                fontWeight: "bold"
+            };
+            labelUserName.left = "20%";
+            button.right = "20%";
+            button.width = "6%";
+            basicSwitch.right = "20%";
+            basicSwitch.width = "5%";
+            $.tableViewCultural.height = "1041";
+            $.tableViewCultural.top = "450";
             ("Cultural" == json[i].tipo || "Cultural | Turistica" == json[i].tipo || "Teatro" == json[i].tipo || "Exposicion" == json[i].tipo || "Musica" == json[i].tipo || "Turistico" == json[i].tipo) && dataArray2.push(row);
         }
         $.tableViewCultural.setData(dataArray2);
@@ -329,6 +373,19 @@ function Controller() {
                     row.add(labelUserName);
                 }
             }
+            row.height = "2.2%";
+            labelUserName.font = {
+                fontFamily: "Arial",
+                fontSize: "10%",
+                fontWeight: "bold"
+            };
+            labelUserName.left = "20%";
+            button.right = "20%";
+            button.width = "6%";
+            basicSwitch.right = "20%";
+            basicSwitch.width = "5%";
+            $.tableViewEntretenimiento.top = "1500";
+            $.tableViewEntretenimiento.height = "1605";
             ("Entretenimiento" == json[i].tipo || "Conciertos" == json[i].tipo || "Deportes" == json[i].tipo || "Bares Antros" == json[i].tipo) && dataArray3.push(row);
         }
         $.tableViewEntretenimiento.setData(dataArray3);
@@ -342,7 +399,7 @@ function Controller() {
                 },
                 timeout: 3e3
             });
-            enviar.open("POST", "http://localhost/wanagow/segundaversion/gurdarintereses.php");
+            enviar.open("POST", servidor + "wanagow/segundaversion/gurdarintereses.php");
             var params = {
                 academica: $.tableViewAcademica.data[0].rows[0].children[0].value,
                 area: $.tableViewAcademica.data[0].rows[1].children[1].value,

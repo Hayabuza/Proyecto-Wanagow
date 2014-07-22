@@ -3,27 +3,36 @@
 //  Next.js
 //  WanagoSistema
 //  
-//  Created by Alonso Campos on 2014-05-19.
-//  Copyright 2014 Alonso Campos. All rights reserved.
+//  Created by Hector Campos Alonso on 2014-05-19.
+//  Copyright 2014 Hector Campos Alonso. All rights reserved.
 // 
+var servidor;
+if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'ipad')
+{
+  servidor = 'http://localhost/'; 
+}else{
+  servidor = 'http://10.0.2.2/';  
+}
+
+
 if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'android')
 {
-	$.imagenW.width 	= '100%';
-	$.imagenW.height	= '10%';
-	
-	$.label2W.height	= '18%';
-	$.label2W.width		= '100%';
-	$.label2W.color 	= 'white';
-	$.label2W.top		= '13.5%';
-	$.label2W.zIndex	= 4;
-	$.label2W.font		= {fontFamily: 'Helvetica Neue', fontSize:'12%'},
-	
-	$.omitir.top		= '4%';
-	$.omitir.right		= '10%';
-	$.omitir.width		= '20%';			              
+  $.imagenW.width   = '100%';
+  $.imagenW.height  = '10%';
+  
+  $.label2W.height  = '18%';
+  $.label2W.width   = '100%';
+  $.label2W.color   = 'white';
+  $.label2W.top   = '13.5%';
+  $.label2W.zIndex  = 4;
+  $.label2W.font    = {fontFamily: 'Helvetica Neue', fontSize:'12%'},
+  
+  $.omitir.top    = '4%';
+  $.omitir.right    = '10%';
+  $.omitir.width    = '20%';                    
 };
-			        
-var parametos 		 = arguments[0] || {};
+              
+var parametos      = arguments[0] || {};
 var parametro_correo = parametos.email;
 alert(parametos);
 var sendit = Ti.Network.createHTTPClient({ 
@@ -39,7 +48,7 @@ var sendit = Ti.Network.createHTTPClient({
            * Debido a que no se van a enviar nada de informacion sino solo
            * recibir informacion entonces dejamos sendit.send() de esta manera
            */               
-          sendit.open('GET', 'http://localhost/wanagow/preferencia.php'); 
+          sendit.open('GET', servidor+'wanagow/preferencia.php'); 
           sendit.send();
           /*
            * Depues de que se ha cargado la informacion se declaran 3 arrays vacios
@@ -60,60 +69,60 @@ var sendit = Ti.Network.createHTTPClient({
                  dataArray3 = [];
                  //Se utiliza un scroll para poder visualizar el contenido de las 3 tablas
                   var scrollView = Ti.UI.createScrollView({
-    		              //contentWidth: 'auto',
-    		              contentHeight: 'auto',
-    		              showVerticalScrollIndicator: true,
-    		              //showHorizontalScrollIndicator: true,
-    		              top:280,
-    		              height:'95%',
-    		              width: 600
-          		    });
-        		    //Se utilica una vista para el fondo de las tablas  
+                      //contentWidth: 'auto',
+                      contentHeight: 'auto',
+                      showVerticalScrollIndicator: true,
+                      //showHorizontalScrollIndicator: true,
+                      top:280,
+                      height:'95%',
+                      width: 600
+                  });
+                //Se utilica una vista para el fondo de las tablas  
                   var view = Ti.UI.createView({
-      		            backgroundColor:'c5ccd4',
-      		            borderRadius: 10,
-      		            top:0,
-      		            height:3600,
-      		            width: 500
-          		    });
-          		  	var guardar = Ti.UI.createButton({
-		             	title:"Guardar",
-		             	width:"100%",
-		             	backgroundColor:"#E3C109",
-		             	height:50,
-		             	top:3300,
-		             	font: {fontFamily: 'Helvetica Neue'},
-		             	color:"white"
-          		  	});
-          			       
-          		   if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'android')
-			        {
-			          guardar.width = '50%';
-			          guardar.top	= '2900';
-			          view.height	= '3100';
-			          view.top		= '0%';
-			          scrollView.top	= '32%';
-			              
-			        };
+                      backgroundColor:'c5ccd4',
+                      borderRadius: 10,
+                      top:0,
+                      height:3600,
+                      width: 500
+                  });
+                  var guardar = Ti.UI.createButton({
+                  title:"Guardar",
+                  width:"100%",
+                  backgroundColor:"#E3C109",
+                  height:50,
+                  top:3300,
+                  font: {fontFamily: 'Helvetica Neue'},
+                  color:"white"
+                  });
+                       
+                 if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'android')
+              {
+                guardar.width = '50%';
+                guardar.top = '2900';
+                view.height = '3100';
+                view.top    = '0%';
+                scrollView.top  = '32%';
+                    
+              };
         
-              		//Se agrega la view a el scroll
-              		scrollView.add(view);
+                  //Se agrega la view a el scroll
+                  scrollView.add(view);
           
                       //Utilizando el objeto JSON se recorre cada elemento
                       for( var i=0; i<json.length; i++){ 
                             
                                 var row = Ti.UI.createTableViewRow({              
-                                		selectedBackgroundColor:'yellow',
-                              			height:40
-                          		});
-                	            /*
-                	             * Debido a que el primer elemento de la fila es un radiobutton 
-                	             * se crea una condicion para poder agregarlo si se cumple agregara el radio
-                	             * en caso contrario agregara el texto y un boton
-                	             */
-            	                  var basicSwitch = Ti.UI.createSwitch({
-                                		value:true,
-                                		right:0
+                                    selectedBackgroundColor:'yellow',
+                                    height:40
+                              });
+                              /*
+                               * Debido a que el primer elemento de la fila es un radiobutton 
+                               * se crea una condicion para poder agregarlo si se cumple agregara el radio
+                               * en caso contrario agregara el texto y un boton
+                               */
+                                var basicSwitch = Ti.UI.createSwitch({
+                                    value:true,
+                                    right:0
                                   });
                             
                                 var labelUserName = Ti.UI.createLabel({
@@ -137,20 +146,20 @@ var sendit = Ti.Network.createHTTPClient({
                             
                                 if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'android')
                                 {
-                    		          row.height ='10%';
-                    		          labelUserName.font  	= {fontFamily:'Arial', fontSize:'10%', fontWeight:'bold'};
-                    		          labelUserName.left  	= '20%';
-                    		          button.right			= '20%';
-                    		          button.width			= '6%';  
-                  	          	      basicSwitch.right		= '20%';
-                  	          	      basicSwitch.width		= '5%';
-                       		   };
+                                  row.height ='10%';
+                                  labelUserName.font    = {fontFamily:'Arial', fontSize:'10%', fontWeight:'bold'};
+                                  labelUserName.left    = '20%';
+                                  button.right      = '20%';
+                                  button.width      = '6%';  
+                                      basicSwitch.right   = '20%';
+                                      basicSwitch.width   = '5%';
+                             };
                        
                             
                                 if(json[i].tipo=="Academico" && json[i].detalles==""){
-                                  	labelUserName.text = '  ' + json[i].tipo; 	
-                                  	row.add(basicSwitch);
-                                  	row.add(labelUserName);
+                                    labelUserName.text = '  ' + json[i].tipo;   
+                                    row.add(basicSwitch);
+                                    row.add(labelUserName);
                                 }else{
                                   /*
                                    * Cuando no se cumble la condicion se crea un boton con 2 condicios
@@ -202,61 +211,61 @@ var sendit = Ti.Network.createHTTPClient({
                      for( var i=0; i<json.length; i++){ 
                       
 
-                      	  var row = Ti.UI.createTableViewRow({              
-                        			selectedBackgroundColor:'yellow',
-                        			height:40
-              			      });
-              			
-      		              	var basicSwitch = Ti.UI.createSwitch({
-        		                  value:true,
-        		                  right:0
-      		                });
-      		                var labelUserName = Ti.UI.createLabel({
-      		                  	color:'black',
-      		                  	font:{fontFamily:'Arial', fontSize:16, fontWeight:'bold'},		                  	
-      		                  	objName: 'nombre',
-      		                  	left:0, top: 6,
-      		                  	width:360, height: 30
-                        	});
-                      		var button = Ti.UI.createButton({
-      		                  	backgroundImage: 'img/off.png',
-      		                  	backgroundSelectedImage:'img/on.png',
-      		                  	value:false,
-      		                  	top: 3,
-      		                  	width: 37,
-      		                  	height: 35,
-      		                  	right:0
-                  			   });
-              			
-              		
+                          var row = Ti.UI.createTableViewRow({              
+                              selectedBackgroundColor:'yellow',
+                              height:40
+                          });
+                    
+                          var basicSwitch = Ti.UI.createSwitch({
+                              value:true,
+                              right:0
+                          });
+                          var labelUserName = Ti.UI.createLabel({
+                              color:'black',
+                              font:{fontFamily:'Arial', fontSize:16, fontWeight:'bold'},                        
+                              objName: 'nombre',
+                              left:0, top: 6,
+                              width:360, height: 30
+                          });
+                          var button = Ti.UI.createButton({
+                              backgroundImage: 'img/off.png',
+                              backgroundSelectedImage:'img/on.png',
+                              value:false,
+                              top: 3,
+                              width: 37,
+                              height: 35,
+                              right:0
+                           });
+                    
+                  
               
                           if(json[i].tipo=="Cultural | Turistica" && json[i].detalles==""){
-                            	labelUserName.text ='  ' + json[i].tipo;
-                            	row.add(basicSwitch);
-                            	row.add(labelUserName);
+                              labelUserName.text ='  ' + json[i].tipo;
+                              row.add(basicSwitch);
+                              row.add(labelUserName);
                           }else{
                             
-          	                button.on = function() {
-            	                  this.backgroundColor = '#159902';
-            	                  this.value = true;
-            	                  this.backgroundImage ="img/on.png";
+                            button.on = function() {
+                                this.backgroundColor = '#159902';
+                                this.value = true;
+                                this.backgroundImage ="img/on.png";
                             
-                        	  };
+                            };
              
-            	              button.off = function() {
-            	                  this.backgroundColor = '#aaa';
-            	                  this.value = false;
-            	                  this.backgroundImage ="img/off.png";
-            	                  
-            	              };
+                            button.off = function() {
+                                this.backgroundColor = '#aaa';
+                                this.value = false;
+                                this.backgroundImage ="img/off.png";
+                                
+                            };
              
-            	              button.addEventListener('click', function(e) {
-            	                  if(false == e.source.value) {
-            	                      e.source.on();
-            	                  } else {
-            	                      e.source.off();
-            	                  }
-            	              });
+                            button.addEventListener('click', function(e) {
+                                if(false == e.source.value) {
+                                    e.source.on();
+                                } else {
+                                    e.source.off();
+                                }
+                            });
                             row.add(button);
                   
                             if (json[i].detalles=="Comedia" || json[i].detalles=="Drama" || json[i].detalles=="Infantil"
@@ -270,23 +279,23 @@ var sendit = Ti.Network.createHTTPClient({
                               labelUserName.text = "   - "+json[i].detalles;
                               row.add(labelUserName);
                             }else{
-                               	labelUserName.text = json[i].detalles;
+                                labelUserName.text = json[i].detalles;
                                 row.add(labelUserName);
                             };
                           };
                 
-        						if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'android')
-				           		{
-						          row.height 			= '4%';
-						          labelUserName.font  	= {fontFamily:'Arial', fontSize:'10%', fontWeight:'bold'};
-						          labelUserName.left  	= '20%';
-						          button.right			= '20%';
-						          button.width			= '6%';  
-					          	  basicSwitch.right		= '20%';
-					          	  basicSwitch.width		= '5%';
-					          	  $.tableViewCultural.height = '1041';
-					          	  $.tableViewCultural.top 	 = '450';
-				           		};
+                    if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'android')
+                      {
+                      row.height      = '4%';
+                      labelUserName.font    = {fontFamily:'Arial', fontSize:'10%', fontWeight:'bold'};
+                      labelUserName.left    = '20%';
+                      button.right      = '20%';
+                      button.width      = '6%';  
+                        basicSwitch.right   = '20%';
+                        basicSwitch.width   = '5%';
+                        $.tableViewCultural.height = '1041';
+                        $.tableViewCultural.top    = '450';
+                      };
                 
                 
                         if (json[i].tipo=="Cultural" || json[i].tipo=="Cultural | Turistica" || json[i].tipo =="Teatro" || json[i].tipo =="Exposicion"
@@ -304,55 +313,55 @@ var sendit = Ti.Network.createHTTPClient({
                       
                       
                         var row = Ti.UI.createTableViewRow({              
-        		                selectedBackgroundColor:'yellow',
-        		                height:40
-                  		  });
-                     		var basicSwitch = Ti.UI.createSwitch({
-      	                  	value:true,
-      	                  	right:0
-                      	});
-                      	var labelUserName = Ti.UI.createLabel({
-      	                  	color:'black',
-      	                  	font:{fontFamily:'Arial', fontSize:16, fontWeight:'bold'},
-      	                  	objName: 'nombre',
-      	                  	left:0, top: 6,
-      	                  	width:360, height: 30
+                            selectedBackgroundColor:'yellow',
+                            height:40
                         });
-                    		var button = Ti.UI.createButton({
-      	                  	backgroundImage: 'img/off.png',
-      	                  	value:false,
-      	                  	top: 3,
-      	                  	width: 37,
-      	                  	height: 35,
-      	                  	right:0
-                    		});                
+                        var basicSwitch = Ti.UI.createSwitch({
+                            value:true,
+                            right:0
+                        });
+                        var labelUserName = Ti.UI.createLabel({
+                            color:'black',
+                            font:{fontFamily:'Arial', fontSize:16, fontWeight:'bold'},
+                            objName: 'nombre',
+                            left:0, top: 6,
+                            width:360, height: 30
+                        });
+                        var button = Ti.UI.createButton({
+                            backgroundImage: 'img/off.png',
+                            value:false,
+                            top: 3,
+                            width: 37,
+                            height: 35,
+                            right:0
+                        });                
                 
                         if(json[i].tipo=="Entretenimiento" && json[i].detalles==""){
-                         	labelUserName.text = '' + json[i].tipo;
-                        	row.add(basicSwitch);
-                        	row.add(labelUserName);
+                          labelUserName.text = '' + json[i].tipo;
+                          row.add(basicSwitch);
+                          row.add(labelUserName);
                         }else{
                          
-          	                button.on = function() {
-          	                  this.backgroundColor = '#159902';
-          	                  this.value = true;
-          	                  this.backgroundImage ="img/on.png";
-          	                  
-          	              	};
+                            button.on = function() {
+                              this.backgroundColor = '#159902';
+                              this.value = true;
+                              this.backgroundImage ="img/on.png";
+                              
+                            };
                      
-            	              button.off = function() {
-            	                  this.backgroundColor = '#aaa';
-            	                  this.value = false;
-            	                  this.backgroundImage ="img/off.png";
-            	              };
-        	             
-            	              button.addEventListener('click', function(e) {
-            	                  if(false == e.source.value) {
-            	                      e.source.on();
-            	                  } else {
-            	                      e.source.off();
-            	                  }
-            	              });
+                            button.off = function() {
+                                this.backgroundColor = '#aaa';
+                                this.value = false;
+                                this.backgroundImage ="img/off.png";
+                            };
+                       
+                            button.addEventListener('click', function(e) {
+                                if(false == e.source.value) {
+                                    e.source.on();
+                                } else {
+                                    e.source.off();
+                                }
+                            });
                             row.add(button);
                           
                             if(json[i].detalles=="Electronica" || json[i].detalles=="Jazz | Blues" 
@@ -371,35 +380,35 @@ var sendit = Ti.Network.createHTTPClient({
                             || json[i].detalles=="Show" || json[i].detalles=="Fiestas Tematicas" || json[i].detalles=="Bienvenida"
                             ){
                               
-          					          labelUserName.text = '' + json[i].detalles;
+                              labelUserName.text = '' + json[i].detalles;
                               row.add(labelUserName);
                               
                             }else{
-                             	labelUserName.text = '' + json[i].detalles;
+                              labelUserName.text = '' + json[i].detalles;
                               row.add(labelUserName);
                             
                             };
                           
                         };
-						
-						
-						
-						  if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'android')
-			           	  {
-					          row.height 			= '2.2%';
-					          labelUserName.font  	= {fontFamily:'Arial', fontSize:'10%', fontWeight:'bold'};
-					          labelUserName.left  	= '20%';
-					          button.right			= '20%';
-					          button.width			= '6%';  
-				          	  basicSwitch.right		= '20%';
-				          	  basicSwitch.width		= '5%';
-				          	  $.tableViewEntretenimiento.top = '1500';
-				          	  $.tableViewEntretenimiento.height = '1605';
-			           	  };
-                       		   
-						
-						
-						
+            
+            
+            
+              if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'android')
+                    {
+                    row.height      = '2.2%';
+                    labelUserName.font    = {fontFamily:'Arial', fontSize:'10%', fontWeight:'bold'};
+                    labelUserName.left    = '20%';
+                    button.right      = '20%';
+                    button.width      = '6%';  
+                      basicSwitch.right   = '20%';
+                      basicSwitch.width   = '5%';
+                      $.tableViewEntretenimiento.top = '1500';
+                      $.tableViewEntretenimiento.height = '1605';
+                    };
+                             
+            
+            
+            
                         if (json[i].tipo=="Entretenimiento" || json[i].tipo =="Conciertos" 
                         || json[i].tipo =="Deportes" || json[i].tipo =="Bares Antros") {
                                     dataArray3.push(row);       
@@ -407,7 +416,7 @@ var sendit = Ti.Network.createHTTPClient({
                     
                      };
                      
-           		
+              
                      $.tableViewEntretenimiento.setData(dataArray3);
                      view.add($.tableViewEntretenimiento);
                      /*
@@ -415,7 +424,7 @@ var sendit = Ti.Network.createHTTPClient({
                       * final el cual es agregado a la view
                       */
                      
-          			  view.add(guardar);
+                  view.add(guardar);
           
           /*
            * Al presionar el boton de guardar se crea una vez mas 
@@ -432,7 +441,7 @@ var sendit = Ti.Network.createHTTPClient({
                         timeout:3000, 
                     });                      
                     
-                    enviar.open('POST', 'http://localhost/wanagow/segundaversion/gurdarintereses.php');
+                    enviar.open('POST', servidor+'wanagow/segundaversion/gurdarintereses.php');
                     /*
                      * Debido a que la tabla tiene informacion dentro se puede acceder a su informacion
                      * data[0] se usa cuando no hay un 
@@ -549,17 +558,17 @@ var sendit = Ti.Network.createHTTPClient({
                      });
                      alertDialog.show();
                      var correo = {
-					       email			: parametos.email,
-					       password			: parametos.password,
-					       nombre			: parametos.nombre,
-					       apellidos		: parametos.apellido,
-					       fecha			: parametos.fecha,
-					       genero			: parametos.genero,
-					       academica		: $.tableViewAcademica.data[0].rows[0].children[0].value,
-					       cultural			: $.tableViewCultural.data[0].rows[0].children[0].value,
-					       entretenimiento	: $.tableViewEntretenimiento.data[0].rows[0].children[0].value,
+                 email      : parametos.email,
+                 password     : parametos.password,
+                 nombre     : parametos.nombre,
+                 apellidos    : parametos.apellido,
+                 fecha      : parametos.fecha,
+                 genero     : parametos.genero,
+                 academica    : $.tableViewAcademica.data[0].rows[0].children[0].value,
+                 cultural     : $.tableViewCultural.data[0].rows[0].children[0].value,
+                 entretenimiento  : $.tableViewEntretenimiento.data[0].rows[0].children[0].value,
        
-  					};
+            };
                   alert(correo);
                      Alloy.createController('Evento',correo).getView().open();  
                   }
@@ -593,7 +602,7 @@ var enviar = Ti.Network.createHTTPClient({
          }, 
       timeout:3000, 
   });                      
-  enviar.open('POST', 'http://localhost/wanagow/segundaversion/cliente.php'); 
+  enviar.open('POST', servidor+'wanagow/segundaversion/cliente.php'); 
   enviar.send(idCliente);
   enviar.onload = function(){
     
@@ -605,17 +614,17 @@ var enviar = Ti.Network.createHTTPClient({
     alertDialog.show();
     var correo = 
     {
-       email			: parametos.email,
-       password			: parametos.password,
-       nombre			: parametos.nombre,
-       apellidos		: parametos.apellido,
-       fecha			: parametos.fecha,
-       genero			: parametos.genero,
-       academica		: $.tableViewAcademica.data[0].rows[0].children[0].value,
-       cultural			: $.tableViewCultural.data[0].rows[0].children[0].value,
-       entretenimiento	: $.tableViewEntretenimiento.data[0].rows[0].children[0].value,
+       email      : parametos.email,
+       password     : parametos.password,
+       nombre     : parametos.nombre,
+       apellidos    : parametos.apellido,
+       fecha      : parametos.fecha,
+       genero     : parametos.genero,
+       academica    : $.tableViewAcademica.data[0].rows[0].children[0].value,
+       cultural     : $.tableViewCultural.data[0].rows[0].children[0].value,
+       entretenimiento  : $.tableViewEntretenimiento.data[0].rows[0].children[0].value,
        
-  	};
+    };
   //alert(correo);
   Alloy.createController('Evento',correo).getView().open(); 
   }; 

@@ -10,7 +10,7 @@ function Controller() {
             },
             timeout: 3e3
         });
-        enviar.open("POST", "http://localhost/wanagow/segundaversion/cliente.php");
+        enviar.open("POST", servidor + "wanagow/segundaversion/cliente.php");
         enviar.send(idCliente);
         enviar.onload = function() {
             var alertDialog = Titanium.UI.createAlertDialog({
@@ -109,7 +109,9 @@ function Controller() {
     $.__views.container1.add($.__views.tableViewEntretenimiento);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    if ("iphone" == Ti.Platform.osname) {
+    var servidor;
+    servidor = "iphone" == Ti.Platform.osname || "ipad" == Ti.Platform.osname ? "http://localhost/" : "http://10.0.2.2/";
+    if ("iphone" == Ti.Platform.osname || "android" == Ti.Platform.osname) {
         $.imagenW.width = "100%";
         $.imagenW.height = "10%";
         $.label2W.height = "18%";
@@ -134,7 +136,7 @@ function Controller() {
         },
         timeout: 3e3
     });
-    sendit.open("GET", "http://localhost/wanagow/preferencia.php");
+    sendit.open("GET", servidor + "wanagow/preferencia.php");
     sendit.send();
     sendit.onload = function() {
         var json = JSON.parse(this.responseText);
@@ -168,7 +170,7 @@ function Controller() {
             },
             color: "white"
         });
-        if ("iphone" == Ti.Platform.osname) {
+        if ("iphone" == Ti.Platform.osname || "android" == Ti.Platform.osname) {
             guardar.width = "50%";
             guardar.top = "2900";
             view.height = "3100";
@@ -206,7 +208,7 @@ function Controller() {
                 height: 35,
                 right: 0
             });
-            if ("iphone" == Ti.Platform.osname) {
+            if ("iphone" == Ti.Platform.osname || "android" == Ti.Platform.osname) {
                 row.height = "10%";
                 labelUserName.font = {
                     fontFamily: "Arial",
@@ -303,7 +305,7 @@ function Controller() {
                     row.add(labelUserName);
                 }
             }
-            if ("iphone" == Ti.Platform.osname) {
+            if ("iphone" == Ti.Platform.osname || "android" == Ti.Platform.osname) {
                 row.height = "4%";
                 labelUserName.font = {
                     fontFamily: "Arial",
@@ -379,7 +381,7 @@ function Controller() {
                     row.add(labelUserName);
                 }
             }
-            if ("iphone" == Ti.Platform.osname) {
+            if ("iphone" == Ti.Platform.osname || "android" == Ti.Platform.osname) {
                 row.height = "2.2%";
                 labelUserName.font = {
                     fontFamily: "Arial",
@@ -407,7 +409,7 @@ function Controller() {
                 },
                 timeout: 3e3
             });
-            enviar.open("POST", "http://localhost/wanagow/segundaversion/gurdarintereses.php");
+            enviar.open("POST", servidor + "wanagow/segundaversion/gurdarintereses.php");
             var params = {
                 academica: $.tableViewAcademica.data[0].rows[0].children[0].value,
                 area: $.tableViewAcademica.data[0].rows[1].children[1].value,

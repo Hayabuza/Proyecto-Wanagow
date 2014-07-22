@@ -194,7 +194,7 @@ function Controller() {
                         },
                         timeout: 3e3
                     });
-                    enviar.open("POST", "http://localhost/wanagow/segundaversion/detallesEventoCalendario.php");
+                    enviar.open("POST", servidor + "wanagow/segundaversion/detallesEventoCalendario.php");
                     enviar.send(idCliente);
                     enviar.onload = function() {
                         dataArray = [];
@@ -346,7 +346,7 @@ function Controller() {
             },
             timeout: 3e3
         });
-        enviar.open("POST", "http://localhost/wanagow/segundaversion/eventosguardados.php");
+        enviar.open("POST", servidor + "wanagow/segundaversion/eventosguardados.php");
         enviar.send(idCliente);
         enviar.onload = function() {
             var json = JSON.parse(this.responseText);
@@ -573,7 +573,7 @@ function Controller() {
                 conferencias: args.conferencias,
                 expos: args.expos
             };
-            sendit.open("GET", "http://localhost/wanagow/segundaversion/preferencias_.php");
+            sendit.open("GET", servidor + "wanagow/segundaversion/preferencias_.php");
             sendit.send(preferencias);
             sendit.onload = function() {
                 var json = JSON.parse(this.responseText);
@@ -586,7 +586,7 @@ function Controller() {
                         id: json[i].idEvento,
                         height: 110
                     });
-                    if ("iphone" == Ti.Platform.osname) {
+                    if ("iphone" == Ti.Platform.osname || "android" == Ti.Platform.osname) {
                         row.height = "10px";
                         row.backgroundColor = "red";
                     }
@@ -708,7 +708,7 @@ function Controller() {
             var preferencias = {
                 email: correo.email
             };
-            sendit.open("POST", "http://localhost/wanagow/segundaversion/cargareventos.php");
+            sendit.open("POST", servidor + "wanagow/segundaversion/cargareventos.php");
             sendit.send(preferencias);
             sendit.onload = function() {
                 var json = JSON.parse(this.responseText);
@@ -799,7 +799,7 @@ function Controller() {
                         height: 20
                     });
                     row.add(labelDate);
-                    if ("iphone" == Ti.Platform.osname) {
+                    if ("iphone" == Ti.Platform.osname || "android" == Ti.Platform.osname) {
                         row.height = "20%";
                         imageAvatar.height = "100%";
                         imageAvatar.width = "38%";
@@ -884,7 +884,7 @@ function Controller() {
             borderColor: "black",
             title: "Datos Personales"
         });
-        if ("iphone" == Ti.Platform.osname) {
+        if ("iphone" == Ti.Platform.osname || "android" == Ti.Platform.osname) {
             var letranormal = {
                 fontFamily: "Arial",
                 fontSize: "10%"
@@ -1123,7 +1123,7 @@ function Controller() {
             borderStyle: "Ti.UI.INPUT_BORDERSTYLE_ROUNDED",
             title: "Guardar"
         });
-        if ("iphone" == Ti.Platform.osname) {
+        if ("iphone" == Ti.Platform.osname || "android" == Ti.Platform.osname) {
             var letranormal = {
                 fontFamily: "Arial",
                 fontSize: "10%"
@@ -1189,7 +1189,7 @@ function Controller() {
                 timeout: 3e3
             });
             if ("" != email.value && "" != password.value && "" != confirmacion.value && "" != nombre.value && "" != apellidos.value) if (password.value != confirmacion.value) alert("Las contraseñas no coinciden"); else if (checkemail(email.value)) {
-                sendit.open("POST", "http://localhost/wanagow/segundaversion/update_personal.php");
+                sendit.open("POST", servidor + "wanagow/segundaversion/update_personal.php");
                 var genero;
                 genero = 1 == mujer.opacity ? 0 : 1;
                 var params = {
@@ -1232,7 +1232,7 @@ function Controller() {
             },
             timeout: 3e3
         });
-        sendit.open("POST", "http://localhost/wanagow/segundaversion/update_preferences.php");
+        sendit.open("POST", servidor + "wanagow/segundaversion/update_preferences.php");
         var params = {
             email: datos.email
         };
@@ -1285,7 +1285,7 @@ function Controller() {
                     },
                     timeout: 3e3
                 });
-                enviar.open("POST", "http://localhost/wanagow/segundaversion/updatepreferencias.php");
+                enviar.open("POST", servidor + "wanagow/segundaversion/updatepreferencias.php");
                 var params = {
                     email: datos.email,
                     academica: $.tableViewAcademica.data[0].rows[0].children[0].value,
@@ -1413,7 +1413,7 @@ function Controller() {
                     height: 35,
                     right: 0
                 });
-                if ("iphone" == Ti.Platform.osname) {
+                if ("iphone" == Ti.Platform.osname || "android" == Ti.Platform.osname) {
                     row.height = "10%";
                     labelUserName.font = {
                         fontFamily: "Arial",
@@ -1541,7 +1541,7 @@ function Controller() {
                         row.add(labelUserName);
                     }
                 }
-                if ("iphone" == Ti.Platform.osname) {
+                if ("iphone" == Ti.Platform.osname || "android" == Ti.Platform.osname) {
                     row.height = "4%";
                     labelUserName.font = {
                         fontFamily: "Arial",
@@ -1639,7 +1639,7 @@ function Controller() {
                         row.add(labelUserName);
                     }
                 }
-                if ("iphone" == Ti.Platform.osname) {
+                if ("iphone" == Ti.Platform.osname || "android" == Ti.Platform.osname) {
                     row.height = "2.2%";
                     labelUserName.font = {
                         fontFamily: "Arial",
@@ -1684,10 +1684,6 @@ function Controller() {
     });
     $.__views.readWin.add($.__views.cabecera);
     $.__views.buscar = Ti.UI.createSearchBar({
-        width: 300,
-        top: 20,
-        layout: "Center",
-        hintText: "Search",
         id: "buscar",
         barColor: "#000"
     });
@@ -1718,12 +1714,6 @@ function Controller() {
         id: "tableView"
     });
     $.__views.readWin.add($.__views.tableView);
-    $.__views.__alloyId1 = Ti.UI.createButton({
-        title: "Refresh",
-        id: "__alloyId1"
-    });
-    $.__views.readWin.add($.__views.__alloyId1);
-    getTodoList ? $.__views.__alloyId1.addEventListener("click", getTodoList) : __defers["$.__views.__alloyId1!click!getTodoList"] = true;
     $.__views.tab1 = Ti.UI.createTab({
         title: "Eventos",
         icon: "KS_nav_views.png",
@@ -2000,8 +1990,9 @@ function Controller() {
     $.__views.mainTabGroup && $.addTopLevelView($.__views.mainTabGroup);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    if ("iphone" == Ti.Platform.osname) {
-        $.buscar.width = "60%";
+    var servidor;
+    servidor = "iphone" == Ti.Platform.osname || "ipad" == Ti.Platform.osname ? "http://localhost/" : "http://10.0.2.2/";
+    if ("iphone" == Ti.Platform.osname || "android" == Ti.Platform.osname) {
         $.im1.left = "5%";
         $.im2.left = "85%";
     }
@@ -2029,7 +2020,7 @@ function Controller() {
         }
     });
     var dataArray = [];
-    var IMG_BASE = "http://localhost/wanagow/img/";
+    var IMG_BASE = servidor + "wanagow/img/";
     var d = new Date();
     var strDate = d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate();
     var fecha = {
@@ -2080,7 +2071,7 @@ function Controller() {
         datos.fecha = correo.fecha;
         datos.genero = correo.genero;
     }
-    var IMG_BASE = "http://localhost/wanagow/img/";
+    var IMG_BASE = servidor + "wanagow/img/";
     var dataArray = [];
     $.tableView.addEventListener("click", function(e) {
         var win = Alloy.createController("singleEvento").getView();
@@ -2088,6 +2079,10 @@ function Controller() {
         win.title = e.row.titulo;
         win.idEvento = e.row.idEvento;
         win.fecha = e.row.fecha;
+        var compartir = Ti.UI.createButton({
+            systemButton: Ti.UI.iPhone.SystemButton.ADD
+        });
+        win.setRightNavButton(compartir);
         var tituloFacebook = e.rowData.titulo;
         var descripcionFacebook = e.rowData.detalles;
         var lugarFacebook = e.rowData.lugar;
@@ -2154,7 +2149,8 @@ function Controller() {
             left: 130,
             width: 150,
             height: 50,
-            backgroundColor: "yellow"
+            backgroundColor: "#f4ce00",
+            borderRadius: "6%"
         });
         var buttonOrganizador = Titanium.UI.createButton({
             title: "Organizador",
@@ -2162,16 +2158,18 @@ function Controller() {
             right: 130,
             width: 170,
             height: 50,
-            backgroundColor: "yellow"
+            backgroundColor: "#f4ce00",
+            borderRadius: "6%"
         });
         var buttonAgregarEvento = Titanium.UI.createButton({
             title: "Agregar este evento a mi agenda",
-            top: 640,
+            top: 660,
             width: 400,
             height: 50,
-            backgroundColor: "yellow"
+            backgroundColor: "#f4ce00",
+            borderRadius: "6%"
         });
-        if ("iphone" == Ti.Platform.osname) {
+        if ("iphone" == Ti.Platform.osname || "android" == Ti.Platform.osname) {
             var letranormal = {
                 fontFamily: "Arial",
                 fontSize: "10%"
@@ -2219,7 +2217,6 @@ function Controller() {
             buttonAgregarEvento.borderRadius = "25%";
         }
         buttonAgregarEvento.addEventListener("click", function() {
-            alert(win.idEvento + "-" + win.fecha + "-" + datos.email);
             var Datos = {
                 email: datos.email,
                 idEvento: win.idEvento,
@@ -2232,7 +2229,7 @@ function Controller() {
                 },
                 timeout: 3e3
             });
-            enviar.open("POST", "http://localhost/wanagow/segundaversion/agregareventos.php");
+            enviar.open("POST", servidor + "wanagow/segundaversion/agregareventos.php");
             enviar.send(Datos);
             enviar.onload = function() {
                 var json = this.responseText;
@@ -2244,7 +2241,7 @@ function Controller() {
                 alertDialog.show();
             };
         });
-        buttonOrganizador.addEventListener("click", function() {
+        compartir.addEventListener("click", function() {
             var botonCancelar = Ti.UI.createButton({
                 backgroundColor: "#FFCC00",
                 borderRadius: 10,
@@ -2445,7 +2442,7 @@ function Controller() {
                 entretenimiento: switchEntretenimiento.value,
                 email: correoElectronico
             };
-            conexion.open("POST", "http://localhost/wanagow/segundaversion/filtros_eventos.php");
+            conexion.open("POST", servidor + "wanagow/segundaversion/filtros_eventos.php");
             conexion.send(filtroEventos);
             conexion.onload = function() {
                 var json = JSON.parse(this.responseText);
@@ -2537,7 +2534,7 @@ function Controller() {
                         height: 20
                     });
                     row.add(labelDate);
-                    if ("iphone" == Ti.Platform.osname) {
+                    if ("iphone" == Ti.Platform.osname || "android" == Ti.Platform.osname) {
                         row.height = "20%";
                         imageAvatar.height = "100%";
                         imageAvatar.width = "38%";
@@ -2630,7 +2627,7 @@ function Controller() {
             text: "Entretenimiento",
             color: "white"
         });
-        if ("iphone" == Ti.Platform.osname) {
+        if ("iphone" == Ti.Platform.osname || "android" == Ti.Platform.osname) {
             var letranormal = {
                 fontFamily: "Arial",
                 fontSize: "7%"
@@ -2658,7 +2655,6 @@ function Controller() {
     $.fgWin.open();
     $.mainTabGroup.open();
     __defers["$.__views.readWin!open!getTodoList"] && $.__views.readWin.addEventListener("open", getTodoList);
-    __defers["$.__views.__alloyId1!click!getTodoList"] && $.__views.__alloyId1.addEventListener("click", getTodoList);
     __defers["$.__views.win4!open!principal"] && $.__views.win4.addEventListener("open", principal);
     _.extend($, exports);
 }

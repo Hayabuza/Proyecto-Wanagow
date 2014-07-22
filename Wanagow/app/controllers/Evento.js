@@ -2,17 +2,24 @@
 //  Evento.js
 //  WanagoSistema
 //  
-//  Created by Alonso Campos on 2014-05-19.
-//  Copyright 2014 Alonso Campos. All rights reserved.
+//  Created by Hector Campos Alonso on 2014-05-19.
+//  Copyright 2014 Hector Campos Alonso. All rights reserved.
 // 
+var servidor;
+if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'ipad')
+{
+	servidor = 'http://localhost/';	
+}else{
+	servidor = 'http://10.0.2.2/';	
+}
+
 
 if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'android')
 {
-	$.buscar.width = '60%';
+	//$.buscar.width = '60%';
 	$.im1.left ='5%';
 	$.im2.left ='85%';
 };
-
 
 createCal(mesnumero($.fgHeaderTitle.text));
 
@@ -49,7 +56,7 @@ $.derecha.addEventListener('click',function(){
 
 
 var dataArray =  [];
-var IMG_BASE = 'http://localhost/wanagow/img/';
+var IMG_BASE = servidor+'wanagow/img/';
 
 var d = new Date();
 var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
@@ -299,7 +306,7 @@ function Calendar (diasMes,dia1,dia2,dia3,dia4,dia5,dia6,dia7,dia8,dia9,dia10,di
                    timeout:3000, 
               });
 
-              enviar.open('POST', 'http://localhost/wanagow/segundaversion/detallesEventoCalendario.php'); 
+              enviar.open('POST', servidor+'wanagow/segundaversion/detallesEventoCalendario.php'); 
               enviar.send(idCliente);
               enviar.onload = function()
               {
@@ -475,7 +482,7 @@ function createCal (mes)
          timeout:3000, 
     });
 
-    enviar.open('POST', 'http://localhost/wanagow/segundaversion/eventosguardados.php'); 
+    enviar.open('POST', servidor+'wanagow/segundaversion/eventosguardados.php'); 
     enviar.send(idCliente);
     enviar.onload = function()
     {
@@ -754,7 +761,7 @@ if(correo=="")
 
 
 //IMB_BASE es el directorio donde se accede para ver las imagenes
-var IMG_BASE = 'http://localhost/wanagow/img/';
+var IMG_BASE = servidor+'wanagow/img/';
 
  //dataArrat sirve para guardar las filas de una tabla
        var dataArray = [];        
@@ -875,7 +882,7 @@ var IMG_BASE = 'http://localhost/wanagow/img/';
               /*Utilizando la peticion HTTPClient se abre por medio de un metodo GET
                * el archivo PHP
               */
-              sendit.open('GET', 'http://localhost/wanagow/segundaversion/preferencias_.php');  
+              sendit.open('GET', servidor+'wanagow/segundaversion/preferencias_.php');  
               //El archivo PHP solicita preferencias y son enviadas por medio del metodo send con el
               //JSON preferencias antes visto
               sendit.send(preferencias); 
@@ -1049,7 +1056,7 @@ var IMG_BASE = 'http://localhost/wanagow/img/';
               /*Utilizando la peticion HTTPClient se abre por medio de un metodo POST
                * el archivo PHP
               */
-              sendit.open('POST', 'http://localhost/wanagow/segundaversion/cargareventos.php');  
+              sendit.open('POST', servidor+'wanagow/segundaversion/cargareventos.php');  
               //El archivo PHP solicita preferencias y son enviadas por medio del metodo send con el
               //JSON preferencias antes visto
               sendit.send(preferencias);
@@ -1240,6 +1247,13 @@ var IMG_BASE = 'http://localhost/wanagow/img/';
           win.idEvento = e.row.idEvento;
           win.fecha =e.row.fecha;
           
+          
+          var compartir = Ti.UI.createButton({
+    			systemButton:Ti.UI.iPhone.SystemButton.ADD
+		  });
+			
+		  win.setRightNavButton(compartir);
+
           var tituloFacebook = e.rowData.titulo;
           var descripcionFacebook = e.rowData.detalles;
           var lugarFacebook = e.rowData.lugar;
@@ -1320,20 +1334,23 @@ var IMG_BASE = 'http://localhost/wanagow/img/';
               title: 'Ruta hasta aqui',
               top: 600,left:130,
               width: 150,height: 50,
-              backgroundColor:'yellow'
+              backgroundColor:'#f4ce00',
+              borderRadius:'6%',
           });
          
         
           var buttonOrganizador = Titanium.UI.createButton({
               title: 'Organizador',top: 600,
               right:130,width: 170,height: 50,
-              backgroundColor:'yellow'
+              backgroundColor:'#f4ce00',
+              borderRadius:'6%',
           });
          
           var buttonAgregarEvento = Titanium.UI.createButton({
               title: 'Agregar este evento a mi agenda',
-              top: 640, width: 400,height: 50,
-              backgroundColor:'yellow'
+              top: 660, width: 400,height: 50,
+              backgroundColor:'#f4ce00',
+              borderRadius:'6%',
           });
           
           
@@ -1386,7 +1403,7 @@ var IMG_BASE = 'http://localhost/wanagow/img/';
           
           
           buttonAgregarEvento.addEventListener('click',function(){
-            alert(win.idEvento+"-"+win.fecha+"-"+datos.email);
+            //alert(win.idEvento+"-"+win.fecha+"-"+datos.email);
             
             
             var Datos = 
@@ -1403,7 +1420,7 @@ var IMG_BASE = 'http://localhost/wanagow/img/';
                    }, 
                 timeout:3000, 
             });                      
-            enviar.open('POST', 'http://localhost/wanagow/segundaversion/agregareventos.php'); 
+            enviar.open('POST', servidor+'wanagow/segundaversion/agregareventos.php'); 
             enviar.send(Datos);
             enviar.onload = function(){
               var json = this.responseText;
@@ -1418,7 +1435,7 @@ var IMG_BASE = 'http://localhost/wanagow/img/';
             
           });
           
-          buttonOrganizador.addEventListener('click', function(e) {
+          compartir.addEventListener('click', function(e) {
           	
             var botonCancelar = Ti.UI.createButton({
                   backgroundColor:"#FFCC00",borderRadius:10,
@@ -1708,7 +1725,7 @@ botonFiltrar.addEventListener('click',function(){
     email:       correoElectronico     
   };
   //alert(filtroEventos);
-  conexion.open('POST', 'http://localhost/wanagow/segundaversion/filtros_eventos.php');  
+  conexion.open('POST', servidor+'wanagow/segundaversion/filtros_eventos.php');  
               //El archivo PHP solicita preferencias y son enviadas por medio del metodo send con el
               //JSON preferencias antes visto
               conexion.send(filtroEventos);
@@ -2418,7 +2435,7 @@ hombre.addEventListener('click',function(){
             }
             else
             {
-              	sendit.open('POST', 'http://localhost/wanagow/segundaversion/update_personal.php');
+              	sendit.open('POST', servidor+'wanagow/segundaversion/update_personal.php');
                	var genero;
                
             	if(mujer.opacity==1)
@@ -2501,7 +2518,7 @@ header();
         timeout:3000, 
     });
 
-    sendit.open('POST', 'http://localhost/wanagow/segundaversion/update_preferences.php'); 
+    sendit.open('POST', servidor+'wanagow/segundaversion/update_preferences.php'); 
     var params ={email:datos.email};
     sendit.send(params);
     
@@ -2569,7 +2586,7 @@ header();
                      }, 
                      timeout:3000, 
           });
-          enviar.open('POST', 'http://localhost/wanagow/segundaversion/updatepreferencias.php');
+          enviar.open('POST', servidor+'wanagow/segundaversion/updatepreferencias.php');
           var params = 
           {
             email                         : datos.email,

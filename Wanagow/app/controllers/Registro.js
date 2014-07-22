@@ -2,10 +2,16 @@
 //  Registro.js
 //  WanagoSistema
 //  
-//  Created by Alonso Campos on 2014-05-19.
-//  Copyright 2014 Alonso Campos. All rights reserved.
+//  Created by Hector Campos Alonso on 2014-05-19.
+//  Copyright 2014 Hector Campos Alonso. All rights reserved.
 // 
-	
+var servidor;
+if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'ipad')
+{
+  servidor = 'http://localhost/'; 
+}else{
+  servidor = 'http://10.0.2.2/';  
+}	
 	
 
 	var cancel = Titanium.UI.createButton({
@@ -266,7 +272,7 @@ function NuevaCuenta () {
             	}
             	
             	
-            	createReq.open("POST","http://localhost/wanagow/new.php");
+            	createReq.open("POST",servidor+"wanagow/new.php");
                 var params = {
                 	nombre	 : $.txtnombrew.value,
                     apellido : $.txtapellidow.value,
@@ -281,7 +287,7 @@ function NuevaCuenta () {
                 alert("Informacion enviada");
             }
         }
-    }
+    } 	
     else
     {
         alert("Complete la informacion necesaria");

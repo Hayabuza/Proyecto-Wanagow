@@ -10,7 +10,7 @@ function Controller() {
         if ("" != $.txtEmailw.value && "" != $.txtPasswordw.value && "" != $.txtconfirmew.value && "" != $.txtnombrew.value && "" != $.txtapellidow.value && null != picker.value && "" != picker.value && 1 == $.mujer.opacity || 1 == $.hombre.opacity) if ($.txtPasswordw.value != $.txtconfirmew.value) alert("Las contraseñas no coinciden"); else if (checkemail($.txtEmailw.value)) {
             var genero;
             genero = 1 == $.mujer.opacity ? 0 : 1;
-            createReq.open("POST", "http://localhost/wanagow/new.php");
+            createReq.open("POST", servidor + "wanagow/new.php");
             var params = {
                 nombre: $.txtnombrew.value,
                 apellido: $.txtapellidow.value,
@@ -215,6 +215,8 @@ function Controller() {
     NuevaCuenta ? $.__views.btn4w.addEventListener("click", NuevaCuenta) : __defers["$.__views.btn4w!click!NuevaCuenta"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
+    var servidor;
+    servidor = "http://10.0.2.2/";
     var cancel = Titanium.UI.createButton({
         title: "Close",
         top: 2,
@@ -243,10 +245,6 @@ function Controller() {
         maxDate: new Date(2016, 11, 31),
         selectionIndicator: true
     });
-    var alineacion;
-    var ancho;
-    var alto;
-    var letranormal;
     var alineacion = "13%";
     var ancho = "75%";
     var alto = "7%";

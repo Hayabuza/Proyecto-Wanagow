@@ -2,9 +2,16 @@
 //  index.js
 //  WanagoSistema
 //  
-//  Created by Alonso Campos on 2014-05-19.
-//  Copyright 2014 Alonso Campos. All rights reserved.
+//  Created by Hector Campos Alonso on 2014-05-19.
+//  Copyright 2014 Hector Campos Alonso. All rights reserved.
 //
+var servidor;
+if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'ipad')
+{
+	servidor = 'http://localhost/';	
+}else{
+	servidor = 'http://10.0.2.2/';	
+}
 
 if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'android')
 {
@@ -283,7 +290,7 @@ function login () {
 	    }
 	    else
 	    {
-			loginReq.open("POST","http://localhost/wanagow/segundaversion/login.php");
+			loginReq.open("POST",servidor+"wanagow/segundaversion/login.php");
 			var params = {
 				email: $.email.value,
 				password: Ti.Utils.md5HexDigest($.password.value),

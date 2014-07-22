@@ -3,10 +3,10 @@
     <id>com.wanagow.wanagow</id>
     <name>Wanagow</name>
     <version>1.0</version>
-    <publisher>carlosvera</publisher>
+    <publisher>Hector Campos Alonso</publisher>
     <url>http://</url>
     <description>not specified</description>
-    <copyright>2014 by carlosvera</copyright>
+    <copyright>2014 by Hector Campos Alonso</copyright>
     <icon>appicon.png</icon>
     <fullscreen>false</fullscreen>
     <navbar-hidden>false</navbar-hidden>
@@ -54,8 +54,8 @@
     <deployment-targets>
         <target device="android">true</target>
         <target device="blackberry">false</target>
-        <target device="ipad">false</target>
-        <target device="iphone">false</target>
+        <target device="ipad">true</target>
+        <target device="iphone">true</target>
         <target device="mobileweb">false</target>
         <target device="tizen">false</target>
     </deployment-targets>

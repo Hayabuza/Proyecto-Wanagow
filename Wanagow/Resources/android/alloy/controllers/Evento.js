@@ -194,7 +194,7 @@ function Controller() {
                         },
                         timeout: 3e3
                     });
-                    enviar.open("POST", "http://localhost/wanagow/segundaversion/detallesEventoCalendario.php");
+                    enviar.open("POST", servidor + "wanagow/segundaversion/detallesEventoCalendario.php");
                     enviar.send(idCliente);
                     enviar.onload = function() {
                         dataArray = [];
@@ -346,7 +346,7 @@ function Controller() {
             },
             timeout: 3e3
         });
-        enviar.open("POST", "http://localhost/wanagow/segundaversion/eventosguardados.php");
+        enviar.open("POST", servidor + "wanagow/segundaversion/eventosguardados.php");
         enviar.send(idCliente);
         enviar.onload = function() {
             var json = JSON.parse(this.responseText);
@@ -573,7 +573,7 @@ function Controller() {
                 conferencias: args.conferencias,
                 expos: args.expos
             };
-            sendit.open("GET", "http://localhost/wanagow/segundaversion/preferencias_.php");
+            sendit.open("GET", servidor + "wanagow/segundaversion/preferencias_.php");
             sendit.send(preferencias);
             sendit.onload = function() {
                 var json = JSON.parse(this.responseText);
@@ -586,6 +586,8 @@ function Controller() {
                         id: json[i].idEvento,
                         height: 110
                     });
+                    row.height = "10px";
+                    row.backgroundColor = "red";
                     row.titulo = json[i].titulo;
                     row.imagen = json[i].imagen;
                     row.detalles = json[i].descripcion;
@@ -704,7 +706,7 @@ function Controller() {
             var preferencias = {
                 email: correo.email
             };
-            sendit.open("POST", "http://localhost/wanagow/segundaversion/cargareventos.php");
+            sendit.open("POST", servidor + "wanagow/segundaversion/cargareventos.php");
             sendit.send(preferencias);
             sendit.onload = function() {
                 var json = JSON.parse(this.responseText);
@@ -795,6 +797,25 @@ function Controller() {
                         height: 20
                     });
                     row.add(labelDate);
+                    row.height = "20%";
+                    imageAvatar.height = "100%";
+                    imageAvatar.width = "38%";
+                    imageAvatar.left = "5%";
+                    labelUserName.font = {
+                        fontFamily: "Arial",
+                        fontSize: "12%",
+                        fontWeight: "bold"
+                    };
+                    labelUserName.left = "45%";
+                    labelDetails.font = {
+                        fontFamily: "Arial",
+                        fontSize: "10%"
+                    };
+                    labelDetails.left = "45%";
+                    labelDetails.top = "50%";
+                    labelDate.left = "45%";
+                    labelDate.width = "40%";
+                    labelDate.bottom = "0%";
                     dataArray.push(row);
                 }
                 $.tableView.setData(dataArray);
@@ -859,6 +880,20 @@ function Controller() {
             borderColor: "black",
             title: "Datos Personales"
         });
+        var letranormal = {
+            fontFamily: "Arial",
+            fontSize: "10%"
+        };
+        datosPersonales.left = "10%";
+        datosPersonales.width = "35%";
+        datosPersonales.font = letranormal;
+        datosPersonales.height = "7%";
+        datosPersonales.top = "5%";
+        preferencia.left = "55%";
+        preferencia.width = "35%";
+        preferencia.font = letranormal;
+        preferencia.height = "7%";
+        preferencia.top = "5%";
         $.win4.add(cabecera);
         $.win4.add(datosPersonales);
         $.win4.add(preferencia);
@@ -1082,6 +1117,61 @@ function Controller() {
             borderStyle: "Ti.UI.INPUT_BORDERSTYLE_ROUNDED",
             title: "Guardar"
         });
+        var letranormal = {
+            fontFamily: "Arial",
+            fontSize: "10%"
+        };
+        var alineacionLabel = "15%";
+        label1.font = letranormal;
+        label1.top = "18%";
+        label1.left = alineacionLabel;
+        email.left = alineacionLabel;
+        email.width = "70%";
+        email.top = "22%";
+        email.height = "7%";
+        password.left = alineacionLabel;
+        password.width = "70%";
+        password.top = "30%";
+        password.height = "7%";
+        confirmacion.left = alineacionLabel;
+        confirmacion.width = "70%";
+        confirmacion.top = "38%";
+        confirmacion.height = "7%";
+        label2.font = letranormal;
+        label2.top = "48%";
+        label2.left = alineacionLabel;
+        nombre.left = alineacionLabel;
+        nombre.top = "51%";
+        nombre.height = "7%";
+        nombre.width = "70%";
+        apellidos.left = alineacionLabel;
+        apellidos.top = "59%";
+        apellidos.height = "7%";
+        apellidos.width = "70%";
+        fecha.left = alineacionLabel;
+        fecha.top = "67%";
+        fecha.height = "7%";
+        fecha.width = "70%";
+        cancel.top = "2%";
+        done.top = "1%";
+        picker_view.left = alineacionLabel;
+        picker_view.top = "60%";
+        picker_view.width = "80%";
+        label3.left = alineacionLabel;
+        label3.top = "72%";
+        label3.font = letranormal;
+        mujer.left = "25%";
+        mujer.top = "75%";
+        mujer.height = "7%";
+        mujer.width = "30%";
+        hombre.left = "55%";
+        hombre.top = "75%";
+        hombre.height = "7%";
+        hombre.width = "30%";
+        guardar.left = alineacionLabel;
+        guardar.top = "85%";
+        guardar.width = "70%";
+        guardar.height = "7%";
         guardar.addEventListener("click", function() {
             var sendit = Ti.Network.createHTTPClient({
                 onerror: function(e) {
@@ -1091,7 +1181,7 @@ function Controller() {
                 timeout: 3e3
             });
             if ("" != email.value && "" != password.value && "" != confirmacion.value && "" != nombre.value && "" != apellidos.value) if (password.value != confirmacion.value) alert("Las contraseñas no coinciden"); else if (checkemail(email.value)) {
-                sendit.open("POST", "http://localhost/wanagow/segundaversion/update_personal.php");
+                sendit.open("POST", servidor + "wanagow/segundaversion/update_personal.php");
                 var genero;
                 genero = 1 == mujer.opacity ? 0 : 1;
                 var params = {
@@ -1134,7 +1224,7 @@ function Controller() {
             },
             timeout: 3e3
         });
-        sendit.open("POST", "http://localhost/wanagow/segundaversion/update_preferences.php");
+        sendit.open("POST", servidor + "wanagow/segundaversion/update_preferences.php");
         var params = {
             email: datos.email
         };
@@ -1181,7 +1271,7 @@ function Controller() {
                     },
                     timeout: 3e3
                 });
-                enviar.open("POST", "http://localhost/wanagow/segundaversion/updatepreferencias.php");
+                enviar.open("POST", servidor + "wanagow/segundaversion/updatepreferencias.php");
                 var params = {
                     email: datos.email,
                     academica: $.tableViewAcademica.data[0].rows[0].children[0].value,
@@ -1309,6 +1399,17 @@ function Controller() {
                     height: 35,
                     right: 0
                 });
+                row.height = "10%";
+                labelUserName.font = {
+                    fontFamily: "Arial",
+                    fontSize: "10%",
+                    fontWeight: "bold"
+                };
+                labelUserName.left = "20%";
+                button.right = "20%";
+                button.width = "6%";
+                basicSwitch.right = "20%";
+                basicSwitch.width = "5%";
                 if ("Academico" == json[i].tipo && "" == json[i].detalles) {
                     row.add(basicSwitch);
                     labelUserName.text = "  " + json[i].tipo;
@@ -1424,6 +1525,19 @@ function Controller() {
                         row.add(labelUserName);
                     }
                 }
+                row.height = "4%";
+                labelUserName.font = {
+                    fontFamily: "Arial",
+                    fontSize: "10%",
+                    fontWeight: "bold"
+                };
+                labelUserName.left = "20%";
+                button.right = "20%";
+                button.width = "6%";
+                basicSwitch.right = "20%";
+                basicSwitch.width = "5%";
+                $.tableViewCultural.height = "1041";
+                $.tableViewCultural.top = "450";
                 ("Cultural" == json[i].tipo || "Cultural | Turistica" == json[i].tipo || "Teatro" == json[i].tipo || "Exposicion" == json[i].tipo || "Musica" == json[i].tipo || "Turistico" == json[i].tipo) && dataArray2.push(row);
             }
             $.tableViewCultural.setData(dataArray2);
@@ -1507,6 +1621,19 @@ function Controller() {
                         row.add(labelUserName);
                     }
                 }
+                row.height = "2.2%";
+                labelUserName.font = {
+                    fontFamily: "Arial",
+                    fontSize: "10%",
+                    fontWeight: "bold"
+                };
+                labelUserName.left = "20%";
+                button.right = "20%";
+                button.width = "6%";
+                basicSwitch.right = "20%";
+                basicSwitch.width = "5%";
+                $.tableViewEntretenimiento.top = "1500";
+                $.tableViewEntretenimiento.height = "1605";
                 ("Entretenimiento" == json[i].tipo || "Conciertos" == json[i].tipo || "Deportes" == json[i].tipo || "Bares Antros" == json[i].tipo) && dataArray3.push(row);
             }
             $.tableViewEntretenimiento.setData(dataArray3);
@@ -1537,10 +1664,6 @@ function Controller() {
     });
     $.__views.readWin.add($.__views.cabecera);
     $.__views.buscar = Ti.UI.createSearchBar({
-        width: 300,
-        top: 20,
-        layout: "Center",
-        hintText: "Search",
         id: "buscar",
         barColor: "#000"
     });
@@ -1571,12 +1694,6 @@ function Controller() {
         id: "tableView"
     });
     $.__views.readWin.add($.__views.tableView);
-    $.__views.__alloyId1 = Ti.UI.createButton({
-        title: "Refresh",
-        id: "__alloyId1"
-    });
-    $.__views.readWin.add($.__views.__alloyId1);
-    getTodoList ? $.__views.__alloyId1.addEventListener("click", getTodoList) : __defers["$.__views.__alloyId1!click!getTodoList"] = true;
     $.__views.tab1 = Ti.UI.createTab({
         title: "Eventos",
         icon: "KS_nav_views.png",
@@ -1853,6 +1970,10 @@ function Controller() {
     $.__views.mainTabGroup && $.addTopLevelView($.__views.mainTabGroup);
     exports.destroy = function() {};
     _.extend($, $.__views);
+    var servidor;
+    servidor = "http://10.0.2.2/";
+    $.im1.left = "5%";
+    $.im2.left = "85%";
     createCal(mesnumero($.fgHeaderTitle.text));
     $.izquierda.addEventListener("click", function() {
         var actual = $.fgHeaderTitle.text;
@@ -1877,7 +1998,7 @@ function Controller() {
         }
     });
     var dataArray = [];
-    var IMG_BASE = "http://localhost/wanagow/img/";
+    var IMG_BASE = servidor + "wanagow/img/";
     var d = new Date();
     var strDate = d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate();
     var fecha = {
@@ -1928,7 +2049,7 @@ function Controller() {
         datos.fecha = correo.fecha;
         datos.genero = correo.genero;
     }
-    var IMG_BASE = "http://localhost/wanagow/img/";
+    var IMG_BASE = servidor + "wanagow/img/";
     var dataArray = [];
     $.tableView.addEventListener("click", function(e) {
         var win = Alloy.createController("singleEvento").getView();
@@ -1936,6 +2057,10 @@ function Controller() {
         win.title = e.row.titulo;
         win.idEvento = e.row.idEvento;
         win.fecha = e.row.fecha;
+        var compartir = Ti.UI.createButton({
+            systemButton: Ti.UI.iPhone.SystemButton.ADD
+        });
+        win.setRightNavButton(compartir);
         var tituloFacebook = e.rowData.titulo;
         var descripcionFacebook = e.rowData.detalles;
         var lugarFacebook = e.rowData.lugar;
@@ -2002,7 +2127,8 @@ function Controller() {
             left: 130,
             width: 150,
             height: 50,
-            backgroundColor: "yellow"
+            backgroundColor: "#f4ce00",
+            borderRadius: "6%"
         });
         var buttonOrganizador = Titanium.UI.createButton({
             title: "Organizador",
@@ -2010,17 +2136,63 @@ function Controller() {
             right: 130,
             width: 170,
             height: 50,
-            backgroundColor: "yellow"
+            backgroundColor: "#f4ce00",
+            borderRadius: "6%"
         });
         var buttonAgregarEvento = Titanium.UI.createButton({
             title: "Agregar este evento a mi agenda",
-            top: 640,
+            top: 660,
             width: 400,
             height: 50,
-            backgroundColor: "yellow"
+            backgroundColor: "#f4ce00",
+            borderRadius: "6%"
         });
+        var letranormal = {
+            fontFamily: "Arial",
+            fontSize: "10%"
+        };
+        imageAvatar.width = "80%";
+        imageAvatar.height = "30%";
+        imageAvatar.left = "10%";
+        Titulo.top = "38%";
+        Titulo.font = {
+            fontFamily: "Arial",
+            fontSize: "12%"
+        };
+        Descripcion.width = "80%";
+        Descripcion.backgroundColor = "transparent";
+        Descripcion.height = "40%";
+        Descripcion.font = {
+            fontFamily: "Arial",
+            fontSize: "10%"
+        };
+        Descripcion.top = "32%";
+        Fecha.top = "66%";
+        Hora.top = "70%";
+        Fecha.font = letranormal;
+        Hora.font = letranormal;
+        Costo.top = "74%";
+        Lugar.top = "78%";
+        Costo.font = letranormal;
+        Lugar.font = letranormal;
+        buttonRuta.top = "82%";
+        buttonRuta.left = "10%";
+        buttonRuta.font = letranormal;
+        buttonRuta.width = "30%";
+        buttonRuta.height = "8%";
+        buttonRuta.borderRadius = "25%";
+        buttonOrganizador.top = "82%";
+        buttonOrganizador.right = "5%";
+        buttonOrganizador.font = letranormal;
+        buttonOrganizador.width = "30%";
+        buttonOrganizador.height = "8%";
+        buttonOrganizador.borderRadius = "25%";
+        buttonAgregarEvento.top = "91%";
+        buttonAgregarEvento.font = letranormal;
+        buttonAgregarEvento.width = "70%";
+        buttonAgregarEvento.height = "8%";
+        buttonAgregarEvento.borderRadius = "25%";
         buttonAgregarEvento.addEventListener("click", function() {
-            alert(win.idEvento + "-" + win.fecha + "-" + datos.email);
             var Datos = {
                 email: datos.email,
                 idEvento: win.idEvento,
@@ -2033,7 +2205,7 @@ function Controller() {
                 },
                 timeout: 3e3
             });
-            enviar.open("POST", "http://localhost/wanagow/segundaversion/agregareventos.php");
+            enviar.open("POST", servidor + "wanagow/segundaversion/agregareventos.php");
             enviar.send(Datos);
             enviar.onload = function() {
                 var json = this.responseText;
@@ -2045,7 +2217,7 @@ function Controller() {
                 alertDialog.show();
             };
         });
-        buttonOrganizador.addEventListener("click", function() {
+        compartir.addEventListener("click", function() {
             var botonCancelar = Ti.UI.createButton({
                 backgroundColor: "#FFCC00",
                 borderRadius: 10,
@@ -2238,7 +2410,7 @@ function Controller() {
                 entretenimiento: switchEntretenimiento.value,
                 email: correoElectronico
             };
-            conexion.open("POST", "http://localhost/wanagow/segundaversion/filtros_eventos.php");
+            conexion.open("POST", servidor + "wanagow/segundaversion/filtros_eventos.php");
             conexion.send(filtroEventos);
             conexion.onload = function() {
                 var json = JSON.parse(this.responseText);
@@ -2330,6 +2502,25 @@ function Controller() {
                         height: 20
                     });
                     row.add(labelDate);
+                    row.height = "20%";
+                    imageAvatar.height = "100%";
+                    imageAvatar.width = "38%";
+                    imageAvatar.left = "5%";
+                    labelUserName.font = {
+                        fontFamily: "Arial",
+                        fontSize: "12%",
+                        fontWeight: "bold"
+                    };
+                    labelUserName.left = "45%";
+                    labelDetails.font = {
+                        fontFamily: "Arial",
+                        fontSize: "10%"
+                    };
+                    labelDetails.left = "45%";
+                    labelDetails.top = "50%";
+                    labelDate.left = "45%";
+                    labelDate.width = "40%";
+                    labelDate.bottom = "0%";
                     dataArray.push(row);
                 }
                 $.tableView.setData(dataArray);
@@ -2402,6 +2593,23 @@ function Controller() {
             text: "Entretenimiento",
             color: "white"
         });
+        var letranormal = {
+            fontFamily: "Arial",
+            fontSize: "7%"
+        };
+        var alineacionLabel = "30%";
+        botonFiltrar.top = "80%";
+        ventanaTransparente.height = "40%";
+        ventanaTransparente.width = "70%";
+        switchAcademica.width = "10%";
+        switchCultural.width = "10%";
+        switchEntretenimiento.width = "10%";
+        acade.font = letranormal;
+        cul.font = letranormal;
+        entre.font = letranormal;
+        acade.font = alineacionLabel;
+        cul.font = alineacionLabel;
+        entre.font = alineacionLabel;
         ventanaTransparente.add(acade);
         ventanaTransparente.add(cul);
         ventanaTransparente.add(entre);
@@ -2411,7 +2619,6 @@ function Controller() {
     $.fgWin.open();
     $.mainTabGroup.open();
     __defers["$.__views.readWin!open!getTodoList"] && $.__views.readWin.addEventListener("open", getTodoList);
-    __defers["$.__views.__alloyId1!click!getTodoList"] && $.__views.__alloyId1.addEventListener("click", getTodoList);
     __defers["$.__views.win4!open!principal"] && $.__views.win4.addEventListener("open", principal);
     _.extend($, exports);
 }

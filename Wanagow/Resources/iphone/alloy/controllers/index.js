@@ -115,7 +115,7 @@ function Controller() {
             }
         });
         if ("" != $.email.value && "" != $.password.value) if (checkemail($.email.value)) {
-            loginReq.open("POST", "http://localhost/wanagow/segundaversion/login.php");
+            loginReq.open("POST", servidor + "wanagow/segundaversion/login.php");
             var params = {
                 email: $.email.value,
                 password: Ti.Utils.md5HexDigest($.password.value)
@@ -271,7 +271,6 @@ function Controller() {
         hintText: "Password",
         id: "password",
         passwordMask: "true",
-        focusable: "place",
         borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
         color: "black"
     });
@@ -324,7 +323,9 @@ function Controller() {
     $.__views.index.add($.__views.label2);
     exports.destroy = function() {};
     _.extend($, $.__views);
-    if ("iphone" == Ti.Platform.osname) {
+    var servidor;
+    servidor = "iphone" == Ti.Platform.osname || "ipad" == Ti.Platform.osname ? "http://localhost/" : "http://10.0.2.2/";
+    if ("iphone" == Ti.Platform.osname || "android" == Ti.Platform.osname) {
         $.wanagow.top = "7%";
         $.label.top = "20%";
         $.label.left = "38%";
@@ -365,15 +366,6 @@ function Controller() {
         $.btn2.top = "75%";
         $.btn2.left = "15%";
         $.btn2.width = "70%";
-    } else if ("android" == Ti.Platform.osname) {
-        $.label.left = "38%";
-        $.label.width = "30%";
-        $.label1.width = "70%";
-        $.label1.left = "34%";
-        $.label1.font = {
-            fontSize: "10%"
-        };
-        alert("Android");
     }
     $.bolita1.addEventListener("click", function() {
         DeslizarEventos("Deslizar para aprender mas 1");
