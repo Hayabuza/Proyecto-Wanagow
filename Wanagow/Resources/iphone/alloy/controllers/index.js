@@ -367,6 +367,9 @@ function Controller() {
         $.btn2.left = "15%";
         $.btn2.width = "70%";
     }
+    $.recuperar.addEventListener("click", function() {
+        alert("Lamentamos los inconvenientes esta funcion no esta disponible aun");
+    });
     $.bolita1.addEventListener("click", function() {
         DeslizarEventos("Deslizar para aprender mas 1");
     });

@@ -85,6 +85,9 @@ if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'android')
 	//alert('iphone');
 };
 
+$.recuperar.addEventListener('click', function(){
+	alert("Lamentamos los inconvenientes esta funcion no esta disponible aun");
+});
 
 function DeslizarEventos (contenido) 
 {  	

@@ -13,9 +13,12 @@ if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'ipad')
   servidor = 'http://10.0.2.2/';  
 }	
 	
+$.imagew.addEventListener('click',function(){
+	alert('Lamentamos los inconvenientes esta funcion no esta disponible aun');
+});
 
 	var cancel = Titanium.UI.createButton({
-	    title 			: 'Close',
+	    title 			: 'Cerrar',
 	    top				: 2,
 	    left			: 30,
 	    height 			: 30,
@@ -23,15 +26,15 @@ if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'ipad')
 	});
 	
 	var done = Titanium.UI.createButton({
-	    title 			: 'Done',
+	    title 			: 'Aceptar',
 	    right			: 30,
 	    top				: 2,
 	    height 			: 40,
-	    width 			: 42,
+	    width 			: 100,
 	});
 	
 	var picker_view = Titanium.UI.createView({
-		backgroundColor	: 'yellow',
+		backgroundColor	: '#E3C109',
 	    top 			: '80%',
 	    height 			: 400,
 	    width 			: 420,
@@ -144,10 +147,9 @@ $.hombre.addEventListener('click',function(){
 
 
 $.btn1w.addEventListener('click',function(){
-	picker.addEventListener('change',function(e){
-	  	Ti.API.info("User selected date: " + e.value.toLocaleString());
-	  	
-	});
+	/*picker.addEventListener('change',function(e){
+	  	Ti.API.info("User selected date: " + e.value.toLocaleString());  	
+	});*/
 	done.addEventListener('click',function(){
 	
 			picker_view.animate({
@@ -155,7 +157,7 @@ $.btn1w.addEventListener('click',function(){
 				top:'120%',
 			});
 		
-			alert(picker.value);		
+			//alert(picker.value);		
 		
 		
 	});

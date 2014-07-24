@@ -34,7 +34,7 @@ if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'android')
               
 var parametos      = arguments[0] || {};
 var parametro_correo = parametos.email;
-alert(parametos);
+//alert(parametos);
 var sendit = Ti.Network.createHTTPClient({ 
     onerror: function(e){ 
     Ti.API.debug(e.error); 
@@ -569,7 +569,7 @@ var sendit = Ti.Network.createHTTPClient({
                  entretenimiento  : $.tableViewEntretenimiento.data[0].rows[0].children[0].value,
        
             };
-                  alert(correo);
+                  //alert(correo);
                      Alloy.createController('Evento',correo).getView().open();  
                   }
               }; 

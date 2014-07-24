@@ -1353,6 +1353,17 @@ var IMG_BASE = servidor+'wanagow/img/';
               borderRadius:'6%',
           });
           
+          buttonRuta.addEventListener('click',function(){
+          		alert('Lamentamos los inconvenientes esta funcion no esta disponible aun');
+          });
+          
+          buttonOrganizador.addEventListener('click',function(){
+          		alert('Lamentamos los inconvenientes esta funcion no esta disponible aun');
+          });
+          buttonAgregarEvento.addEventListener('click',function(){
+          		alert('Lamentamos los inconvenientes esta funcion no esta disponible aun');
+          });
+          
           
           if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'android')
 			{
@@ -1405,7 +1416,7 @@ var IMG_BASE = servidor+'wanagow/img/';
           buttonAgregarEvento.addEventListener('click',function(){
             //alert(win.idEvento+"-"+win.fecha+"-"+datos.email);
             
-            
+            /*
             var Datos = 
             {
                  email: datos.email,
@@ -1432,7 +1443,7 @@ var IMG_BASE = servidor+'wanagow/img/';
               });
               alertDialog.show(); 
             }; 
-            
+            */
           });
           
           compartir.addEventListener('click', function(e) {
@@ -2169,15 +2180,15 @@ function DatosCuenta()
   
     
   var cancel = Titanium.UI.createButton({
-	    title 			: 'Close',
+	    title 			: 'Cerrar',
 	    top				: 2,
 	    left			: 30,
 	    height 			: 30,
-	    width 			: 44,
+	    width 			: 100,
 	});
 	
 	var done = Titanium.UI.createButton({
-	    title 			: 'Done',
+	    title 			: 'Aceptar',
 	    right			: 30,
 	    top				: 2,
 	    height 			: 40,
@@ -2185,7 +2196,7 @@ function DatosCuenta()
 	});
 	
 	var picker_view = Titanium.UI.createView({
-		backgroundColor	: '#EEE',
+		backgroundColor	: '#E3C109',
 	    top 			: '80%',
 	    height 			: 400,
 	    width 			: 420,
@@ -2205,10 +2216,10 @@ function DatosCuenta()
 	
 	
 	fecha.addEventListener('click', function(){
-		picker.addEventListener('change',function(e){
+		/*picker.addEventListener('change',function(e){
 	  	Ti.API.info("User selected date: " + e.value.toLocaleString());
 	  	
-		});
+		});*/
 		
 		done.addEventListener('click',function(){
 			fecha.title = picker.value;
@@ -2217,7 +2228,7 @@ function DatosCuenta()
 				top:'120%',
 			});
 		
-			alert(picker.value);		
+			//alert(picker.value);		
 		
 		
 		});

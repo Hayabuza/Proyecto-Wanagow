@@ -128,7 +128,6 @@ function Controller() {
     }
     var parametos = arguments[0] || {};
     var parametro_correo = parametos.email;
-    alert(parametos);
     var sendit = Ti.Network.createHTTPClient({
         onerror: function(e) {
             Ti.API.debug(e.error);
@@ -508,7 +507,6 @@ function Controller() {
                         cultural: $.tableViewCultural.data[0].rows[0].children[0].value,
                         entretenimiento: $.tableViewEntretenimiento.data[0].rows[0].children[0].value
                     };
-                    alert(correo);
                     Alloy.createController("Evento", correo).getView().open();
                 }
             };

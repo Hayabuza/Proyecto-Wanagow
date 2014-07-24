@@ -1009,21 +1009,21 @@ function Controller() {
             title: datos.fecha
         });
         var cancel = Titanium.UI.createButton({
-            title: "Close",
+            title: "Cerrar",
             top: 2,
             left: 30,
             height: 30,
-            width: 44
+            width: 100
         });
         var done = Titanium.UI.createButton({
-            title: "Done",
+            title: "Aceptar",
             right: 30,
             top: 2,
             height: 40,
             width: 42
         });
         var picker_view = Titanium.UI.createView({
-            backgroundColor: "#EEE",
+            backgroundColor: "#E3C109",
             top: "80%",
             height: 400,
             width: 420
@@ -1037,16 +1037,12 @@ function Controller() {
             selectionIndicator: true
         });
         fecha.addEventListener("click", function() {
-            picker.addEventListener("change", function(e) {
-                Ti.API.info("User selected date: " + e.value.toLocaleString());
-            });
             done.addEventListener("click", function() {
                 fecha.title = picker.value;
                 picker_view.animate({
                     duration: 1e3,
                     top: "120%"
                 });
-                alert(picker.value);
             });
             cancel.addEventListener("click", function() {
                 picker_view.animate({
@@ -2169,6 +2165,15 @@ function Controller() {
             backgroundColor: "#f4ce00",
             borderRadius: "6%"
         });
+        buttonRuta.addEventListener("click", function() {
+            alert("Lamentamos los inconvenientes esta funcion no esta disponible aun");
+        });
+        buttonOrganizador.addEventListener("click", function() {
+            alert("Lamentamos los inconvenientes esta funcion no esta disponible aun");
+        });
+        buttonAgregarEvento.addEventListener("click", function() {
+            alert("Lamentamos los inconvenientes esta funcion no esta disponible aun");
+        });
         if ("iphone" == Ti.Platform.osname || "android" == Ti.Platform.osname) {
             var letranormal = {
                 fontFamily: "Arial",
@@ -2216,31 +2221,7 @@ function Controller() {
             buttonAgregarEvento.height = "8%";
             buttonAgregarEvento.borderRadius = "25%";
         }
-        buttonAgregarEvento.addEventListener("click", function() {
-            var Datos = {
-                email: datos.email,
-                idEvento: win.idEvento,
-                fecha: win.fecha
-            };
-            var enviar = Ti.Network.createHTTPClient({
-                onerror: function(e) {
-                    Ti.API.debug(e.error);
-                    alert("La conexion esta tardando demaciado intente acceder nuevamente");
-                },
-                timeout: 3e3
-            });
-            enviar.open("POST", servidor + "wanagow/segundaversion/agregareventos.php");
-            enviar.send(Datos);
-            enviar.onload = function() {
-                var json = this.responseText;
-                var alertDialog = Titanium.UI.createAlertDialog({
-                    title: "Alert",
-                    message: json,
-                    buttonNames: [ "OK" ]
-                });
-                alertDialog.show();
-            };
-        });
+        buttonAgregarEvento.addEventListener("click", function() {});
         compartir.addEventListener("click", function() {
             var botonCancelar = Ti.UI.createButton({
                 backgroundColor: "#FFCC00",
