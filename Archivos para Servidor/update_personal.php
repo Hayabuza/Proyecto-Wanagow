@@ -13,7 +13,7 @@ $password       = $_POST['password'];
 $fecha          = $_POST['fecha'];
 $genero         = $_POST['genero'];
 
-    $insert = "UPDATE Usuarios SET nombre = '$nombre', apellidos ='$apellidos', 
+    $insert = "UPDATE Clientes SET nombre = '$nombre', apellidos ='$apellidos', 
                     password='$password', genero='$genero', fechaNacimiento = '$fecha'
         WHERE email = '$correo_actual' ";
     $query  = mysqli_query($db,$insert);

@@ -16,10 +16,10 @@
     $email =$_POST['email'];
 
 
-    $sql = "SELECT * FROM Clientes AS C, Usuarios AS U, ClientesPreferencias AS CP, Preferencias AS P, Entretenimiento AS E, Cultural AS Cul, Academica AS A
-    WHERE C.idUsuario = U.idUsuario AND CP.idCliente = C.idCliente AND CP.idPreferencia = P.idPreferencia 
+    $sql = "SELECT * FROM Clientes AS C, ClientesPreferencias AS CP, Preferencias AS P, Entretenimiento AS E, Cultural AS Cul, Academica AS A
+    WHERE CP.idCliente = C.idCliente AND CP.idPreferencia = P.idPreferencia 
     AND P.idPreferencia = E.idPreferencia AND P.idPreferencia = Cul.idPreferencia AND P.idPreferencia = A.idPreferencia
-    AND U.email ='$email' ";
+    AND C.email ='$email' ";
     $query = mysqli_query($db,$sql);
     $results = mysqli_num_rows($query);
     if ($results > 0)

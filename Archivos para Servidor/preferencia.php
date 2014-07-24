@@ -5,7 +5,7 @@ if (mysqli_connect_errno()) {
     printf("Can't connect to SQL Server. Error Code %s\n", mysqli_connect_error($db));
     exit;
 }
-// Set the default namespace to utf8
+// Set the default namespace to utf-8
 $db->query("SET NAMES 'utf8'");
 $json   = array();
 $academico ="Academica";

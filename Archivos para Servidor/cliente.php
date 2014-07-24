@@ -11,8 +11,8 @@ $json   = array();
 $email = $_POST['email'];
 
 
-$sql = "SELECT * FROM Clientes AS C, Usuarios AS U, ClientesPreferencias AS CP, Preferencias AS P
-WHERE C.idUsuario = U.idUsuario AND CP.idCliente = C.idCliente AND CP.idPreferencia = P.idPreferencia AND U.email ='$email' ";
+$sql = "SELECT * FROM Clientes AS C, ClientesPreferencias AS CP, Preferencias AS P
+WHERE CP.idCliente = C.idCliente AND CP.idPreferencia = P.idPreferencia AND C.email ='$email' ";
 $query = mysqli_query($db,$sql);
 $results = mysqli_num_rows($query);
 if ($results > 0)

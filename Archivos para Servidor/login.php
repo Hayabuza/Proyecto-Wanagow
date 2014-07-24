@@ -9,20 +9,23 @@ if (mysqli_connect_errno()) {
 $email = $_POST['email'];
 $password = $_POST['password'];
 
-$sql = "SELECT U.email,U.password,U.nombre,U.apellidos,U.fechaNacimiento,U.genero,A.academica,A.areaestudio,A.congresos,A.convenciones,A.seminarios,A.talleres
-            ,A.diplomados,A.cursos,A.conferencias,A.expos, Cul.cultural,Cul.balletdanza,Cul.teatro,Cul.comedia,
-            Cul.drama,Cul.infantilC, Cul.musical,Cul.otrosT,Cul.circos,Cul.exposiciones,Cul.fotografia,Cul.escultura,
-            Cul.pintura,Cul.libros,Cul.otrosE,Cul.cineArte,Cul.musica,Cul.clasica,Cul.instrumental,Cul.folklorepopular,
-            Cul.turistico,Cul.ferias,Cul.carnavales,Cul.peregrinaciones,Cul.fiestasReligiosasIndigenas,Cul.otrosTuristica,
-            E.entretenimiento,E.conciertos,E.electronica,E.jazzblues,E.trova,E.rock,E.alternativa,E.gruperanortena,E.infantilE,
-            E.hiphop,E.ranchera,E.pop,E.metal,E.reague,E.reggeatton,E.baladasboleros,E.salsacumbia,E.cristiana,E.deportes,
-            E.futbol,E.basquetball,E.tenis,E.beisball,E.volleyball,E.torneos,E.maratones,E.autosmotos,E.futbolAmericano,
-            E.artesMarciales,E.boxE,E.luchaLibre,E.atletismo,E.toros,E.baresantros,E.inaguracion,E.promocion,E.showE,
-            E.fiestasTematicas,E.bienvenida
- FROM Usuarios as U, Clientes as C, ClientesPreferencias as CP, Preferencias as P, Cultural as Cul
-        , Entretenimiento as E, Academica as A WHERE U.idUsuario = C.idUsuario  AND CP.idCliente = C.idCliente
-        AND CP.idPreferencia = P.idPreferencia AND Cul.idPreferencia = P.idPreferencia AND E.idPreferencia =
-        P.idPreferencia AND A.idPreferencia = P.idPreferencia AND U.email ='$email'  AND U.password ='$password' ";
+$sql = "SELECT  C.email,C.password,C.nombre,C.apellidos,C.fechaNacimiento,C.genero,A.academica,A.areaestudio,A.congresos,
+                A.convenciones,A.seminarios,A.talleres,A.diplomados,A.cursos,A.conferencias,A.expos, 
+                Cul.cultural,Cul.balletdanza,Cul.teatro,Cul.comedia,Cul.drama,Cul.infantilC, Cul.musical,
+                Cul.otrosT,Cul.circos,Cul.exposiciones,Cul.fotografia,Cul.escultura,
+                Cul.pintura,Cul.libros,Cul.otrosE,Cul.cineArte,Cul.musica,Cul.clasica,Cul.instrumental,Cul.folklorepopular,
+                Cul.turistico,Cul.ferias,Cul.carnavales,Cul.peregrinaciones,Cul.fiestasReligiosasIndigenas,Cul.otrosTuristica,
+                E.entretenimiento,E.conciertos,E.electronica,E.jazzblues,E.trova,E.rock,E.alternativa,E.gruperanortena,E.infantilE,
+                E.hiphop,E.ranchera,E.pop,E.metal,E.reague,E.reggeatton,E.baladasboleros,E.salsacumbia,E.cristiana,E.deportes,
+                E.futbol,E.basquetball,E.tenis,E.beisball,E.volleyball,E.torneos,E.maratones,E.autosmotos,E.futbolAmericano,
+                E.artesMarciales,E.boxE,E.luchaLibre,E.atletismo,E.toros,E.baresantros,E.inaguracion,E.promocion,E.showE,
+                E.fiestasTematicas,E.bienvenida
+        FROM Clientes as C, ClientesPreferencias as CP, Preferencias as P, Cultural as Cul, Entretenimiento as E, Academica as A 
+        WHERE CP.idCliente = C.idCliente AND CP.idPreferencia = P.idPreferencia AND 
+              Cul.idPreferencia = P.idPreferencia AND E.idPreferencia =
+              P.idPreferencia AND A.idPreferencia = P.idPreferencia 
+              AND C.email ='$email'  AND C.password ='$password' ";
+
 $query = mysqli_query($db,$sql);
 $results = mysqli_num_rows($query);
 if ($results > 0)

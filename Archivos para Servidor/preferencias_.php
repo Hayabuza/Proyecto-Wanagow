@@ -5,7 +5,6 @@ if (mysqli_connect_errno()) {
     printf("Can't connect to SQL Server. Error Code %s\n", mysqli_connect_error($db));
     exit;
 }
-$email = $_POST['email'];
 $json   = array();
 $db->query("SET NAMES 'utf8'");
 

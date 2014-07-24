@@ -25,7 +25,7 @@ $activo =1;
 */
 
 //La primera consulta sirve para evaluar si el correo esta registrado
-$sql    = "SELECT email FROM Usuarios WHERE email = '" . $email. "'";
+$sql    = "SELECT email FROM Clientes WHERE email =  '" . $email. "'";
 $query  = mysqli_query($db,$sql);
 $results = mysqli_num_rows($query);
     
@@ -37,39 +37,23 @@ else
 {
     // '2011-01-12'
     //Usando los valores de arriba se utiliza la sentencia SQL para poder ingresar la informacion del usuario
-    $insert = "INSERT INTO  Usuarios (nombre , apellidos , fechaNacimiento , genero , email , password , activo ) 
+    $insert = "INSERT INTO  Clientes (nombre , apellidos , fechaNacimiento , genero , email , password , activo ) 
     VALUES ('$nombre',  '$apellido',  '$fechaNacimiento',  '$genero',  '$email',  '$password',  '$activo');"; 
 
     $query  = mysqli_query($db,$insert);
     if ($query)
     {
         // La consulta busca el ultimo registro ingresodo en la base de datos
-        $rs = mysqli_query($db,"SELECT MAX(idUsuario) FROM Usuarios");
-        
-        if ($row = mysqli_fetch_row($rs)) {
-            //Obtenemos el id del ultimo registro
-            $id = trim($row[0]);
-            //echo "La clave del usuario es :"+$id+"Usuarios";
-            //Usando el id recuperado por la base de datos se ingresa a la base de datos un nuevo registro
-            $insert = "INSERT INTO Clientes (idUsuario ) VALUES ('$id') ";
-        
-            $query  = mysqli_query($db,$insert);
-            if ($query) {
-
-                  //echo "Thanks for registering. You may now login.";
-               } else {
-                 echo "Insert failed";
-               }
-            //Se ingresa un registro de preferencia    
+        //Se ingresa un registro de preferencia    
             $insert = "INSERT INTO Preferencias (idPreferencia ) VALUES ('') ";
         
             $query  = mysqli_query($db,$insert);
-            if ($query) {
-
-                  //echo "Thanks for registering. You may now login.";
-               } else {
-                    echo "Insert failed";
-               }
+            if ($query)
+            {
+                //echo "Thanks for registering. You may now login.";
+            } else {
+                echo "Insert failed";
+            }
             //Se declaran 2 variables para agregar un registro nuevo   
             $idPreferencia ="";
             $idCliente ="";
@@ -97,7 +81,6 @@ else
 
                 }
 
-        }
         
               //echo "Thanks for registering. You may now login. ";
     }
