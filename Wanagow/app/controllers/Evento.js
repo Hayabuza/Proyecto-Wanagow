@@ -449,8 +449,8 @@ function createCal (mes)
   //var data = items;
   var options =  
   {
-    padding:1,        //GALLERY ONLY
-    showTitle:false,    //GALLERY ONLY
+    padding:1,        
+    showTitle:false,    
     backgroundColor: '#eee',
     gridColor: 'White'
   };
@@ -461,7 +461,6 @@ function createCal (mes)
   var columnWidth = (newWidth / columns) - space;
   var frameBGcolor = options.backgroundColor || '#fff';
   
-  //ADJUST THE SCROLLVIEW
   $.fgScrollView.left = space;
   $.fgScrollView.top = space;
   $.fgScrollView.right = -1;
