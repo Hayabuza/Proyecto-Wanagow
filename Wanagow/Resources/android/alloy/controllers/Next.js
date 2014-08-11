@@ -1,3 +1,12 @@
+function __processArg(obj, key) {
+    var arg = null;
+    if (obj) {
+        arg = obj[key] || null;
+        delete obj[key];
+    }
+    return arg;
+}
+
 function Controller() {
     function OmitirPreferencias() {
         var idCliente = {
@@ -10,7 +19,7 @@ function Controller() {
             },
             timeout: 3e3
         });
-        enviar.open("POST", servidor + "wanagow/segundaversion/cliente.php");
+        enviar.open("POST", servidor + "servidor/cliente.php");
         enviar.send(idCliente);
         enviar.onload = function() {
             var alertDialog = Titanium.UI.createAlertDialog({
@@ -35,9 +44,11 @@ function Controller() {
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "Next";
-    arguments[0] ? arguments[0]["__parentSymbol"] : null;
-    arguments[0] ? arguments[0]["$model"] : null;
-    arguments[0] ? arguments[0]["__itemTemplate"] : null;
+    if (arguments[0]) {
+        __processArg(arguments[0], "__parentSymbol");
+        __processArg(arguments[0], "$model");
+        __processArg(arguments[0], "__itemTemplate");
+    }
     var $ = this;
     var exports = {};
     var __defers = {};
@@ -126,7 +137,6 @@ function Controller() {
     $.omitir.width = "20%";
     var parametos = arguments[0] || {};
     var parametro_correo = parametos.email;
-    alert(parametos);
     var sendit = Ti.Network.createHTTPClient({
         onerror: function(e) {
             Ti.API.debug(e.error);
@@ -134,7 +144,7 @@ function Controller() {
         },
         timeout: 3e3
     });
-    sendit.open("GET", servidor + "wanagow/preferencia.php");
+    sendit.open("GET", servidor + "servidor/preferencia.php");
     sendit.send();
     sendit.onload = function() {
         var json = JSON.parse(this.responseText);
@@ -399,7 +409,7 @@ function Controller() {
                 },
                 timeout: 3e3
             });
-            enviar.open("POST", servidor + "wanagow/segundaversion/gurdarintereses.php");
+            enviar.open("POST", servidor + "servidor/gurdarintereses.php");
             var params = {
                 academica: $.tableViewAcademica.data[0].rows[0].children[0].value,
                 area: $.tableViewAcademica.data[0].rows[1].children[1].value,
@@ -498,7 +508,6 @@ function Controller() {
                         cultural: $.tableViewCultural.data[0].rows[0].children[0].value,
                         entretenimiento: $.tableViewEntretenimiento.data[0].rows[0].children[0].value
                     };
-                    alert(correo);
                     Alloy.createController("Evento", correo).getView().open();
                 }
             };

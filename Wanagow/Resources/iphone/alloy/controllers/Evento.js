@@ -1,3 +1,12 @@
+function __processArg(obj, key) {
+    var arg = null;
+    if (obj) {
+        arg = obj[key] || null;
+        delete obj[key];
+    }
+    return arg;
+}
+
 function Controller() {
     function diasemana(dia) {
         var days;
@@ -194,7 +203,7 @@ function Controller() {
                         },
                         timeout: 3e3
                     });
-                    enviar.open("POST", servidor + "wanagow/segundaversion/detallesEventoCalendario.php");
+                    enviar.open("POST", servidor + "servidor/detallesEventoCalendario.php");
                     enviar.send(idCliente);
                     enviar.onload = function() {
                         dataArray = [];
@@ -346,7 +355,7 @@ function Controller() {
             },
             timeout: 3e3
         });
-        enviar.open("POST", servidor + "wanagow/segundaversion/eventosguardados.php");
+        enviar.open("POST", servidor + "servidor/eventosguardados.php");
         enviar.send(idCliente);
         enviar.onload = function() {
             var json = JSON.parse(this.responseText);
@@ -573,7 +582,7 @@ function Controller() {
                 conferencias: args.conferencias,
                 expos: args.expos
             };
-            sendit.open("GET", servidor + "wanagow/segundaversion/preferencias_.php");
+            sendit.open("GET", servidor + "servidor/preferencias_.php");
             sendit.send(preferencias);
             sendit.onload = function() {
                 var json = JSON.parse(this.responseText);
@@ -708,7 +717,7 @@ function Controller() {
             var preferencias = {
                 email: correo.email
             };
-            sendit.open("POST", servidor + "wanagow/segundaversion/cargareventos.php");
+            sendit.open("POST", servidor + "servidor/cargareventos.php");
             sendit.send(preferencias);
             sendit.onload = function() {
                 var json = JSON.parse(this.responseText);
@@ -1020,11 +1029,11 @@ function Controller() {
             right: 30,
             top: 2,
             height: 40,
-            width: 42
+            width: "20%"
         });
         var picker_view = Titanium.UI.createView({
             backgroundColor: "#E3C109",
-            top: "80%",
+            top: "50%",
             height: 400,
             width: 420
         });
@@ -1037,11 +1046,15 @@ function Controller() {
             selectionIndicator: true
         });
         fecha.addEventListener("click", function() {
+            picker_view.animate({
+                duration: 1e3,
+                top: "50%"
+            });
             done.addEventListener("click", function() {
                 fecha.title = picker.value;
                 picker_view.animate({
                     duration: 1e3,
-                    top: "120%"
+                    top: "-50%"
                 });
             });
             cancel.addEventListener("click", function() {
@@ -1084,7 +1097,7 @@ function Controller() {
             width: 100,
             right: 100,
             left: 436,
-            backgroundColor: "#C5B76A",
+            backgroundColor: "#DCBC0D",
             height: 50,
             top: 650,
             font: {
@@ -1185,7 +1198,7 @@ function Controller() {
                 timeout: 3e3
             });
             if ("" != email.value && "" != password.value && "" != confirmacion.value && "" != nombre.value && "" != apellidos.value) if (password.value != confirmacion.value) alert("Las contraseñas no coinciden"); else if (checkemail(email.value)) {
-                sendit.open("POST", servidor + "wanagow/segundaversion/update_personal.php");
+                sendit.open("POST", servidor + "servidor/update_personal.php");
                 var genero;
                 genero = 1 == mujer.opacity ? 0 : 1;
                 var params = {
@@ -1196,7 +1209,6 @@ function Controller() {
                     fecha: picker.value,
                     genero: genero
                 };
-                alert(params);
                 sendit.send(params);
                 datos.fecha = picker.value;
                 alert("Informacion actualizada");
@@ -1228,7 +1240,7 @@ function Controller() {
             },
             timeout: 3e3
         });
-        sendit.open("POST", servidor + "wanagow/segundaversion/update_preferences.php");
+        sendit.open("POST", servidor + "servidor/update_preferences.php");
         var params = {
             email: datos.email
         };
@@ -1266,7 +1278,7 @@ function Controller() {
                 color: "white",
                 zIndex: 1
             });
-            if ("iphone" == Ti.Platform.osname) {
+            if ("iphone" == Ti.Platform.osname || "android" == Ti.Platform.osname) {
                 guardar.width = "50%";
                 guardar.top = "2900";
                 view.height = "2986";
@@ -1281,7 +1293,7 @@ function Controller() {
                     },
                     timeout: 3e3
                 });
-                enviar.open("POST", servidor + "wanagow/segundaversion/updatepreferencias.php");
+                enviar.open("POST", servidor + "servidor/updatepreferencias.php");
                 var params = {
                     email: datos.email,
                     academica: $.tableViewAcademica.data[0].rows[0].children[0].value,
@@ -1658,9 +1670,11 @@ function Controller() {
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "Evento";
-    arguments[0] ? arguments[0]["__parentSymbol"] : null;
-    arguments[0] ? arguments[0]["$model"] : null;
-    arguments[0] ? arguments[0]["__itemTemplate"] : null;
+    if (arguments[0]) {
+        __processArg(arguments[0], "__parentSymbol");
+        __processArg(arguments[0], "$model");
+        __processArg(arguments[0], "__itemTemplate");
+    }
     var $ = this;
     var exports = {};
     var __defers = {};
@@ -2016,7 +2030,7 @@ function Controller() {
         }
     });
     var dataArray = [];
-    var IMG_BASE = servidor + "wanagow/img/";
+    var IMG_BASE = servidor + "servidor/img/";
     var d = new Date();
     var strDate = d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate();
     var fecha = {
@@ -2067,7 +2081,7 @@ function Controller() {
         datos.fecha = correo.fecha;
         datos.genero = correo.genero;
     }
-    var IMG_BASE = servidor + "wanagow/img/";
+    var IMG_BASE = servidor + "servidor/img/";
     var dataArray = [];
     $.tableView.addEventListener("click", function(e) {
         var win = Alloy.createController("singleEvento").getView();
@@ -2366,7 +2380,7 @@ function Controller() {
                 height: 250,
                 borderRadius: 8
             });
-            if ("iphone" == Ti.Platform.osname) {
+            if ("iphone" == Ti.Platform.osname || "android" == Ti.Platform.osname) {
                 ventanaTransparente.width = "80%";
                 ventanaTransparente.top = "35%";
             }
@@ -2405,7 +2419,7 @@ function Controller() {
             height: 25,
             title: "Filtrar"
         });
-        if ("iphone" == Ti.Platform.osname) {
+        if ("iphone" == Ti.Platform.osname || "android" == Ti.Platform.osname) {
             botonFiltrar.height = "10%";
             botonFiltrar.width = "32%";
         }
@@ -2423,7 +2437,7 @@ function Controller() {
                 entretenimiento: switchEntretenimiento.value,
                 email: correoElectronico
             };
-            conexion.open("POST", servidor + "wanagow/segundaversion/filtros_eventos.php");
+            conexion.open("POST", servidor + "servidor/filtros_eventos.php");
             conexion.send(filtroEventos);
             conexion.onload = function() {
                 var json = JSON.parse(this.responseText);

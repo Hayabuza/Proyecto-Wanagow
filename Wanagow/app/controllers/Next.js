@@ -48,7 +48,7 @@ var sendit = Ti.Network.createHTTPClient({
            * Debido a que no se van a enviar nada de informacion sino solo
            * recibir informacion entonces dejamos sendit.send() de esta manera
            */               
-          sendit.open('GET', servidor+'wanagow/preferencia.php'); 
+          sendit.open('GET', servidor+'servidor/preferencia.php'); 
           sendit.send();
           /*
            * Depues de que se ha cargado la informacion se declaran 3 arrays vacios
@@ -441,7 +441,7 @@ var sendit = Ti.Network.createHTTPClient({
                         timeout:3000, 
                     });                      
                     
-                    enviar.open('POST', servidor+'wanagow/segundaversion/gurdarintereses.php');
+                    enviar.open('POST', servidor+'servidor/gurdarintereses.php');
                     /*
                      * Debido a que la tabla tiene informacion dentro se puede acceder a su informacion
                      * data[0] se usa cuando no hay un 
@@ -602,7 +602,7 @@ var enviar = Ti.Network.createHTTPClient({
          }, 
       timeout:3000, 
   });                      
-  enviar.open('POST', servidor+'wanagow/segundaversion/cliente.php'); 
+  enviar.open('POST', servidor+'servidor/cliente.php'); 
   enviar.send(idCliente);
   enviar.onload = function(){
     

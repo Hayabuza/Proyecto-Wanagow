@@ -8,17 +8,17 @@
 var servidor;
 if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'ipad')
 {
-	servidor = 'http://localhost/';	
+  servidor = 'http://localhost/'; 
 }else{
-	servidor = 'http://10.0.2.2/';	
+  servidor = 'http://10.0.2.2/';  
 }
 
 
 if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'android')
 {
-	//$.buscar.width = '60%';
-	$.im1.left ='5%';
-	$.im2.left ='85%';
+  //$.buscar.width = '60%';
+  $.im1.left ='5%';
+  $.im2.left ='85%';
 };
 
 createCal(mesnumero($.fgHeaderTitle.text));
@@ -56,7 +56,7 @@ $.derecha.addEventListener('click',function(){
 
 
 var dataArray =  [];
-var IMG_BASE = servidor+'wanagow/img/';
+var IMG_BASE = servidor+'servidor/img/';
 
 var d = new Date();
 var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
@@ -290,7 +290,7 @@ function Calendar (diasMes,dia1,dia2,dia3,dia4,dia5,dia6,dia7,dia8,dia9,dia10,di
         || label.text==dia31)
       {        
           eventoFondo.addEventListener('click',function(e){
-          	
+            
              
               var idCliente = 
               {
@@ -306,23 +306,23 @@ function Calendar (diasMes,dia1,dia2,dia3,dia4,dia5,dia6,dia7,dia8,dia9,dia10,di
                    timeout:3000, 
               });
 
-              enviar.open('POST', servidor+'wanagow/segundaversion/detallesEventoCalendario.php'); 
+              enviar.open('POST', servidor+'servidor/detallesEventoCalendario.php'); 
               enviar.send(idCliente);
               enviar.onload = function()
               {
-              	  dataArray =  [];
+                  dataArray =  [];
                   var json = JSON.parse(this.responseText); 
                   var json = json.nombre; 
                   if(json.length == 0)
                   { 
-                     	$.tableEventos.headerTitle = "No hay informacion disponible"; 
+                      $.tableEventos.headerTitle = "No hay informacion disponible"; 
                   }else{
-                  		 $.tableEventos.headerTitle = ""; 
+                       $.tableEventos.headerTitle = ""; 
                   } 
           
                   for (var i = 0; i < json.length; i++) 
                   {
-                  		
+                      
                         var row = Ti.UI.createTableViewRow({              
                             selectedBackgroundColor:'white',
                             id:json[i].idEvento,
@@ -481,7 +481,7 @@ function createCal (mes)
          timeout:3000, 
     });
 
-    enviar.open('POST', servidor+'wanagow/segundaversion/eventosguardados.php'); 
+    enviar.open('POST', servidor+'servidor/eventosguardados.php'); 
     enviar.send(idCliente);
     enviar.onload = function()
     {
@@ -492,7 +492,7 @@ function createCal (mes)
         { 
              $.tableEventos.headerTitle = "No hay informacion disponible"; 
         }else{
-        	$.tableEventos.headerTitle = ""; 
+          $.tableEventos.headerTitle = ""; 
         }  
         //alert(json.length);                   
         try{
@@ -661,7 +661,7 @@ function createCal (mes)
           
           
         }catch(e){
-			alert('A ocurrido un error intente mas tarde si persiste el problema llame a soporte');          
+      alert('A ocurrido un error intente mas tarde si persiste el problema llame a soporte');          
         }  
     };
   
@@ -694,12 +694,12 @@ var args = arguments[0] || {};
 var correo = arguments[0] || {};
 var datos =
 {
-  	nombre:"",
-  	apellidos:"",
-  	passowrd:"",
-  	email:"",
-  	fecha:"",
-  	genero:"",
+    nombre:"",
+    apellidos:"",
+    passowrd:"",
+    email:"",
+    fecha:"",
+    genero:"",
   
 };
 /**
@@ -731,36 +731,36 @@ var datos =
 
 if(correo=="")
 {
-  	correoElectronico		= args.email;
-  	filtroAcademica 		= args.academica;
-  	filtroCultural 		= args.cultural;
-  	filtroEntretenimiento = args.entretenimiento;
+    correoElectronico   = args.email;
+    filtroAcademica     = args.academica;
+    filtroCultural    = args.cultural;
+    filtroEntretenimiento = args.entretenimiento;
   
-  	datos.nombre			= args.nombre;
-  	datos.apellidos 		= args.apellidos;
-  	datos.passowrd 		= args.password;
-  	datos.email 			= args.email;
-  	datos.fecha			= args.fecha;
-  	datos.genero			= args.genero;
+    datos.nombre      = args.nombre;
+    datos.apellidos     = args.apellidos;
+    datos.passowrd    = args.password;
+    datos.email       = args.email;
+    datos.fecha     = args.fecha;
+    datos.genero      = args.genero;
   
 }else{
 
-	filtroAcademica 		= correo.academica;
-  	filtroCultural 		= correo.cultural;
-  	filtroEntretenimiento = correo.entretenimiento;
-  	correoElectronico 	= correo.email;
+  filtroAcademica     = correo.academica;
+    filtroCultural    = correo.cultural;
+    filtroEntretenimiento = correo.entretenimiento;
+    correoElectronico   = correo.email;
   
-  	datos.nombre    		= correo.nombre;
-  	datos.apellidos 		= correo.apellidos;
-  	datos.passowrd  		= correo.password;
-  	datos.email     		= correo.email;
-  	datos.fecha			= correo.fecha;
-  	datos.genero			= correo.genero;
+    datos.nombre        = correo.nombre;
+    datos.apellidos     = correo.apellidos;
+    datos.passowrd      = correo.password;
+    datos.email         = correo.email;
+    datos.fecha     = correo.fecha;
+    datos.genero      = correo.genero;
 }
 
 
 //IMB_BASE es el directorio donde se accede para ver las imagenes
-var IMG_BASE = servidor+'wanagow/img/';
+var IMG_BASE = servidor+'servidor/img/';
 
  //dataArrat sirve para guardar las filas de una tabla
        var dataArray = [];        
@@ -881,7 +881,7 @@ var IMG_BASE = servidor+'wanagow/img/';
               /*Utilizando la peticion HTTPClient se abre por medio de un metodo GET
                * el archivo PHP
               */
-              sendit.open('GET', servidor+'wanagow/segundaversion/preferencias_.php');  
+              sendit.open('GET', servidor+'servidor/preferencias_.php');  
               //El archivo PHP solicita preferencias y son enviadas por medio del metodo send con el
               //JSON preferencias antes visto
               sendit.send(preferencias); 
@@ -894,7 +894,7 @@ var IMG_BASE = servidor+'wanagow/img/';
                      if(json.length == 0){ 
                             $.tableView.headerTitle = "No hay eventos disponibles"; 
                      }else{
-                     		$.tableView.headerTitle = ""; 
+                        $.tableView.headerTitle = ""; 
                      }                      
                      //Llamamos el arreglo declarado arriba para vaciar la informacion contenida 
                      dataArray = [];                      
@@ -902,48 +902,48 @@ var IMG_BASE = servidor+'wanagow/img/';
                      for( var i=0; i<json.length; i++){ 
                         //Para comenzar se crea una fila y se le dan estilos
                         
-	                       var row = Ti.UI.createTableViewRow({              
-				          		selectedBackgroundColor:'white',
-				               	id:json[i].idEvento,
-				               	//rowIndex:i, //se refiere al indice de la fila
-				           		height:110
-				           });
-				           if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'android')
-						   {
-						   		row.height = '10px';
-						   		row.backgroundColor = 'red';
-						   };
-			              /*
-			               * utilizando la variable row se le crean nuevas propiedades y se le asigna 
-			               * un valor que es obtenido por el objeto json
-			               */
-				              row.titulo = json[i].titulo; 
-				              row.imagen = json[i].imagen;
-				              row.detalles = json[i].descripcion;
-				              row.fecha =json[i].fecha;
-				              row.hora = json[i].hora;
-				              row.costo = json[i].costo;
-				              row.lugar = json[i].lugar;
-				              row.idEvento = json[i].idEvento;
-			              /*Se crea una imagen, para obtener la imagen se utiliza
-			               * la url que se tenia IMG_BASE y se le asigna el nombre y extencion
-			               * colocada en la base de datos
-			              */
-			                var imageAvatar = Ti.UI.createImageView({
-				                image:IMG_BASE + json[i].imagen,
-				                left:20, top:2,
-				                width:'20%', height:'10%'
-			              	});
-			              	row.add(imageAvatar); //row.add se utiliza para agregar a la fila la imagen
+                         var row = Ti.UI.createTableViewRow({              
+                      selectedBackgroundColor:'white',
+                        id:json[i].idEvento,
+                        //rowIndex:i, //se refiere al indice de la fila
+                      height:110
+                   });
+                   if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'android')
+               {
+                  row.height = '10px';
+                  row.backgroundColor = 'red';
+               };
+                    /*
+                     * utilizando la variable row se le crean nuevas propiedades y se le asigna 
+                     * un valor que es obtenido por el objeto json
+                     */
+                      row.titulo = json[i].titulo; 
+                      row.imagen = json[i].imagen;
+                      row.detalles = json[i].descripcion;
+                      row.fecha =json[i].fecha;
+                      row.hora = json[i].hora;
+                      row.costo = json[i].costo;
+                      row.lugar = json[i].lugar;
+                      row.idEvento = json[i].idEvento;
+                    /*Se crea una imagen, para obtener la imagen se utiliza
+                     * la url que se tenia IMG_BASE y se le asigna el nombre y extencion
+                     * colocada en la base de datos
+                    */
+                      var imageAvatar = Ti.UI.createImageView({
+                        image:IMG_BASE + json[i].imagen,
+                        left:20, top:2,
+                        width:'20%', height:'10%'
+                      });
+                      row.add(imageAvatar); //row.add se utiliza para agregar a la fila la imagen
               
-			              	var labelUserName = Ti.UI.createLabel({
-				                color:'black',
-				                font:{fontFamily:'Arial', fontSize:16, fontWeight:'bold'},
-				                text:'' + json[i].titulo,
-				                left:240, top: 6,
-				                width:360, height: 30
-			                });
-			                row.add(labelUserName);//row.add se utiliza para agregar a la fila el labelUserName
+                      var labelUserName = Ti.UI.createLabel({
+                        color:'black',
+                        font:{fontFamily:'Arial', fontSize:16, fontWeight:'bold'},
+                        text:'' + json[i].titulo,
+                        left:240, top: 6,
+                        width:360, height: 30
+                      });
+                      row.add(labelUserName);//row.add se utiliza para agregar a la fila el labelUserName
                         
                         /*
                          * Debido a que json[i].costo es un float y se requiere que en caso
@@ -1055,7 +1055,7 @@ var IMG_BASE = servidor+'wanagow/img/';
               /*Utilizando la peticion HTTPClient se abre por medio de un metodo POST
                * el archivo PHP
               */
-              sendit.open('POST', servidor+'wanagow/segundaversion/cargareventos.php');  
+              sendit.open('POST', servidor+'servidor/cargareventos.php');  
               //El archivo PHP solicita preferencias y son enviadas por medio del metodo send con el
               //JSON preferencias antes visto
               sendit.send(preferencias);
@@ -1069,7 +1069,7 @@ var IMG_BASE = servidor+'wanagow/img/';
                      if(json.length == 0){ 
                             $.tableView.headerTitle = "No hay eventos disponibles"; 
                      }else{
-                     	$.tableView.headerTitle = ""; 
+                      $.tableView.headerTitle = ""; 
                      }                      
                      //Llamamos el arreglo declarado arriba para vaciar la informacion contenida 
                      dataArray = [];                      
@@ -1078,29 +1078,29 @@ var IMG_BASE = servidor+'wanagow/img/';
                       
                         //Para comenzar se crea una fila y se le dan estilos
                         var row = Ti.UI.createTableViewRow({              
-			                selectedBackgroundColor:'white',
-			                id:json[i].idEvento,
-			                //rowIndex:i, //se refiere al indice de la fila
-			             	 height:110
-             			});
-             			 
-			              /*
-			               * utilizando la variable row se le crean nuevas propiedades y se le asigna 
-			               * un valor que es obtenido por el objeto json
-			               */
-			              row.titulo = json[i].titulo; 
-			              row.imagen = json[i].imagen;
-			              row.detalles = json[i].descripcion;
-			              row.fecha =json[i].fecha;
-			              row.hora = json[i].hora;
-			              row.costo = json[i].costo;
-			              row.lugar = json[i].lugar;
-			              row.idEvento = json[i].idEvento;
-			              
-			              /*Se crea una imagen, para obtener la imagen se utiliza
-			               * la url que se tenia IMG_BASE y se le asigna el nombre y extencion
-			               * colocada en la base de datos
-			              */
+                      selectedBackgroundColor:'white',
+                      id:json[i].idEvento,
+                      //rowIndex:i, //se refiere al indice de la fila
+                     height:110
+                  });
+                   
+                    /*
+                     * utilizando la variable row se le crean nuevas propiedades y se le asigna 
+                     * un valor que es obtenido por el objeto json
+                     */
+                    row.titulo = json[i].titulo; 
+                    row.imagen = json[i].imagen;
+                    row.detalles = json[i].descripcion;
+                    row.fecha =json[i].fecha;
+                    row.hora = json[i].hora;
+                    row.costo = json[i].costo;
+                    row.lugar = json[i].lugar;
+                    row.idEvento = json[i].idEvento;
+                    
+                    /*Se crea una imagen, para obtener la imagen se utiliza
+                     * la url que se tenia IMG_BASE y se le asigna el nombre y extencion
+                     * colocada en la base de datos
+                    */
                 var imageAvatar = Ti.UI.createImageView({
                 image:IMG_BASE + json[i].imagen,
                 left:20, top:2,
@@ -1125,23 +1125,23 @@ var IMG_BASE = servidor+'wanagow/img/';
                          */
                         
                         var labelDetails = Ti.UI.createLabel({
-			                  color:'#222',
-			                  font:{fontFamily:'Arial', fontSize:14, fontWeight:'normal'},
-			                  text:'' + json[i].fecha+'               '+json[i].costo,
-			                  left:240, top:44,
-			                  width:"100%"
-                  		  });
-                  		  
+                        color:'#222',
+                        font:{fontFamily:'Arial', fontSize:14, fontWeight:'normal'},
+                        text:'' + json[i].fecha+'               '+json[i].costo,
+                        left:240, top:44,
+                        width:"100%"
+                        });
+                        
                         if(json[i].costo!=0)
                         {
-                  		  row.add(labelDetails);
-                		}else{
-                		  labelDetails.text ='' + json[i].fecha+'               '+'Gratuito';
-		                  row.add(labelDetails);
-                		}
+                        row.add(labelDetails);
+                    }else{
+                      labelDetails.text ='' + json[i].fecha+'               '+'Gratuito';
+                      row.add(labelDetails);
+                    }
                 
                 
-						 
+             
                 /*
                  * Debido a que el archivo php filtra de acuerdo a las preferencias, que 
                  * se enviaron de acuerdo al usuario que entra
@@ -1151,7 +1151,7 @@ var IMG_BASE = servidor+'wanagow/img/';
                  * Cultural | Turistico - verde
                  * Entretenimiento - naranja
                  */
-                	var view = Titanium.UI.createView({
+                  var view = Titanium.UI.createView({
                        borderRadius:10,
                        width:10,
                        height:150,
@@ -1159,50 +1159,50 @@ var IMG_BASE = servidor+'wanagow/img/';
                     });
                 
                 
-	                if (json[i].tipo=="Academica" || json[i].tipo =="Area de Estudio") {
-	                	view.backgroundColor ='yellow';
-	                  	row.add(view);
-	              	};
+                  if (json[i].tipo=="Academica" || json[i].tipo =="Area de Estudio") {
+                    view.backgroundColor ='yellow';
+                      row.add(view);
+                  };
 
-	              	if (json[i].tipo=="Cultural" || json[i].tipo =="Teatro" || json[i].tipo =="Exposicion"
-	                	|| json[i].tipo =="Musica" || json[i].tipo =="Turistico") {
-	                	
-	                	view.backgroundColor ='green';
-	                  	row.add(view);
-	              	};
+                  if (json[i].tipo=="Cultural" || json[i].tipo =="Teatro" || json[i].tipo =="Exposicion"
+                    || json[i].tipo =="Musica" || json[i].tipo =="Turistico") {
+                    
+                    view.backgroundColor ='green';
+                      row.add(view);
+                  };
               
-              		if (json[i].tipo=="Entretenimiento" || json[i].tipo =="Conciertos" 
-                		|| json[i].tipo =="Deportes" || json[i].tipo =="Bares Antros") {
-                		
-                		view.backgroundColor ='green';
-                  		row.add(view);
-              		};
+                  if (json[i].tipo=="Entretenimiento" || json[i].tipo =="Conciertos" 
+                    || json[i].tipo =="Deportes" || json[i].tipo =="Bares Antros") {
+                    
+                    view.backgroundColor ='green';
+                      row.add(view);
+                  };
                 
-	                var labelDate = Ti.UI.createLabel({
-		                color:'#999',
-		                font:{fontFamily:'Arial', fontSize:12, fontWeight:'normal'},
-		                text:''+json[i].lugar ,
-		                left:240, bottom:10,
-		                width:"100%", height:20
-	                });
-	                row.add(labelDate);
-	                
-	                if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'android')
-						   {
-						   		row.height 				= '20%';
-						   		imageAvatar.height 		= '100%';
-						   		imageAvatar.width 		= '38%';
-						   		imageAvatar.left		= '5%';
-						   		labelUserName.font 		= {fontFamily:'Arial', fontSize:'12%', fontWeight:'bold'};
-						   		labelUserName.left 		= '45%';
-						   		labelDetails.font 		= {fontFamily:'Arial', fontSize:'10%',}; //fontStyle:'italic'};
-						   		labelDetails.left		= '45%';
-						   		labelDetails.top		= '50%';
-						   		labelDate.left			= '45%';
-						   		labelDate.width			= '40%';
-						   		labelDate.bottom		= '0%';
-						 };
-						 
+                  var labelDate = Ti.UI.createLabel({
+                    color:'#999',
+                    font:{fontFamily:'Arial', fontSize:12, fontWeight:'normal'},
+                    text:''+json[i].lugar ,
+                    left:240, bottom:10,
+                    width:"100%", height:20
+                  });
+                  row.add(labelDate);
+                  
+                  if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'android')
+               {
+                  row.height        = '20%';
+                  imageAvatar.height    = '100%';
+                  imageAvatar.width     = '38%';
+                  imageAvatar.left    = '5%';
+                  labelUserName.font    = {fontFamily:'Arial', fontSize:'12%', fontWeight:'bold'};
+                  labelUserName.left    = '45%';
+                  labelDetails.font     = {fontFamily:'Arial', fontSize:'10%',}; //fontStyle:'italic'};
+                  labelDetails.left   = '45%';
+                  labelDetails.top    = '50%';
+                  labelDate.left      = '45%';
+                  labelDate.width     = '40%';
+                  labelDate.bottom    = '0%';
+             };
+             
             /*
              * Cada vez que llega a este punto se agrega la fila al arreglo
              * hasta que se termine de recorrer
@@ -1248,23 +1248,23 @@ var IMG_BASE = servidor+'wanagow/img/';
           
           
           var compartir = Ti.UI.createButton({
-    			systemButton:Ti.UI.iPhone.SystemButton.ADD
-		  });
-			
-		  win.setRightNavButton(compartir);
+          systemButton:Ti.UI.iPhone.SystemButton.ADD
+      });
+      
+      win.setRightNavButton(compartir);
 
           var tituloFacebook = e.rowData.titulo;
           var descripcionFacebook = e.rowData.detalles;
           var lugarFacebook = e.rowData.lugar;
           var msmTwiter =
-		  {
-		  		titulo:e.rowData.titulo,
-		  		lugar: e.rowData.lugar,
-		  		fecha: e.rowData.fecha,
-		  		hora:  e.rowData.hora
-		  };	
-			
-			
+      {
+          titulo:e.rowData.titulo,
+          lugar: e.rowData.lugar,
+          fecha: e.rowData.fecha,
+          hora:  e.rowData.hora
+      };  
+      
+      
           
           win.backgroundColor="white";
           
@@ -1273,10 +1273,10 @@ var IMG_BASE = servidor+'wanagow/img/';
                 left:35, top:25, right:35,
                 width:700, height:250
           });
-		
-			
-			
-						 
+    
+      
+      
+             
           var Titulo = Titanium.UI.createLabel({
             text:e.row.titulo,
             width:"auto",height:"auto",
@@ -1312,7 +1312,7 @@ var IMG_BASE = servidor+'wanagow/img/';
             
           if(e.row.costo==0)
           {
-          	Costo.text = "Costo: "+"Gratuito";
+            Costo.text = "Costo: "+"Gratuito";
           }else{
             
              Costo.text ="Costo: "+"$ "+e.row.costo;
@@ -1327,7 +1327,7 @@ var IMG_BASE = servidor+'wanagow/img/';
           
           
           
-			
+      
           
           var buttonRuta = Titanium.UI.createButton({
               title: 'Ruta hasta aqui',
@@ -1353,59 +1353,59 @@ var IMG_BASE = servidor+'wanagow/img/';
           });
           
           buttonRuta.addEventListener('click',function(){
-          		alert('Lamentamos los inconvenientes esta funcion no esta disponible aun');
+              alert('Lamentamos los inconvenientes esta funcion no esta disponible aun');
           });
           
           buttonOrganizador.addEventListener('click',function(){
-          		alert('Lamentamos los inconvenientes esta funcion no esta disponible aun');
+              alert('Lamentamos los inconvenientes esta funcion no esta disponible aun');
           });
           buttonAgregarEvento.addEventListener('click',function(){
-          		alert('Lamentamos los inconvenientes esta funcion no esta disponible aun');
+              alert('Lamentamos los inconvenientes esta funcion no esta disponible aun');
           });
           
           
           if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'android')
-			{
-				var letranormal 					= {fontFamily:'Arial', fontSize:'10%',};
-				imageAvatar.width					= '80%';
-				imageAvatar.height					= '30%';
-				imageAvatar.left					= '10%';
-				Titulo.top							= '38%';
-				Titulo.font 						= {fontFamily:'Arial', fontSize:'12%',};
-				Descripcion.width					= '80%';
-				Descripcion.backgroundColor 		= 'transparent';
-				Descripcion.height					= '40%';
-				Descripcion.font 					= {fontFamily:'Arial', fontSize:'10%',};
-				Descripcion.top						= '32%'; 
-				Fecha.top							= '66%';
-				Hora.top							= '70%';
-				Fecha.font 							= letranormal;
-				Hora.font 							= letranormal;
-				Costo.top							= '74%';
-				Lugar.top							= '78%';
-				Costo.font 							= letranormal;
-				Lugar.font 							= letranormal;
-				
-				buttonRuta.top						= '82%';
-				buttonRuta.left						= '10%';
-				buttonRuta.font 					= letranormal;
-				buttonRuta.width					= '30%';
-				buttonRuta.height					= '8%';
-				buttonRuta.borderRadius				= '25%';
-				
-				buttonOrganizador.top				= '82%';
-				buttonOrganizador.right				= '5%';
-				buttonOrganizador.font 				= letranormal;
-				buttonOrganizador.width				= '30%';
-				buttonOrganizador.height			= '8%';
-				buttonOrganizador.borderRadius		= '25%';
-				
-				buttonAgregarEvento.top				= '91%';
-				buttonAgregarEvento.font 			= letranormal;
-				buttonAgregarEvento.width			= '70%';
-				buttonAgregarEvento.height			= '8%';
-				buttonAgregarEvento.borderRadius	= '25%';
-			};
+      {
+        var letranormal           = {fontFamily:'Arial', fontSize:'10%',};
+        imageAvatar.width         = '80%';
+        imageAvatar.height          = '30%';
+        imageAvatar.left          = '10%';
+        Titulo.top              = '38%';
+        Titulo.font             = {fontFamily:'Arial', fontSize:'12%',};
+        Descripcion.width         = '80%';
+        Descripcion.backgroundColor     = 'transparent';
+        Descripcion.height          = '40%';
+        Descripcion.font          = {fontFamily:'Arial', fontSize:'10%',};
+        Descripcion.top           = '32%'; 
+        Fecha.top             = '66%';
+        Hora.top              = '70%';
+        Fecha.font              = letranormal;
+        Hora.font               = letranormal;
+        Costo.top             = '74%';
+        Lugar.top             = '78%';
+        Costo.font              = letranormal;
+        Lugar.font              = letranormal;
+        
+        buttonRuta.top            = '82%';
+        buttonRuta.left           = '10%';
+        buttonRuta.font           = letranormal;
+        buttonRuta.width          = '30%';
+        buttonRuta.height         = '8%';
+        buttonRuta.borderRadius       = '25%';
+        
+        buttonOrganizador.top       = '82%';
+        buttonOrganizador.right       = '5%';
+        buttonOrganizador.font        = letranormal;
+        buttonOrganizador.width       = '30%';
+        buttonOrganizador.height      = '8%';
+        buttonOrganizador.borderRadius    = '25%';
+        
+        buttonAgregarEvento.top       = '91%';
+        buttonAgregarEvento.font      = letranormal;
+        buttonAgregarEvento.width     = '70%';
+        buttonAgregarEvento.height      = '8%';
+        buttonAgregarEvento.borderRadius  = '25%';
+      };
           
           
           
@@ -1430,7 +1430,7 @@ var IMG_BASE = servidor+'wanagow/img/';
                    }, 
                 timeout:3000, 
             });                      
-            enviar.open('POST', servidor+'wanagow/segundaversion/agregareventos.php'); 
+            enviar.open('POST', servidor+'servidor/agregareventos.php'); 
             enviar.send(Datos);
             enviar.onload = function(){
               var json = this.responseText;
@@ -1446,7 +1446,7 @@ var IMG_BASE = servidor+'wanagow/img/';
           });
           
           compartir.addEventListener('click', function(e) {
-          	
+            
             var botonCancelar = Ti.UI.createButton({
                   backgroundColor:"#FFCC00",borderRadius:10,
                   left:70,top:180,width: 120,
@@ -1498,41 +1498,41 @@ var IMG_BASE = servidor+'wanagow/img/';
                 width:"60px",height:"60px",image:"img/face.png",top:10,
                 left:25,borderRadius:10
             });
-          	
-          	FacebookShare.addEventListener('click',function(datos){
-          		
-          		
-          		Titanium.Facebook.appid = "1423658011243570";
-      			Titanium.Facebook.permissions = ['publish_stream', 'read_stream','user_birthday'];
+            
+            FacebookShare.addEventListener('click',function(datos){
+              
+              
+              Titanium.Facebook.appid = "1423658011243570";
+            Titanium.Facebook.permissions = ['publish_stream', 'read_stream','user_birthday'];
 
-			          
-			          var data = {
-			              link : "http://www.wanagow.com",
-			              name : tituloFacebook,
-			              message : "Checkout this cool open source project for creating mobile apps",
-			              caption : "Lugar del evento: "+lugarFacebook,//"Appcelerator Titanium Mobile",
-			              picture : "http://www.smartthinking.com.mx/imgs/apps/wanagow.png",
-			              description: descripcionFacebook
-			          };
-			          alert(datos);
-			          
-			          Titanium.Facebook.dialog("feed", data, function(e) {
-			            if(e.success && e.result) {
-			            	alert("Mensaje Publicado");
-			               // alert("Mensaje publicado: "); //+ e.result);
-			            } else {
-			                if(e.error) {
-			                    alert(e.error);
-			                } else {
-			                    alert("Mensaje Cancelado.");
-			                }
-			            }
-			        });
-			      
+                
+                var data = {
+                    link : "http://www.wanagow.com",
+                    name : tituloFacebook,
+                    message : "Checkout this cool open source project for creating mobile apps",
+                    caption : "Lugar del evento: "+lugarFacebook,//"Appcelerator Titanium Mobile",
+                    picture : "http://www.smartthinking.com.mx/imgs/apps/wanagow.png",
+                    description: descripcionFacebook
+                };
+                alert(datos);
+                
+                Titanium.Facebook.dialog("feed", data, function(e) {
+                  if(e.success && e.result) {
+                    alert("Mensaje Publicado");
+                     // alert("Mensaje publicado: "); //+ e.result);
+                  } else {
+                      if(e.error) {
+                          alert(e.error);
+                      } else {
+                          alert("Mensaje Cancelado.");
+                      }
+                  }
+              });
+            
       
-          	});
-          	
-          	
+            });
+            
+            
             var TwitterShare = Ti.UI.createImageView({width:"60px",height:"60px",
                 image:"img/twitter.png",top:100,left:20,borderRadius:10
             });  
@@ -1540,45 +1540,45 @@ var IMG_BASE = servidor+'wanagow/img/';
             
             var social = require('alloy/social');
 
-			var twitter = social.create({
-				consumerSecret : "lX06QtzF6PomEv4aAeJO7ZuqmulWU4kD392BJK6oUBymg80ksY",
-				consumerKey : "9v54NMGBXJoYMSs6Mf62Mhb3g"
-			});
-			
-			
-			
-			TwitterShare.addEventListener('click', function() {
-				twitter.isAuthorized();
-				
-				twitter.share({
-					message : ValidarMensajeTwitter(msmTwiter.titulo,msmTwiter.lugar,
-													msmTwiter.fecha,msmTwiter.hora),
-					image : (Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, 
-													"img/twitter.png")).read(),
-					success : function() {
-						alert('Mensaje Publicado Exitosamente!');
-					},
-					error : function() {
-						alert('A ocurrido un error al publicar');
-					}
-				});
-				
-				twitter.deauthorize();
-			});
-			
-			/*
-				
-				  var tamaño =ValidarMensajeTwitter(e.rowData.titulo,
-         	      e.rowData.lugar,e.rowData.fecha+e.rowData.lugar+e.rowData.lugar+e.rowData.lugar,
-         	      e.rowData.hora+e.rowData.fecha);
-         		  alert(tamaño.length +" "+tamaño);
+      var twitter = social.create({
+        consumerSecret : "lX06QtzF6PomEv4aAeJO7ZuqmulWU4kD392BJK6oUBymg80ksY",
+        consumerKey : "9v54NMGBXJoYMSs6Mf62Mhb3g"
+      });
+      
+      
+      
+      TwitterShare.addEventListener('click', function() {
+        twitter.isAuthorized();
+        
+        twitter.share({
+          message : ValidarMensajeTwitter(msmTwiter.titulo,msmTwiter.lugar,
+                          msmTwiter.fecha,msmTwiter.hora),
+          image : (Ti.Filesystem.getFile(Ti.Filesystem.resourcesDirectory, 
+                          "img/twitter.png")).read(),
+          success : function() {
+            alert('Mensaje Publicado Exitosamente!');
+          },
+          error : function() {
+            alert('A ocurrido un error al publicar');
+          }
+        });
+        
+        twitter.deauthorize();
+      });
+      
+      /*
+        
+          var tamaño =ValidarMensajeTwitter(e.rowData.titulo,
+                e.rowData.lugar,e.rowData.fecha+e.rowData.lugar+e.rowData.lugar+e.rowData.lugar,
+                e.rowData.hora+e.rowData.fecha);
+              alert(tamaño.length +" "+tamaño);
                   twitter.authorize(function() {
-					alert('Authorized!');
-				  });
-			      twitter.deauthorize();
+          alert('Authorized!');
+          });
+            twitter.deauthorize();
             
             */
-      	
+        
             var CorreoShare = Ti.UI.createImageView({
                 width:"60px",height:"60px",
                 image:"img/mail.png",top:10,
@@ -1601,11 +1601,11 @@ var IMG_BASE = servidor+'wanagow/img/';
                
             });
             
-            if(Ti.Platform.osname == 'iphone')
-			{
-				ventanaTransparente.width 	= '80%';
-				ventanaTransparente.top 	= '35%';
-			};
+            if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'android')
+      {
+        ventanaTransparente.width   = '80%';
+        ventanaTransparente.top   = '35%';
+      };
 
             
             
@@ -1645,19 +1645,19 @@ var IMG_BASE = servidor+'wanagow/img/';
       
       
 function ValidarMensajeTwitter (titulo,lugar,fecha,hora) {
-	 var mensajeByTwitter ="Hay un evento de "+titulo+" en "
-          		+lugar+" el dia "+fecha+" a las "+hora;
+   var mensajeByTwitter ="Hay un evento de "+titulo+" en "
+              +lugar+" el dia "+fecha+" a las "+hora;
      
      if (mensajeByTwitter.length>=150) {
-     	mensajeByTwitter ="Hay un evento de "+titulo+" en "
-          		+lugar;
-     }else{	
-     	mensajeByTwitter ="Hay un evento de "+titulo+" en "
-          		+lugar+" el dia "+fecha+" a las "+hora;
-     	
+      mensajeByTwitter ="Hay un evento de "+titulo+" en "
+              +lugar;
+     }else{ 
+      mensajeByTwitter ="Hay un evento de "+titulo+" en "
+              +lugar+" el dia "+fecha+" a las "+hora;
+      
      }
      
-	return mensajeByTwitter;
+  return mensajeByTwitter;
 }
 
 
@@ -1711,10 +1711,10 @@ var botonFiltrar = Ti.UI.createButton({
         width: 120,height: 25,title: "Filtrar",
 });
 
-if(Ti.Platform.osname == 'iphone')
+if(Ti.Platform.osname == 'iphone' ||  Ti.Platform.osname == 'android')
 {
-	botonFiltrar.height = '10%';
-	botonFiltrar.width  = '32%';
+  botonFiltrar.height = '10%';
+  botonFiltrar.width  = '32%';
 };
 
 
@@ -1735,7 +1735,7 @@ botonFiltrar.addEventListener('click',function(){
     email:       correoElectronico     
   };
   //alert(filtroEventos);
-  conexion.open('POST', servidor+'wanagow/segundaversion/filtros_eventos.php');  
+  conexion.open('POST', servidor+'servidor/filtros_eventos.php');  
               //El archivo PHP solicita preferencias y son enviadas por medio del metodo send con el
               //JSON preferencias antes visto
               conexion.send(filtroEventos);
@@ -1753,11 +1753,11 @@ botonFiltrar.addEventListener('click',function(){
                      for( var i=0; i<json.length; i++){ 
                         //Para comenzar se crea una fila y se le dan estilos
                         var row = Ti.UI.createTableViewRow({              
-			                selectedBackgroundColor:'white',
-			                id:json[i].idEvento,
-			                //rowIndex:i, //se refiere al indice de la fila
-			              height:110
-             			});
+                      selectedBackgroundColor:'white',
+                      id:json[i].idEvento,
+                      //rowIndex:i, //se refiere al indice de la fila
+                    height:110
+                  });
               /*
                * utilizando la variable row se le crean nuevas propiedades y se le asigna 
                * un valor que es obtenido por el objeto json
@@ -1780,12 +1780,12 @@ botonFiltrar.addEventListener('click',function(){
               });
               row.add(imageAvatar); //row.add se utiliza para agregar a la fila la imagen
               
-              	var labelUserName = Ti.UI.createLabel({
-	                color:'black',
-	                font:{fontFamily:'Arial', fontSize:16, fontWeight:'bold'},
-	                text:'' + json[i].titulo,
-	                left:240, top: 6,
-	                width:360, height: 30
+                var labelUserName = Ti.UI.createLabel({
+                  color:'black',
+                  font:{fontFamily:'Arial', fontSize:16, fontWeight:'bold'},
+                  text:'' + json[i].titulo,
+                  left:240, top: 6,
+                  width:360, height: 30
                 });
                 row.add(labelUserName);//row.add se utiliza para agregar a la fila el labelUserName
                         
@@ -1795,16 +1795,16 @@ botonFiltrar.addEventListener('click',function(){
                          * del costo del evento
                          */
                 var labelDetails = Ti.UI.createLabel({
-	                  color:'#222',
-	                  font:{fontFamily:'Arial', fontSize:14, fontWeight:'normal'},
-	                  left:240, top:44,
-	                  width:"100%"
-          		});
-          		  
+                    color:'#222',
+                    font:{fontFamily:'Arial', fontSize:14, fontWeight:'normal'},
+                    left:240, top:44,
+                    width:"100%"
+              });
+                
                 if(json[i].costo!=0)
                 {
                   labelDetails.text = '' + json[i].fecha+'               '+json[i].costo;
-          		  row.add(labelDetails);
+                row.add(labelDetails);
                 }else{
                   labelDetails.text = '' + json[i].fecha+'               '+'Gratuito';
                   row.add(labelDetails);
@@ -1827,28 +1827,28 @@ botonFiltrar.addEventListener('click',function(){
                  });
                     
                 if (json[i].tipo=="Academica" || json[i].tipo =="Area de Estudio") {
-               		view.backgroundColor = 'yellow';
-                  	row.add(view);
-              	};
+                  view.backgroundColor = 'yellow';
+                    row.add(view);
+                };
 
               if (json[i].tipo=="Cultural" || json[i].tipo =="Teatro" || json[i].tipo =="Exposicion"
                 || json[i].tipo =="Musica" || json[i].tipo =="Turistico") {
-                	view.backgroundColor = 'green';
-                  	row.add(view);
+                  view.backgroundColor = 'green';
+                    row.add(view);
               };
               
               if (json[i].tipo=="Entretenimiento" || json[i].tipo =="Conciertos" 
                 || json[i].tipo =="Deportes" || json[i].tipo =="Bares Antros") {
-                	view.backgroundColor = 'orange';
-                	row.add(view);
+                  view.backgroundColor = 'orange';
+                  row.add(view);
               };
                 
                 var labelDate = Ti.UI.createLabel({
-	                color:'#999',
-	                font:{fontFamily:'Arial', fontSize:12, fontWeight:'normal'},
-	                text:''+json[i].lugar ,
-	                left:240, bottom:10,
-	                width:"100%", height:20
+                  color:'#999',
+                  font:{fontFamily:'Arial', fontSize:12, fontWeight:'normal'},
+                  text:''+json[i].lugar ,
+                  left:240, bottom:10,
+                  width:"100%", height:20
                 });
                 row.add(labelDate);
             /*
@@ -1857,21 +1857,21 @@ botonFiltrar.addEventListener('click',function(){
              */
             
             if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'android')
-			 {
-			   		row.height 				= '20%';
-			   		imageAvatar.height 		= '100%';
-			   		imageAvatar.width 		= '38%';
-			   		imageAvatar.left		= '5%';
-			   		labelUserName.font 		= {fontFamily:'Arial', fontSize:'12%', fontWeight:'bold'};
-			   		labelUserName.left 		= '45%';
-			   		labelDetails.font 		= {fontFamily:'Arial', fontSize:'10%',}; //fontStyle:'italic'};
-			   		labelDetails.left		= '45%';
-			   		labelDetails.top		= '50%';
-			   		labelDate.left			= '45%';
-			   		labelDate.width			= '40%';
-			   		labelDate.bottom		= '0%';
-			 };
-						 
+       {
+            row.height        = '20%';
+            imageAvatar.height    = '100%';
+            imageAvatar.width     = '38%';
+            imageAvatar.left    = '5%';
+            labelUserName.font    = {fontFamily:'Arial', fontSize:'12%', fontWeight:'bold'};
+            labelUserName.left    = '45%';
+            labelDetails.font     = {fontFamily:'Arial', fontSize:'10%',}; //fontStyle:'italic'};
+            labelDetails.left   = '45%';
+            labelDetails.top    = '50%';
+            labelDate.left      = '45%';
+            labelDate.width     = '40%';
+            labelDate.bottom    = '0%';
+       };
+             
             dataArray.push(row);
                                       
                      };
@@ -1956,20 +1956,20 @@ var entre = Ti.UI.createLabel({left:15,top: 110,width: "auto",height:  "auto",
 
 if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'android')
 {
-	var letranormal 					= {fontFamily:'Arial', fontSize:'7%',};
-	var alineacionLabel					= '30%';
-	botonFiltrar.top					= '80%';
-	ventanaTransparente.height 			= '40%';
-	ventanaTransparente.width  			= '70%';
-	switchAcademica.width     			= '10%';
-	switchCultural.width				= '10%';
-	switchEntretenimiento.width 		= '10%';
-	acade.font							= letranormal;	
-	cul.font							= letranormal;	
-	entre.font							= letranormal;
-	acade.font							= alineacionLabel;	
-	cul.font							= alineacionLabel;	
-	entre.font							= alineacionLabel;
+  var letranormal           = {fontFamily:'Arial', fontSize:'7%',};
+  var alineacionLabel         = '30%';
+  botonFiltrar.top          = '80%';
+  ventanaTransparente.height      = '40%';
+  ventanaTransparente.width       = '70%';
+  switchAcademica.width           = '10%';
+  switchCultural.width        = '10%';
+  switchEntretenimiento.width     = '10%';
+  acade.font              = letranormal;  
+  cul.font              = letranormal;  
+  entre.font              = letranormal;
+  acade.font              = alineacionLabel;  
+  cul.font              = alineacionLabel;  
+  entre.font              = alineacionLabel;
 };
 
 
@@ -2026,24 +2026,24 @@ function header()
   });
   
   if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'android')
-	{
-		var letranormal 					= {fontFamily:'Arial', fontSize:'10%',};
-		var alineacionLabel					= '30%';
-		
-		datosPersonales.left				= '10%';
-		datosPersonales.width				= '35%';
-		datosPersonales.font				= letranormal;
-		datosPersonales.height				= '7%';
-		datosPersonales.top					= '5%';
-		
-		preferencia.left					= '55%';
-		preferencia.width					= '35%';
-		preferencia.font					= letranormal;
-		preferencia.height					= '7%';
-		preferencia.top						= '5%';
-		
-				
-	};
+  {
+    var letranormal           = {fontFamily:'Arial', fontSize:'10%',};
+    var alineacionLabel         = '30%';
+    
+    datosPersonales.left        = '10%';
+    datosPersonales.width       = '35%';
+    datosPersonales.font        = letranormal;
+    datosPersonales.height        = '7%';
+    datosPersonales.top         = '5%';
+    
+    preferencia.left          = '55%';
+    preferencia.width         = '35%';
+    preferencia.font          = letranormal;
+    preferencia.height          = '7%';
+    preferencia.top           = '5%';
+    
+        
+  };
   
   $.win4.add(cabecera);
   $.win4.add(datosPersonales);
@@ -2108,7 +2108,7 @@ function DatosCuenta()
   $.win4.add(password);
   
   
-	
+  
   var confirmacion = Ti.UI.createTextField({
     width:300,
     right:50,
@@ -2125,7 +2125,7 @@ function DatosCuenta()
   $.win4.add(confirmacion);
   
    
-	
+  
   var label2 = Ti.UI.createLabel({
     height:Ti.UI.SIZE,
     width:Ti.UI.SIZE,
@@ -2136,7 +2136,7 @@ function DatosCuenta()
   
   
   
-	
+  
   var nombre = Ti.UI.createTextField({
     width:300,
     right:50,
@@ -2179,77 +2179,81 @@ function DatosCuenta()
   
     
   var cancel = Titanium.UI.createButton({
-	    title 			: 'Cerrar',
-	    top				: 2,
-	    left			: 30,
-	    height 			: 30,
-	    width 			: 100,
-	});
-	
-	var done = Titanium.UI.createButton({
-	    title 			: 'Aceptar',
-	    right			: 30,
-	    top				: 2,
-	    height 			: 40,
-	    width 			: 42,
-	});
-	
-	var picker_view = Titanium.UI.createView({
-		backgroundColor	: '#E3C109',
-	    top 			: '80%',
-	    height 			: 400,
-	    width 			: 420,
-	    
-	});
-	
-	
-	var picker = Ti.UI.createPicker({
-		top 				: 43,
-        value 				: new Date(),
-        type 				: Ti.UI.PICKER_TYPE_DATE,
-        minDate 			: new Date(1980,11,31),
-        maxDate 			: new Date(2016,11,31),
+      title       : 'Cerrar',
+      top       : 2,
+      left      : 30,
+      height      : 30,
+      width       : 100,
+  });
+  
+  var done = Titanium.UI.createButton({
+      title       : 'Aceptar',
+      right     : 30,
+      top       : 2,
+      height      : 40,
+      width       : '20%',
+  });
+  
+  var picker_view = Titanium.UI.createView({
+    backgroundColor : '#E3C109',
+      top       : '50%',
+      height      : 400,
+      width       : 420,
+      
+  });
+  
+  
+  var picker = Ti.UI.createPicker({
+    top         : 43,
+        value         : new Date(),
+        type        : Ti.UI.PICKER_TYPE_DATE,
+        minDate       : new Date(1980,11,31),
+        maxDate       : new Date(2016,11,31),
         selectionIndicator  : true
-	});
-	
-	
-	
-	fecha.addEventListener('click', function(){
-		/*picker.addEventListener('change',function(e){
-	  	Ti.API.info("User selected date: " + e.value.toLocaleString());
-	  	
-		});*/
-		
-		done.addEventListener('click',function(){
-			fecha.title = picker.value;
-			picker_view.animate({
-				duration:1000,
-				top:'120%',
-			});
-		
-			//alert(picker.value);		
-		
-		
-		});
-	
-		cancel.addEventListener('click',function(){
-			picker_view.animate({
-				duration:1000,
-				top:'120%',
-				
-			});
-		});
-	
-	
-	  
-	
-	picker_view.add(cancel);
-	picker_view.add(done);
-	picker_view.add(picker);
-	$.win4.add(picker_view);
-	
-	});
-	
+  });
+  
+  
+  
+  fecha.addEventListener('click', function(){
+    /*picker.addEventListener('change',function(e){
+      Ti.API.info("User selected date: " + e.value.toLocaleString());
+      
+    });*/
+    picker_view.animate({
+        duration:1000,
+        top:'50%',
+      });
+      
+    done.addEventListener('click',function(){
+      fecha.title = picker.value;
+      picker_view.animate({
+        duration:1000,
+        top:'-50%',
+      });
+    
+      //alert(picker.value);    
+    
+    
+    });
+  
+    cancel.addEventListener('click',function(){
+      picker_view.animate({
+	      duration:1000,
+	      top:'120%',
+      
+      });
+    });
+  
+  
+    
+  
+  picker_view.add(cancel);
+  picker_view.add(done);
+  picker_view.add(picker);
+  $.win4.add(picker_view);
+  
+  });
+  
   
   
   
@@ -2263,71 +2267,71 @@ function DatosCuenta()
   // Fin de boton Fecha
   $.win4.add(fecha);
   var label3 = Ti.UI.createLabel({
-	    width:100,
-	    right:100,
-	    left:260,
-	    height:50,
-	    top:650,
-	    text:"SEXO:"
+      width:100,
+      right:100,
+      left:260,
+      height:50,
+      top:650,
+      text:"SEXO:"
   });
   $.win4.add(label3);
   
 
-	
-	
-	
-	
+  
+  
+  
+  
     
   
   var mujer = Titanium.UI.createButton({
-      	width:100,
-    	right:100,
-    	left:340,
-    	backgroundColor:"#DCBC0D",
-    	height:50,
-    	top:650,
-    	font: {fontFamily: 'Helvetica Neue'},
-    	color:"white",
-    	title:"Mujer",
-    	opacity:0.4
+      width:100,
+      right:100,
+      left:340,
+      backgroundColor:"#DCBC0D",
+      height:50,
+      top:650,
+      font: {fontFamily: 'Helvetica Neue'},
+      color:"white",
+      title:"Mujer",
+      opacity:0.4
   });
   
 $.win4.add(mujer);
   
   var hombre = Titanium.UI.createButton({
-      	width:100,
-	    right:100,
-	    left:436,
-	    backgroundColor:"#C5B76A",
-	    height:50,
-	    top:650,
-	    font: {fontFamily: 'Helvetica Neue'},
-	    color:"white",
-	    title:"Hombre",
-	    opacity:1
+      width:100,
+      right:100,
+      left:436,
+      backgroundColor:"#DCBC0D",
+      height:50,
+      top:650,
+      font: {fontFamily: 'Helvetica Neue'},
+      color:"white",
+      title:"Hombre",
+      opacity:1
   });
 $.win4.add(hombre);
   
   
 mujer.addEventListener('click',function(){
-	mujer.opacity = 1;
-	hombre.opacity =0.4;
+  mujer.opacity = 1;
+  hombre.opacity =0.4;
 });
 
 hombre.addEventListener('click',function(){
-	hombre.opacity = 1;
-	mujer.opacity =0.4;
+  hombre.opacity = 1;
+  mujer.opacity =0.4;
 });
 
   if (datos.genero==1)
   {
-  	hombre.opacity=1;
+    hombre.opacity=1;
   }else{
-  	mujer.opacity=1;
+    mujer.opacity=1;
   }
   
   
-	
+  
   
   
   var guardar = Titanium.UI.createButton({
@@ -2346,76 +2350,76 @@ hombre.addEventListener('click',function(){
   
   
   if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'android')
-	{
-		var letranormal 					= {fontFamily:'Arial', fontSize:'10%',};
-		var alineacionLabel					= '15%';
-		
-		label1.font			= letranormal;
-		label1.top			= '18%';
-		label1.left			= alineacionLabel;
-		
-		email.left			= alineacionLabel;
-		email.width			= '70%';
-		email.top			= '22%';
-		email.height		= '7%';
-		
-		
-		password.left		= alineacionLabel;
-		password.width		= '70%';
-		password.top		= '30%';
-		password.height		= '7%';
-		
-		confirmacion.left	= alineacionLabel;
-		confirmacion.width	= '70%';
-		confirmacion.top	= '38%';
-		confirmacion.height	= '7%';
-		
-		label2.font			= letranormal;
-		label2.top			= '48%';
-		label2.left			= alineacionLabel;
-		
-		nombre.left			= alineacionLabel;
-		nombre.top			= '51%';
-		nombre.height		= '7%';
-		nombre.width		= '70%';	
-		
-		apellidos.left			= alineacionLabel;
-		apellidos.top			= '59%';
-		apellidos.height		= '7%';			
-		apellidos.width			= '70%';
-		
-		fecha.left			= alineacionLabel;
-		fecha.top			= '67%';
-		fecha.height		= '7%';			
-		fecha.width			= '70%';
-		
-		
-		cancel.top					= '2%';
-		done.top					= '1%';			
-		picker_view.left			= alineacionLabel;
-		picker_view.top				= '60%';
-		picker_view.width			= '80%';
-		
-		label3.left					= alineacionLabel;
-		label3.top					= '72%';
-		label3.font					= letranormal;
-		
-		mujer.left					= '25%';
-		mujer.top					= '75%';
-		mujer.height				= '7%';
-		mujer.width					= '30%';
-		
-		hombre.left					= '55%';
-		hombre.top					= '75%';
-		hombre.height				= '7%';
-		hombre.width				= '30%';
-		
-		guardar.left				= alineacionLabel;
-		guardar.top					= '85%';
-		guardar.width				= '70%';
-		guardar.height				= '7%';
-	};
-	
+  {
+    var letranormal           = {fontFamily:'Arial', fontSize:'10%',};
+    var alineacionLabel         = '15%';
+    
+    label1.font     = letranormal;
+    label1.top      = '18%';
+    label1.left     = alineacionLabel;
+    
+    email.left      = alineacionLabel;
+    email.width     = '70%';
+    email.top     = '22%';
+    email.height    = '7%';
+    
+    
+    password.left   = alineacionLabel;
+    password.width    = '70%';
+    password.top    = '30%';
+    password.height   = '7%';
+    
+    confirmacion.left = alineacionLabel;
+    confirmacion.width  = '70%';
+    confirmacion.top  = '38%';
+    confirmacion.height = '7%';
+    
+    label2.font     = letranormal;
+    label2.top      = '48%';
+    label2.left     = alineacionLabel;
+    
+    nombre.left     = alineacionLabel;
+    nombre.top      = '51%';
+    nombre.height   = '7%';
+    nombre.width    = '70%';  
+    
+    apellidos.left      = alineacionLabel;
+    apellidos.top     = '59%';
+    apellidos.height    = '7%';     
+    apellidos.width     = '70%';
+    
+    fecha.left      = alineacionLabel;
+    fecha.top     = '67%';
+    fecha.height    = '7%';     
+    fecha.width     = '70%';
+    
+    
+    cancel.top          = '2%';
+    done.top          = '1%';     
+    picker_view.left      = alineacionLabel;
+    picker_view.top       = '60%';
+    picker_view.width     = '80%';
+    
+    label3.left         = alineacionLabel;
+    label3.top          = '72%';
+    label3.font         = letranormal;
+    
+    mujer.left          = '25%';
+    mujer.top         = '75%';
+    mujer.height        = '7%';
+    mujer.width         = '30%';
+    
+    hombre.left         = '55%';
+    hombre.top          = '75%';
+    hombre.height       = '7%';
+    hombre.width        = '30%';
+    
+    guardar.left        = alineacionLabel;
+    guardar.top         = '85%';
+    guardar.width       = '70%';
+    guardar.height        = '7%';
+  };
+  
   
   
   guardar.addEventListener("click",function(){
@@ -2445,26 +2449,26 @@ hombre.addEventListener('click',function(){
             }
             else
             {
-              	sendit.open('POST', servidor+'wanagow/segundaversion/update_personal.php');
-               	var genero;
+                sendit.open('POST', servidor+'servidor/update_personal.php');
+                var genero;
                
-            	if(mujer.opacity==1)
-            	{
-            		genero=0;
-            	}else{
-            		genero=1;
-            	}
-            	
+              if(mujer.opacity==1)
+              {
+                genero=0;
+              }else{
+                genero=1;
+              }
+              
                 var params = {
-                  correo_actual	: email.value,
-                  password		: Ti.Utils.md5HexDigest(password.value),
-                  //password	: password.value,
-                  nombre		: nombre.value,
-                  apellidos		: apellidos.value,
-                  fecha			: picker.value,
-                  genero		:genero,
+                  correo_actual : email.value,
+                  password    : Ti.Utils.md5HexDigest(password.value),
+                  //password  : password.value,
+                  nombre    : nombre.value,
+                  apellidos   : apellidos.value,
+                  fecha     : picker.value,
+                  genero    :genero,
                 }; 
-                alert(params);
+                //alert(params);
                 sendit.send(params);
                 datos.fecha = picker.value;
                 alert("Informacion actualizada");
@@ -2528,7 +2532,7 @@ header();
         timeout:3000, 
     });
 
-    sendit.open('POST', servidor+'wanagow/segundaversion/update_preferences.php'); 
+    sendit.open('POST', servidor+'servidor/update_preferences.php'); 
     var params ={email:datos.email};
     sendit.send(params);
     
@@ -2537,53 +2541,53 @@ header();
         var json = json.nombre; 
         
         if(json.length == 0){ 
-           	$.tableView.headerTitle = "No hay informacion disponible"; 
+            $.tableView.headerTitle = "No hay informacion disponible"; 
         }else{
-        		$.tableView.headerTitle = ""; 
+            $.tableView.headerTitle = ""; 
         };                      
         dataArray  = [];
         dataArray2 = [];
         dataArray3 = [];
         
         var scrollView = Ti.UI.createScrollView({
-	         contentHeight: 'auto',
-	         showVerticalScrollIndicator: true,
-	         top:80,
-	         height:'90%',
-	         width: 600
+           contentHeight: 'auto',
+           showVerticalScrollIndicator: true,
+           top:80,
+           height:'90%',
+           width: 600
         });
                  
-      	var view = Ti.UI.createView({
-          	backgroundColor:'white',
-          	borderRadius: 10,
-          	top:100,
-          	height:3310,
-          	width: 500
-  	  	});
-  	  	
-      	var guardar = Ti.UI.createButton({
-	        title:"Guardar",
-	        width:"100%",
-	        backgroundColor:"#E3C109",
-	        height:50,
-	        top:3230,
-	        font: {fontFamily: 'Helvetica Neue'},
-	        color:"white",
-	        zIndex:1
-      	});
+        var view = Ti.UI.createView({
+            backgroundColor:'white',
+            borderRadius: 10,
+            top:100,
+            height:3310,
+            width: 500
+        });
+        
+        var guardar = Ti.UI.createButton({
+          title:"Guardar",
+          width:"100%",
+          backgroundColor:"#E3C109",
+          height:50,
+          top:3230,
+          font: {fontFamily: 'Helvetica Neue'},
+          color:"white",
+          zIndex:1
+        });
 
 
 
-        if(Ti.Platform.osname == 'iphone')
+        if(Ti.Platform.osname == 'iphone' ||  Ti.Platform.osname == 'android')
         {
           guardar.width = '50%';
-          guardar.top	= '2900';
-          view.height	= '2986';
-          view.top		= '0%';
+          guardar.top = '2900';
+          view.height = '2986';
+          view.top    = '0%';
               
         };
 
-     	  
+        
         view.add(guardar);
       
       
@@ -2596,7 +2600,7 @@ header();
                      }, 
                      timeout:3000, 
           });
-          enviar.open('POST', servidor+'wanagow/segundaversion/updatepreferencias.php');
+          enviar.open('POST', servidor+'servidor/updatepreferencias.php');
           var params = 
           {
             email                         : datos.email,
@@ -2728,12 +2732,12 @@ header();
           });
           
           var labelUserName = Ti.UI.createLabel({
-	          color:'black',
-	          font:{fontFamily:'Arial', fontSize:16, fontWeight:'bold'},
-	          text:'  ' + json[i].tipo,
-	          objName: 'nombre',
-	          left:0, top: 6,
-	          width:360, height: 30
+            color:'black',
+            font:{fontFamily:'Arial', fontSize:16, fontWeight:'bold'},
+            text:'  ' + json[i].tipo,
+            objName: 'nombre',
+            left:0, top: 6,
+            width:360, height: 30
           });
          
         
@@ -2749,19 +2753,19 @@ header();
           
            if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'android')
            {
-	          row.height ='10%';
-	          labelUserName.font  	= {fontFamily:'Arial', fontSize:'10%', fontWeight:'bold'};
-	          labelUserName.left  	= '20%';
-	          button.right			= '20%';
-	          button.width			= '6%';  
-          	  basicSwitch.right		= '20%';
-          	  basicSwitch.width		= '5%';
+            row.height ='10%';
+            labelUserName.font    = {fontFamily:'Arial', fontSize:'10%', fontWeight:'bold'};
+            labelUserName.left    = '20%';
+            button.right      = '20%';
+            button.width      = '6%';  
+              basicSwitch.right   = '20%';
+              basicSwitch.width   = '5%';
            };
 
           if(json[i].tipo=="Academico" && json[i].detalles=="")
           {
-          	row.add(basicSwitch);
-          	labelUserName.text = '  ' + json[i].tipo;
+            row.add(basicSwitch);
+            labelUserName.text = '  ' + json[i].tipo;
             row.add(labelUserName);
           }else{
             /*
@@ -2773,7 +2777,7 @@ header();
           
           
             if(button.value==true){
-              	button.backgroundColor    = '#159902';
+                button.backgroundColor    = '#159902';
                 button.value              = true;
                 button.backgroundImage    = "img/on.png";
             }else{
@@ -2829,46 +2833,46 @@ header();
             { 
                     
   
-		          var row = Ti.UI.createTableViewRow({              
-		              selectedBackgroundColor:'yellow',
-		              height:40
-		          });
-				  
-				  var basicSwitch = Ti.UI.createSwitch({
-	                  value:json[i].activo,
-	                  right:0
-              	  });
-	              
-	              var labelUserName = Ti.UI.createLabel({
-		            color:'black',
-		            font:{fontFamily:'Arial', fontSize:16, fontWeight:'bold'},
-		            text:'  ' + json[i].tipo,
-		            objName: 'nombre',
-		            left:0, top: 6,
-		            width:360, height: 30
-	              });
+              var row = Ti.UI.createTableViewRow({              
+                  selectedBackgroundColor:'yellow',
+                  height:40
+              });
+          
+          var basicSwitch = Ti.UI.createSwitch({
+                    value:json[i].activo,
+                    right:0
+                  });
+                
+                var labelUserName = Ti.UI.createLabel({
+                color:'black',
+                font:{fontFamily:'Arial', fontSize:16, fontWeight:'bold'},
+                text:'  ' + json[i].tipo,
+                objName: 'nombre',
+                left:0, top: 6,
+                width:360, height: 30
+                });
               
                   var button = Ti.UI.createButton({
-		              backgroundImage: 'img/off.png',
-		              backgroundSelectedImage:'img/on.png',
-		              value:json[i].activo,
-		              top: 3,
-		              width: 37,
-		              height: 35,
-		              right:0
-              	  });
-              	  
+                  backgroundImage: 'img/off.png',
+                  backgroundSelectedImage:'img/on.png',
+                  value:json[i].activo,
+                  top: 3,
+                  width: 37,
+                  height: 35,
+                  right:0
+                  });
+                  
            
-              	      
+                      
               if(json[i].tipo=="Cultural | Turistica" && json[i].detalles=="")
               {
-	                row.add(basicSwitch);
-	                row.add(labelUserName);
+                  row.add(basicSwitch);
+                  row.add(labelUserName);
               }else{
                   
-                	if(button.value==true)
-                	{
-                  	button.backgroundColor = '#159902';
+                  if(button.value==true)
+                  {
+                    button.backgroundColor = '#159902';
                     button.value = true;
                     button.backgroundImage ="img/on.png";
                   }else{
@@ -2926,18 +2930,18 @@ header();
                       };
               };
        
-       			if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'android')
-           		{
-		          row.height 			= '4%';
-		          labelUserName.font  	= {fontFamily:'Arial', fontSize:'10%', fontWeight:'bold'};
-		          labelUserName.left  	= '20%';
-		          button.right			= '20%';
-		          button.width			= '6%';  
-	          	  basicSwitch.right		= '20%';
-	          	  basicSwitch.width		= '5%';
-	          	  $.tableViewCultural.height = '1041';
-	          	  $.tableViewCultural.top 	 = '450';
-           		};
+            if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'android')
+              {
+              row.height      = '4%';
+              labelUserName.font    = {fontFamily:'Arial', fontSize:'10%', fontWeight:'bold'};
+              labelUserName.left    = '20%';
+              button.right      = '20%';
+              button.width      = '6%';  
+                basicSwitch.right   = '20%';
+                basicSwitch.width   = '5%';
+                $.tableViewCultural.height = '1041';
+                $.tableViewCultural.top    = '450';
+              };
           
               if (json[i].tipo=="Cultural" || json[i].tipo=="Cultural | Turistica" || json[i].tipo =="Teatro" || json[i].tipo =="Exposicion"
               || json[i].tipo =="Musica" || json[i].tipo =="Turistico") 
@@ -3057,21 +3061,21 @@ header();
               
               };
 
-			
-			  if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'android')
-           	  {
-		          row.height 			= '2.2%';
-		          labelUserName.font  	= {fontFamily:'Arial', fontSize:'10%', fontWeight:'bold'};
-		          labelUserName.left  	= '20%';
-		          button.right			= '20%';
-		          button.width			= '6%';  
-	          	  basicSwitch.right		= '20%';
-	          	  basicSwitch.width		= '5%';
-	          	  $.tableViewEntretenimiento.top = '1500';
-	          	  $.tableViewEntretenimiento.height = '1605';
-           	  };
-           		
-			
+      
+        if(Ti.Platform.osname == 'iphone' || Ti.Platform.osname == 'android')
+              {
+              row.height      = '2.2%';
+              labelUserName.font    = {fontFamily:'Arial', fontSize:'10%', fontWeight:'bold'};
+              labelUserName.left    = '20%';
+              button.right      = '20%';
+              button.width      = '6%';  
+                basicSwitch.right   = '20%';
+                basicSwitch.width   = '5%';
+                $.tableViewEntretenimiento.top = '1500';
+                $.tableViewEntretenimiento.height = '1605';
+              };
+              
+      
               if (json[i].tipo=="Entretenimiento" || json[i].tipo =="Conciertos" 
                 || json[i].tipo =="Deportes" || json[i].tipo =="Bares Antros") 
               {

@@ -1,3 +1,12 @@
+function __processArg(obj, key) {
+    var arg = null;
+    if (obj) {
+        arg = obj[key] || null;
+        delete obj[key];
+    }
+    return arg;
+}
+
 function Controller() {
     function diasemana(dia) {
         var days;
@@ -194,7 +203,7 @@ function Controller() {
                         },
                         timeout: 3e3
                     });
-                    enviar.open("POST", servidor + "wanagow/segundaversion/detallesEventoCalendario.php");
+                    enviar.open("POST", servidor + "servidor/detallesEventoCalendario.php");
                     enviar.send(idCliente);
                     enviar.onload = function() {
                         dataArray = [];
@@ -346,7 +355,7 @@ function Controller() {
             },
             timeout: 3e3
         });
-        enviar.open("POST", servidor + "wanagow/segundaversion/eventosguardados.php");
+        enviar.open("POST", servidor + "servidor/eventosguardados.php");
         enviar.send(idCliente);
         enviar.onload = function() {
             var json = JSON.parse(this.responseText);
@@ -573,7 +582,7 @@ function Controller() {
                 conferencias: args.conferencias,
                 expos: args.expos
             };
-            sendit.open("GET", servidor + "wanagow/segundaversion/preferencias_.php");
+            sendit.open("GET", servidor + "servidor/preferencias_.php");
             sendit.send(preferencias);
             sendit.onload = function() {
                 var json = JSON.parse(this.responseText);
@@ -706,7 +715,7 @@ function Controller() {
             var preferencias = {
                 email: correo.email
             };
-            sendit.open("POST", servidor + "wanagow/segundaversion/cargareventos.php");
+            sendit.open("POST", servidor + "servidor/cargareventos.php");
             sendit.send(preferencias);
             sendit.onload = function() {
                 var json = JSON.parse(this.responseText);
@@ -1003,21 +1012,21 @@ function Controller() {
             title: datos.fecha
         });
         var cancel = Titanium.UI.createButton({
-            title: "Close",
+            title: "Cerrar",
             top: 2,
             left: 30,
             height: 30,
-            width: 44
+            width: 100
         });
         var done = Titanium.UI.createButton({
-            title: "Done",
+            title: "Aceptar",
             right: 30,
             top: 2,
             height: 40,
             width: 42
         });
         var picker_view = Titanium.UI.createView({
-            backgroundColor: "#EEE",
+            backgroundColor: "#E3C109",
             top: "80%",
             height: 400,
             width: 420
@@ -1031,16 +1040,12 @@ function Controller() {
             selectionIndicator: true
         });
         fecha.addEventListener("click", function() {
-            picker.addEventListener("change", function(e) {
-                Ti.API.info("User selected date: " + e.value.toLocaleString());
-            });
             done.addEventListener("click", function() {
                 fecha.title = picker.value;
                 picker_view.animate({
                     duration: 1e3,
                     top: "120%"
                 });
-                alert(picker.value);
             });
             cancel.addEventListener("click", function() {
                 picker_view.animate({
@@ -1181,7 +1186,7 @@ function Controller() {
                 timeout: 3e3
             });
             if ("" != email.value && "" != password.value && "" != confirmacion.value && "" != nombre.value && "" != apellidos.value) if (password.value != confirmacion.value) alert("Las contraseñas no coinciden"); else if (checkemail(email.value)) {
-                sendit.open("POST", servidor + "wanagow/segundaversion/update_personal.php");
+                sendit.open("POST", servidor + "servidor/update_personal.php");
                 var genero;
                 genero = 1 == mujer.opacity ? 0 : 1;
                 var params = {
@@ -1192,7 +1197,6 @@ function Controller() {
                     fecha: picker.value,
                     genero: genero
                 };
-                alert(params);
                 sendit.send(params);
                 datos.fecha = picker.value;
                 alert("Informacion actualizada");
@@ -1224,7 +1228,7 @@ function Controller() {
             },
             timeout: 3e3
         });
-        sendit.open("POST", servidor + "wanagow/segundaversion/update_preferences.php");
+        sendit.open("POST", servidor + "servidor/update_preferences.php");
         var params = {
             email: datos.email
         };
@@ -1262,6 +1266,10 @@ function Controller() {
                 color: "white",
                 zIndex: 1
             });
+            guardar.width = "50%";
+            guardar.top = "2900";
+            view.height = "2986";
+            view.top = "0%";
             view.add(guardar);
             guardar.addEventListener("click", function() {
                 var enviar = Ti.Network.createHTTPClient({
@@ -1271,7 +1279,7 @@ function Controller() {
                     },
                     timeout: 3e3
                 });
-                enviar.open("POST", servidor + "wanagow/segundaversion/updatepreferencias.php");
+                enviar.open("POST", servidor + "servidor/updatepreferencias.php");
                 var params = {
                     email: datos.email,
                     academica: $.tableViewAcademica.data[0].rows[0].children[0].value,
@@ -1642,9 +1650,11 @@ function Controller() {
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "Evento";
-    arguments[0] ? arguments[0]["__parentSymbol"] : null;
-    arguments[0] ? arguments[0]["$model"] : null;
-    arguments[0] ? arguments[0]["__itemTemplate"] : null;
+    if (arguments[0]) {
+        __processArg(arguments[0], "__parentSymbol");
+        __processArg(arguments[0], "$model");
+        __processArg(arguments[0], "__itemTemplate");
+    }
     var $ = this;
     var exports = {};
     var __defers = {};
@@ -1663,11 +1673,6 @@ function Controller() {
         id: "cabecera"
     });
     $.__views.readWin.add($.__views.cabecera);
-    $.__views.buscar = Ti.UI.createSearchBar({
-        id: "buscar",
-        barColor: "#000"
-    });
-    $.__views.readWin.add($.__views.buscar);
     $.__views.im1 = Ti.UI.createImageView({
         image: "imagen/ico.jpg",
         height: 40,
@@ -1998,7 +2003,7 @@ function Controller() {
         }
     });
     var dataArray = [];
-    var IMG_BASE = servidor + "wanagow/img/";
+    var IMG_BASE = servidor + "servidor/img/";
     var d = new Date();
     var strDate = d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate();
     var fecha = {
@@ -2049,7 +2054,7 @@ function Controller() {
         datos.fecha = correo.fecha;
         datos.genero = correo.genero;
     }
-    var IMG_BASE = servidor + "wanagow/img/";
+    var IMG_BASE = servidor + "servidor/img/";
     var dataArray = [];
     $.tableView.addEventListener("click", function(e) {
         var win = Alloy.createController("singleEvento").getView();
@@ -2147,6 +2152,15 @@ function Controller() {
             backgroundColor: "#f4ce00",
             borderRadius: "6%"
         });
+        buttonRuta.addEventListener("click", function() {
+            alert("Lamentamos los inconvenientes esta funcion no esta disponible aun");
+        });
+        buttonOrganizador.addEventListener("click", function() {
+            alert("Lamentamos los inconvenientes esta funcion no esta disponible aun");
+        });
+        buttonAgregarEvento.addEventListener("click", function() {
+            alert("Lamentamos los inconvenientes esta funcion no esta disponible aun");
+        });
         var letranormal = {
             fontFamily: "Arial",
             fontSize: "10%"
@@ -2192,31 +2206,7 @@ function Controller() {
         buttonAgregarEvento.width = "70%";
         buttonAgregarEvento.height = "8%";
         buttonAgregarEvento.borderRadius = "25%";
-        buttonAgregarEvento.addEventListener("click", function() {
-            var Datos = {
-                email: datos.email,
-                idEvento: win.idEvento,
-                fecha: win.fecha
-            };
-            var enviar = Ti.Network.createHTTPClient({
-                onerror: function(e) {
-                    Ti.API.debug(e.error);
-                    alert("La conexion esta tardando demaciado intente acceder nuevamente");
-                },
-                timeout: 3e3
-            });
-            enviar.open("POST", servidor + "wanagow/segundaversion/agregareventos.php");
-            enviar.send(Datos);
-            enviar.onload = function() {
-                var json = this.responseText;
-                var alertDialog = Titanium.UI.createAlertDialog({
-                    title: "Alert",
-                    message: json,
-                    buttonNames: [ "OK" ]
-                });
-                alertDialog.show();
-            };
-        });
+        buttonAgregarEvento.addEventListener("click", function() {});
         compartir.addEventListener("click", function() {
             var botonCancelar = Ti.UI.createButton({
                 backgroundColor: "#FFCC00",
@@ -2361,6 +2351,8 @@ function Controller() {
                 height: 250,
                 borderRadius: 8
             });
+            ventanaTransparente.width = "80%";
+            ventanaTransparente.top = "35%";
             ventanaTransparente.add(facebookLabel);
             ventanaTransparente.add(correoLabel);
             ventanaTransparente.add(smsLabel);
@@ -2396,6 +2388,8 @@ function Controller() {
             height: 25,
             title: "Filtrar"
         });
+        botonFiltrar.height = "10%";
+        botonFiltrar.width = "32%";
         botonFiltrar.addEventListener("click", function() {
             var conexion = Ti.Network.createHTTPClient({
                 onerror: function(e) {
@@ -2410,7 +2404,7 @@ function Controller() {
                 entretenimiento: switchEntretenimiento.value,
                 email: correoElectronico
             };
-            conexion.open("POST", servidor + "wanagow/segundaversion/filtros_eventos.php");
+            conexion.open("POST", servidor + "servidor/filtros_eventos.php");
             conexion.send(filtroEventos);
             conexion.onload = function() {
                 var json = JSON.parse(this.responseText);

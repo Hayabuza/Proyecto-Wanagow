@@ -127,12 +127,13 @@
 		width:100,
 	    right:100,
 	    left:436,
-	    backgroundColor:"#C5B76A",
+	    backgroundColor:"#DCBC0D",
 	    height:50,
 	    top:650,
 	    font: {fontFamily: 'Helvetica Neue'},
 	    color:"white",
-	    title:"Hombre"
+	    title:"Hombre",
+	    opacity:1
 },
 
 "#mujer":{
@@ -144,7 +145,8 @@
     	top:650,
     	font: {fontFamily: 'Helvetica Neue'},
     	color:"white",
-    	title:"Mujer"
+    	title:"Mujer",
+    	opacity:0.4
 }
 /*,
 "#btn3w":{

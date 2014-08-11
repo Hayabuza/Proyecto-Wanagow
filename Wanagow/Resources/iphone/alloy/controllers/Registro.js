@@ -1,3 +1,12 @@
+function __processArg(obj, key) {
+    var arg = null;
+    if (obj) {
+        arg = obj[key] || null;
+        delete obj[key];
+    }
+    return arg;
+}
+
 function Controller() {
     function checkemail(emailAddress) {
         var testresults;
@@ -10,7 +19,7 @@ function Controller() {
         if ("" != $.txtEmailw.value && "" != $.txtPasswordw.value && "" != $.txtconfirmew.value && "" != $.txtnombrew.value && "" != $.txtapellidow.value && null != picker.value && "" != picker.value && 1 == $.mujer.opacity || 1 == $.hombre.opacity) if ($.txtPasswordw.value != $.txtconfirmew.value) alert("Las contraseñas no coinciden"); else if (checkemail($.txtEmailw.value)) {
             var genero;
             genero = 1 == $.mujer.opacity ? 0 : 1;
-            createReq.open("POST", servidor + "wanagow/new.php");
+            createReq.open("POST", servidor + "servidor/new.php");
             var params = {
                 nombre: $.txtnombrew.value,
                 apellido: $.txtapellidow.value,
@@ -25,9 +34,11 @@ function Controller() {
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "Registro";
-    arguments[0] ? arguments[0]["__parentSymbol"] : null;
-    arguments[0] ? arguments[0]["$model"] : null;
-    arguments[0] ? arguments[0]["__itemTemplate"] : null;
+    if (arguments[0]) {
+        __processArg(arguments[0], "__parentSymbol");
+        __processArg(arguments[0], "$model");
+        __processArg(arguments[0], "__itemTemplate");
+    }
     var $ = this;
     var exports = {};
     var __defers = {};
@@ -179,6 +190,7 @@ function Controller() {
         },
         color: "white",
         title: "Mujer",
+        opacity: .4,
         id: "mujer"
     });
     $.__views.container.add($.__views.mujer);
@@ -186,7 +198,7 @@ function Controller() {
         width: 100,
         right: 100,
         left: 436,
-        backgroundColor: "#C5B76A",
+        backgroundColor: "#DCBC0D",
         height: 50,
         top: 650,
         font: {
@@ -194,6 +206,7 @@ function Controller() {
         },
         color: "white",
         title: "Hombre",
+        opacity: 1,
         id: "hombre"
     });
     $.__views.container.add($.__views.hombre);
@@ -232,11 +245,11 @@ function Controller() {
         right: 30,
         top: 2,
         height: 40,
-        width: 100
+        width: "20%"
     });
     var picker_view = Titanium.UI.createView({
         backgroundColor: "#E3C109",
-        top: "80%",
+        top: "50%",
         height: 400,
         width: 420
     });
@@ -246,7 +259,8 @@ function Controller() {
         type: Ti.UI.PICKER_TYPE_DATE,
         minDate: new Date(1980, 11, 31),
         maxDate: new Date(2016, 11, 31),
-        selectionIndicator: true
+        selectionIndicator: true,
+        useSpinner: true
     });
     if ("iphone" == Ti.Platform.osname || "android" == Ti.Platform.osname) {
         var alineacion = "13%";
@@ -325,10 +339,14 @@ function Controller() {
         $.mujer.opacity = .4;
     });
     $.btn1w.addEventListener("click", function() {
+        picker_view.animate({
+            duration: 1e3,
+            top: "50%"
+        });
         done.addEventListener("click", function() {
             picker_view.animate({
                 duration: 1e3,
-                top: "120%"
+                top: "-50%"
             });
         });
         cancel.addEventListener("click", function() {

@@ -1,3 +1,12 @@
+function __processArg(obj, key) {
+    var arg = null;
+    if (obj) {
+        arg = obj[key] || null;
+        delete obj[key];
+    }
+    return arg;
+}
+
 function Controller() {
     function DeslizarEventos(contenido) {
         $.label1.setText(" " + contenido);
@@ -115,7 +124,7 @@ function Controller() {
             }
         });
         if ("" != $.email.value && "" != $.password.value) if (checkemail($.email.value)) {
-            loginReq.open("POST", servidor + "wanagow/segundaversion/login.php");
+            loginReq.open("POST", servidor + "servidor/login.php");
             var params = {
                 email: $.email.value,
                 password: Ti.Utils.md5HexDigest($.password.value)
@@ -129,9 +138,11 @@ function Controller() {
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "index";
-    arguments[0] ? arguments[0]["__parentSymbol"] : null;
-    arguments[0] ? arguments[0]["$model"] : null;
-    arguments[0] ? arguments[0]["__itemTemplate"] : null;
+    if (arguments[0]) {
+        __processArg(arguments[0], "__parentSymbol");
+        __processArg(arguments[0], "$model");
+        __processArg(arguments[0], "__itemTemplate");
+    }
     var $ = this;
     var exports = {};
     var __defers = {};
@@ -365,6 +376,9 @@ function Controller() {
     $.btn2.top = "75%";
     $.btn2.left = "15%";
     $.btn2.width = "70%";
+    $.recuperar.addEventListener("click", function() {
+        alert("Lamentamos los inconvenientes esta funcion no esta disponible aun");
+    });
     $.bolita1.addEventListener("click", function() {
         DeslizarEventos("Deslizar para aprender mas 1");
     });

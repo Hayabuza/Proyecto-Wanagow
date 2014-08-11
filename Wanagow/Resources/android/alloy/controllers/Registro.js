@@ -1,3 +1,12 @@
+function __processArg(obj, key) {
+    var arg = null;
+    if (obj) {
+        arg = obj[key] || null;
+        delete obj[key];
+    }
+    return arg;
+}
+
 function Controller() {
     function checkemail(emailAddress) {
         var testresults;
@@ -10,7 +19,7 @@ function Controller() {
         if ("" != $.txtEmailw.value && "" != $.txtPasswordw.value && "" != $.txtconfirmew.value && "" != $.txtnombrew.value && "" != $.txtapellidow.value && null != picker.value && "" != picker.value && 1 == $.mujer.opacity || 1 == $.hombre.opacity) if ($.txtPasswordw.value != $.txtconfirmew.value) alert("Las contraseñas no coinciden"); else if (checkemail($.txtEmailw.value)) {
             var genero;
             genero = 1 == $.mujer.opacity ? 0 : 1;
-            createReq.open("POST", servidor + "wanagow/new.php");
+            createReq.open("POST", servidor + "servidor/new.php");
             var params = {
                 nombre: $.txtnombrew.value,
                 apellido: $.txtapellidow.value,
@@ -25,9 +34,11 @@ function Controller() {
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "Registro";
-    arguments[0] ? arguments[0]["__parentSymbol"] : null;
-    arguments[0] ? arguments[0]["$model"] : null;
-    arguments[0] ? arguments[0]["__itemTemplate"] : null;
+    if (arguments[0]) {
+        __processArg(arguments[0], "__parentSymbol");
+        __processArg(arguments[0], "$model");
+        __processArg(arguments[0], "__itemTemplate");
+    }
     var $ = this;
     var exports = {};
     var __defers = {};
@@ -217,22 +228,25 @@ function Controller() {
     _.extend($, $.__views);
     var servidor;
     servidor = "http://10.0.2.2/";
+    $.imagew.addEventListener("click", function() {
+        alert("Lamentamos los inconvenientes esta funcion no esta disponible aun");
+    });
     var cancel = Titanium.UI.createButton({
-        title: "Close",
+        title: "Cerrar",
         top: 2,
         left: 30,
         height: 30,
         width: 44
     });
     var done = Titanium.UI.createButton({
-        title: "Done",
+        title: "Aceptar",
         right: 30,
         top: 2,
         height: 40,
-        width: 42
+        width: 100
     });
     var picker_view = Titanium.UI.createView({
-        backgroundColor: "yellow",
+        backgroundColor: "#E3C109",
         top: "80%",
         height: 400,
         width: 420
@@ -320,15 +334,11 @@ function Controller() {
         $.mujer.opacity = .4;
     });
     $.btn1w.addEventListener("click", function() {
-        picker.addEventListener("change", function(e) {
-            Ti.API.info("User selected date: " + e.value.toLocaleString());
-        });
         done.addEventListener("click", function() {
             picker_view.animate({
                 duration: 1e3,
                 top: "120%"
             });
-            alert(picker.value);
         });
         cancel.addEventListener("click", function() {
             picker_view.animate({
