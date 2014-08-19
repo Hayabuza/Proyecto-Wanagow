@@ -15,7 +15,6 @@
 		                  </SearchBar>
 		                  <ImageView id="im1">
 		                  </ImageView>
-	                   <!--<Label id="label">I am a red window.</Label>-->
 		                  <ImageView id="im2">
 		                  </ImageView>
 	                  <TableView id="tableView"></TableView>

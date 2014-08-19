@@ -1698,20 +1698,12 @@ function Controller() {
         barColor: "#000"
     });
     $.__views.readWin.add($.__views.buscar);
-    $.__views.im1 = Ti.UI.createImageView({
-        image: "imagen/ico.jpg",
-        height: 40,
-        width: 20,
-        righ: 50,
-        left: 50,
-        top: 20,
-        id: "im1"
-    });
-    $.__views.readWin.add($.__views.im1);
     $.__views.im2 = Ti.UI.createImageView({
         image: "imagen/icos.jpg",
+        borderColor: "white",
+        backgroundColor: "white",
         height: 40,
-        width: 20,
+        width: 30,
         righ: 22,
         left: 700,
         top: 20,
@@ -2311,7 +2303,7 @@ function Controller() {
                 left: 25,
                 borderRadius: 10
             });
-            FacebookShare.addEventListener("click", function(datos) {
+            FacebookShare.addEventListener("click", function() {
                 Titanium.Facebook.appid = "1423658011243570";
                 Titanium.Facebook.permissions = [ "publish_stream", "read_stream", "user_birthday" ];
                 var data = {
@@ -2322,7 +2314,6 @@ function Controller() {
                     picture: "http://www.smartthinking.com.mx/imgs/apps/wanagow.png",
                     description: descripcionFacebook
                 };
-                alert(datos);
                 Titanium.Facebook.dialog("feed", data, function(e) {
                     e.success && e.result ? alert("Mensaje Publicado") : e.error ? alert(e.error) : alert("Mensaje Cancelado.");
                 });

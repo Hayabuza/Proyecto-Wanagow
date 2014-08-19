@@ -1514,7 +1514,7 @@ var IMG_BASE = servidor+'servidor/img/';
                     picture : "http://www.smartthinking.com.mx/imgs/apps/wanagow.png",
                     description: descripcionFacebook
                 };
-                alert(datos);
+                //alert(datos);
                 
                 Titanium.Facebook.dialog("feed", data, function(e) {
                   if(e.success && e.result) {

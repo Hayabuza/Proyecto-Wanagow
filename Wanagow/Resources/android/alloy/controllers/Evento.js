@@ -1023,11 +1023,11 @@ function Controller() {
             right: 30,
             top: 2,
             height: 40,
-            width: 42
+            width: "20%"
         });
         var picker_view = Titanium.UI.createView({
             backgroundColor: "#E3C109",
-            top: "80%",
+            top: "50%",
             height: 400,
             width: 420
         });
@@ -1040,11 +1040,15 @@ function Controller() {
             selectionIndicator: true
         });
         fecha.addEventListener("click", function() {
+            picker_view.animate({
+                duration: 1e3,
+                top: "50%"
+            });
             done.addEventListener("click", function() {
                 fecha.title = picker.value;
                 picker_view.animate({
                     duration: 1e3,
-                    top: "120%"
+                    top: "-50%"
                 });
             });
             cancel.addEventListener("click", function() {
@@ -1087,7 +1091,7 @@ function Controller() {
             width: 100,
             right: 100,
             left: 436,
-            backgroundColor: "#C5B76A",
+            backgroundColor: "#DCBC0D",
             height: 50,
             top: 650,
             font: {
@@ -1673,10 +1677,15 @@ function Controller() {
         id: "cabecera"
     });
     $.__views.readWin.add($.__views.cabecera);
+    $.__views.buscar = Ti.UI.createSearchBar({
+        id: "buscar",
+        barColor: "#000"
+    });
+    $.__views.readWin.add($.__views.buscar);
     $.__views.im1 = Ti.UI.createImageView({
         image: "imagen/ico.jpg",
         height: 40,
-        width: 20,
+        width: 70,
         righ: 50,
         left: 50,
         top: 20,
@@ -1685,8 +1694,10 @@ function Controller() {
     $.__views.readWin.add($.__views.im1);
     $.__views.im2 = Ti.UI.createImageView({
         image: "imagen/icos.jpg",
+        borderColor: "white",
+        backgroundColor: "white",
         height: 40,
-        width: 20,
+        width: 30,
         righ: 22,
         left: 700,
         top: 20,
@@ -2282,7 +2293,7 @@ function Controller() {
                 left: 25,
                 borderRadius: 10
             });
-            FacebookShare.addEventListener("click", function(datos) {
+            FacebookShare.addEventListener("click", function() {
                 Titanium.Facebook.appid = "1423658011243570";
                 Titanium.Facebook.permissions = [ "publish_stream", "read_stream", "user_birthday" ];
                 var data = {
@@ -2293,7 +2304,6 @@ function Controller() {
                     picture: "http://www.smartthinking.com.mx/imgs/apps/wanagow.png",
                     description: descripcionFacebook
                 };
-                alert(datos);
                 Titanium.Facebook.dialog("feed", data, function(e) {
                     e.success && e.result ? alert("Mensaje Publicado") : e.error ? alert(e.error) : alert("Mensaje Cancelado.");
                 });
